@@ -1,7 +1,7 @@
 import { readJSON, remove, move } from 'fs-extra'
 import { manifest, extract } from 'pacote'
 import importFresh from 'import-fresh'
-import { Shabads, Sources, knex } from '@shabados/database'
+import { Lines, Sources, knex } from '@shabados/database'
 
 import { dependencies } from './package.json'
 
@@ -15,6 +15,18 @@ const UPDATE_TMP_FOLDER = 'temp'
  * Gets all the DB sources.
  */
 export const getSources = () => Sources.query()
+
+/**
+ * Get all the lines on a page for a source.
+ * @param {number} sourceId The ID of the source to use.
+ * @param {number} page The page in the source to retrieve all lines from.
+ */
+export const getLinesOnPage = ( sourceId, page ) => Lines
+  .query()
+  .join( 'shabads', 'shabads.id', 'lines.shabad_id' )
+  .where( 'source_page', page )
+  .andWhere( 'source_id', sourceId )
+  .orderBy( 'order_id' )
 
 /**
  * Determines whether the database is the latest version, according to semver.

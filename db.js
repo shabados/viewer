@@ -12,6 +12,11 @@ const UPDATE_CHECK_INTERVAL = 5 * 60 * 1000
 const UPDATE_TMP_FOLDER = 'temp'
 
 /**
+ * Gets all the DB sources.
+ */
+export const getSources = () => Sources.query()
+
+/**
  * Determines whether the database is the latest version, according to semver.
  * @async
  * @returns {boolean} Whether or not the latest database is installed.

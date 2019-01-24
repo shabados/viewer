@@ -2,6 +2,7 @@ import express from 'express'
 import helmet from 'helmet'
 import compression from 'compression'
 
+import api from './api'
 import { updateLoop } from './db'
 
 console.log( '@shabados/database viewer starting' )
@@ -11,7 +12,7 @@ console.log( 'Setting up express' )
 const app = express()
 app.use( helmet() )
 app.use( compression() )
-// app.use( '/api', api )
+app.use( '/api', api )
 app.use( '/', express.static( 'frontend/build' ) )
 
 // Start the server

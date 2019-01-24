@@ -2,7 +2,7 @@ import express from 'express'
 import helmet from 'helmet'
 import compression from 'compression'
 
-import { Sources, Lines } from '@shabados/database'
+import { updateLoop } from './db'
 
 console.log( '@shabados/database viewer starting' )
 
@@ -18,3 +18,6 @@ app.use( '/', express.static( 'frontend/build' ) )
 const { PORT } = process.env
 const port = PORT || 52525
 app.listen( port, () => console.log( `Server running on port ${port}` ) )
+
+// Start the database update loop
+updateLoop()

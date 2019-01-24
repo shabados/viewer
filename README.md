@@ -44,7 +44,7 @@ If one would like to proofread the database, they may click on the corresponding
 
 Proof | Edition | Author | Publisher
 ---|---|---|---
-[Shabadaarth (Vol. 1-4)](https://drive.google.com/open?id=18NOGTQrSQMTdT0Uwj8XpTmAYIf9SynCH) | Vol. 1: October 2009<br> Vol. 2: August 2012<br> Vol. 3: July 2010<br> Vol. 4: September 2010 | - | SGPC, Sri Amritsar
+[Shabadaarth (Vol. 1)](https://drive.google.com/open?id=1zKiUavBdWe_FCr0xbNh2bk2Dc2NZ8qnh)<br> [Shabadaarth (Vol. 2)](https://drive.google.com/open?id=1YnIKl9qbNczwzMzAYxA7Cl5YnYqi4UeZ)<br> [Shabadaarth (Vol. 3)](https://drive.google.com/open?id=1mjmW4GzVOxlskZiv6zaWs8fpggSMDLIN)<br> [Shabadaarth (Vol. 4)](https://drive.google.com/open?id=1yQwR57RXenYQ1uX5eCqYG4XhhD7GbB3X) | Vol. 1: October 2009<br> Vol. 2: August 2012<br> Vol. 3: July 2010<br> Vol. 4: September 2010 | - | SGPC, Sri Amritsar
 [Sri Guru Granth Sahib (Unicode)](https://drive.google.com/open?id=1_ozxV6_rmZ8kG1AQ9iZx2s49ZtnlU82E) | - | - | SGPC.net
 
 ### Sri Dasam Granth
@@ -83,5 +83,5 @@ Proof | Edition | Author | Publisher
 Proof | Edition | Author | Publisher
 ---|---|---|---
 [Amrit Keertan](https://drive.google.com/open?id=1QJdE1ZeutRhkT1FDh1S0b83Z-4rTQyNa) | 40th Ed., July 2011 | "ਕੂਕਰ ਰਾਮ ਕਉ" | Khalsa Brothers, Sri Amritsar
-[Sanpuran Steek Sri Sarabloh Granth Ji](https://drive.google.com/open?id=11ScH1g0nw5b7IHbtpjbUiSuPNEmCzMfo) | June 2000 | Santa Singh | Budha Dal, Sri Anandpur Sahib
-[Sanpuran Steek Sri Sarabloh Granth Ji (Vol. 1-2)](https://drive.google.com/open?id=11ScH1g0nw5b7IHbtpjbUiSuPNEmCzMfo) | Unknown (From Punjab Digital Library) | Santa Singh | Budha Dal, Sri Anandpur Sahib
+[Sanpuran Steek Sri Sarabloh Granth Ji](https://drive.google.com/open?id=1-C8E3YYeAFIqacfe8Xy7scDFpTyn62_U) | June 2000 | Santa Singh | Budha Dal, Sri Anandpur Sahib
+[Sanpuran Steek Sri Sarabloh Granth Ji (Vol. 1)](https://drive.google.com/open?id=1-dbLAUCw2ME4gyBXS7QttId9WxDEkQnf)<br> [Sanpuran Steek Sri Sarabloh Granth Ji (Vol. 2)](https://drive.google.com/open?id=1ooERm2R6rwtedMTs1z21HakqtvHxMqjr) | Unknown (From Punjab Digital Library) | Santa Singh | Budha Dal, Sri Anandpur Sahib

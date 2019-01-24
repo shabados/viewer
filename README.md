@@ -44,44 +44,44 @@ If one would like to proofread the database, they may click on the corresponding
 
 Proof | Edition | Author | Publisher
 ---|---|---|---
-Shabadaarth (Vol. 1-4) | Vol. 1: October 2009<br> Vol. 2: August 2012<br> Vol. 3: July 2010<br> Vol. 4: September 2010 | - | SGPC, Sri Amritsar
-Sri Guru Granth Sahib (Unicode) | - | - | SGPC.net
+[Shabadaarth (Vol. 1-4)](https://drive.google.com/open?id=1EF1MUYLPdJ_Qu2KZbp1g1lWvL1_IL2K8) | Vol. 1: October 2009<br> Vol. 2: August 2012<br> Vol. 3: July 2010<br> Vol. 4: September 2010 | - | SGPC, Sri Amritsar
+[Sri Guru Granth Sahib (Unicode)](https://drive.google.com/open?id=1_ozxV6_rmZ8kG1AQ9iZx2s49ZtnlU82E) | - | - | SGPC.net
 
 ### Sri Dasam Granth
 
 Proof | Edition | Author | Publisher
 ---|---|---|---
-Das Granthi | March 2006 | - | SGPC, Sri Amritsar
-Nitnem Gutka | May 2017 | - | SGPC, Sri Amritsar
-Akal Ustat | 5th Ed., December 1995 | - | SGPC, Sri Amritsar
-Bachittar Natak | 7th Ed., July 2000 | - | SGPC, Sri Amritsar
-Sri Dasam Granth | - | Dr. Ratan Singh Jaggi | Gobind Sadan
-Zafarnama | 6th Ed., September 2013 | Piara Singh Padam | Singh Brothers, Sri Amritsar
+[Das Granthi](https://drive.google.com/open?id=16KaLDgZUNzTwghdYatRL3dGq9vnXLRP6) | March 2006 | - | SGPC, Sri Amritsar
+[Nitnem Gutka](https://drive.google.com/open?id=1AyQLCQgrNznDxI9Vby3knE4Piyrdsnxs) | May 2017 | - | SGPC, Sri Amritsar
+[Akal Ustat](https://drive.google.com/open?id=1QumuyIUC1oLRoODz3gaaEEnYwbqj1d5t) | 5th Ed., December 1995 | - | SGPC, Sri Amritsar
+[Bachittar Natak](https://drive.google.com/open?id=1z3Waum_FUoUzb1Faj7l5ZGzJYHG2THe1) | 7th Ed., July 2000 | - | SGPC, Sri Amritsar
+[Sri Dasam Granth](https://drive.google.com/open?id=1EG6okisvuibNK-RgSlLBLS1Z_T5-81_p) | - | Dr. Ratan Singh Jaggi | Gobind Sadan
+[Zafarnama](https://drive.google.com/open?id=1hR-CeTH1YTiCtUn79c2TwROa_ZvbPdwE) | 6th Ed., September 2013 | Piara Singh Padam | Singh Brothers, Sri Amritsar
 
 ### Vaaran Bhai Gurdaas Ji
 
 Proof | Edition | Author | Publisher
 ---|---|---|---
-Vaaran Bhai Gurdaas Ji | November 2011 | Shamsher Singh Ashok | SGPC, Sri Amritsar
-Amrit Keertan | 40th Ed., July 2011 | "ਕੂਕਰ ਰਾਮ ਕਉ" | Khalsa Brothers, Sri Amritsar
+[Vaaran Bhai Gurdaas Ji](https://drive.google.com/open?id=1_lw_qOndvQJnT5ClYBbLb63aX9-IslwZ) | November 2011 | Shamsher Singh Ashok | SGPC, Sri Amritsar
+[Amrit Keertan](https://drive.google.com/open?id=1QJdE1ZeutRhkT1FDh1S0b83Z-4rTQyNa) | 40th Ed., July 2011 | "ਕੂਕਰ ਰਾਮ ਕਉ" | Khalsa Brothers, Sri Amritsar
 
 ### Kabit Savaiye Bhai Gurdaas Ji
 
 Proof | Edition | Author | Publisher
 ---|---|---|---
-Kabit Savaiye Bhai Gurdas Ji Steek | 7th Ed., December 2011 | Bhai Sewa Singh | Singh Brothers, Sri Amritsar 
+[Kabit Savaiye Bhai Gurdas Ji Steek](https://drive.google.com/open?id=1-imMygFPdXKj0DuydErsUrtg1IWiu_q7) | 7th Ed., December 2011 | Bhai Sewa Singh | Singh Brothers, Sri Amritsar 
 
 ### Bhai Nand Lal Ji
 
 Proof | Edition | Author | Publisher
 ---|---|---|---
-Bhai Nand Lal Granthavali | 4th Ed., 2009 | Dr. Ganda Singh | Punjabi University, Patiala
-Rehitname | 8th Ed., June 2006 | Piara Singh Padam | Singh Brothers, Sri Amritsar
+[Bhai Nand Lal Granthavali](https://drive.google.com/open?id=1bKjrbqUAn_7TDThLeHcH_GSZuM8iY268) | 4th Ed., 2009 | Dr. Ganda Singh | Punjabi University, Patiala
+[Rehitname](https://drive.google.com/open?id=1-mJn4UdGMtwb8ELG4VREYU0EPHqXzpu8) | 8th Ed., June 2006 | Piara Singh Padam | Singh Brothers, Sri Amritsar
 
 ### Sarabloh Granth
 
 Proof | Edition | Author | Publisher
 ---|---|---|---
-Amrit Keertan | 40th Ed., July 2011 | "ਕੂਕਰ ਰਾਮ ਕਉ" | Khalsa Brothers, Sri Amritsar
-Sanpuran Steek Sri Sarabloh Granth Ji | June 2000 | Santa Singh | Budha Dal, Sri Anandpur Sahib
-Sanpuran Steek Sri Sarabloh Granth Ji | Unknown (From Punjab Digital Library) | Santa Singh | Budha Dal, Sri Anandpur Sahib
+[Amrit Keertan](https://drive.google.com/open?id=1QJdE1ZeutRhkT1FDh1S0b83Z-4rTQyNa) | 40th Ed., July 2011 | "ਕੂਕਰ ਰਾਮ ਕਉ" | Khalsa Brothers, Sri Amritsar
+[Sanpuran Steek Sri Sarabloh Granth Ji](https://drive.google.com/open?id=11ScH1g0nw5b7IHbtpjbUiSuPNEmCzMfo) | June 2000 | Santa Singh | Budha Dal, Sri Anandpur Sahib
+[Sanpuran Steek Sri Sarabloh Granth Ji (Vol. 1-2)](https://drive.google.com/open?id=11ScH1g0nw5b7IHbtpjbUiSuPNEmCzMfo) | Unknown (From Punjab Digital Library) | Santa Singh | Budha Dal, Sri Anandpur Sahib

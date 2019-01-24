@@ -19,11 +19,12 @@ Work in-progress: An online viewer of the bani database. Authenticated by GitHub
 - [Contributing](#contributing)
   - [Folder structure](#folder-structure)
   - [Proofs for Bani](#proofs-for-bani)
-    - [Bhai Nand Lal Ji](#bhai-nand-lal-ji)
-    - [Kabit Svaiye Bhai Gurdaas Ji](#kabit-svaiye-bhai-gurdaas-ji)
-    - [Sarabloh Granth](#sarabloh-granth)
+    - [Sri Guru Granth Sahib](#sri-guru-granth-sahib-ji)
     - [Sri Dasam Granth](#sri-dasam-granth)
-    - [Sri Guru Granth Sahib](#sri-guru-granth-sahib)
+    - [Vaaran Bhai Gurdaas Ji](#vaaran-bhai-gurdaas-ji)
+    - [Kabit Savaiye Bhai Gurdaas Ji](#kabit-savaiye-bhai-gurdaas-ji)
+    - [Bhai Nand Lal Ji](#bhai-nand-lal-ji)
+    - [Sarabloh Granth](#sarabloh-granth)
 
 # Getting Started
 
@@ -39,43 +40,48 @@ The below table lists various files used in correcting the bani portion of the d
 
 If one would like to proofread the database, they may click on the corresponding link for a PDF. The compare the proof against the source (Shabad OS Database) using the online viewer.
 
-### Bhai Nand Lal Ji
+### Sri Guru Granth Sahib Ji
 
-| Proof | Edition | Author | Publisher |
-| ----- | ------- | ------ | --------- |
-| Bhai Nand Lal Granthavali | 2009 (4th ed) | Dr. Ganda Singh | Punjabi University, Patiala |
-| Kalaam-e-Goya | 2003 (1st ed) | Pritpal Singh Bindra  | Institute of Sikh Studies, Chandigarh |
-| Rehitname | 2006 (8th ed) | Piara Singh Padam | Singh Brothers, Amritsar |
-
-### Kabit Svaiye Bhai Gurdaas Ji
-
-| Proof | Edition | Author | Publisher |
-| ----- | ------- | ------ | --------- |
-| Kabitt Swayye Bhai Gurdas Ji | 2007 (1st ed) | Shamsher Singh Puri | Singh Brothers, Amritsar |
-| Kabitt Sawaiye Bhai Gurdas Ji Steek | 2011 (7th ed) | Bhai Sewa Singh | Singh Brothers, Amritsar | 
-
-### Sarabloh Granth
-
-| Proof | Edition | Author | Publisher |
-| ----- | ------- | ------ | --------- |
-| Amrit Keertan | 2011 (40th ed) | Jaiteg Singh (Kookar) | Khalsa Brothers, Amritsar |
-| Sanpuran Steek | 2000 | Santa Singh | Budha Dal, Anandpur Sahib (Ropar) |
-| Sanpuran Steek 1/2 & 2/2 | 2000 | Santa Singh | Budha Dal, Anandpur Sahib (Ropar) |
+Proof | Edition | Author | Publisher
+---|---|---|---
+Shabadaarth (Vol. 1-4) | Vol. 1: October 2009<br> Vol. 2: August 2012<br> Vol. 3: July 2010<br> Vol. 4: September 2010 | - | SGPC, Sri Amritsar
+Sri Guru Granth Sahib (Unicode) | - | - | SGPC.net
 
 ### Sri Dasam Granth
 
-| Proof | Edition | Author | Publisher |
-| ----- | ------- | ------ | --------- |
-| Akal Ustat | 1995 (5th) | - | SGPC, Amritsar |
-| Bachittar Natak | 2000 (7th) | - | SGPC, Amritsar |
-| Das Granthi | 2006 | - | SGPC, Amritsar |
-| Nitnem Gutka - Dasam Bani | 2017 | - | SGPC, Amritsar |
-| Sri Dasam Granth (Gobind Sadan) | ??? | Ratan Singh Jaggi ???? | ??? |
-| Zafarnama | 2013 (6th) | Piara Singh Padam | Singh Brothers, Amritsar | 
+Proof | Edition | Author | Publisher
+---|---|---|---
+Das Granthi | March 2006 | - | SGPC, Sri Amritsar
+Nitnem Gutka | May 2017 | - | SGPC, Sri Amritsar
+Akal Ustat | 5th Ed., December 1995 | - | SGPC, Sri Amritsar
+Bachittar Natak | 7th Ed., July 2000 | - | SGPC, Sri Amritsar
+Sri Dasam Granth | - | Dr. Ratan Singh Jaggi | Gobind Sadan
+Zafarnama | 6th Ed., September 2013 | Piara Singh Padam | Singh Brothers, Sri Amritsar
 
-### Sri Guru Granth Sahib
+### Vaaran Bhai Gurdaas Ji
 
-| Proof | Edition | Author | Publisher |
-| ----- | ------- | ------ | --------- |
-| Shabadaarth 1/4, 2/4, 3/4, 4/4 | TK | TK | SGPC, Amritsar |
-| Sri Guru Granth Sahib (Unicode) | TK | TK | SGPC, Amritsar |
+Proof | Edition | Author | Publisher
+---|---|---|---
+Vaaran Bhai Gurdaas Ji | November 2011 | Shamsher Singh Ashok | SGPC, Sri Amritsar
+Amrit Keertan | 40th Ed., July 2011 | "ਕੂਕਰ ਰਾਮ ਕਉ" | Khalsa Brothers, Sri Amritsar
+
+### Kabit Savaiye Bhai Gurdaas Ji
+
+Proof | Edition | Author | Publisher
+---|---|---|---
+Kabit Savaiye Bhai Gurdas Ji Steek | 7th Ed., December 2011 | Bhai Sewa Singh | Singh Brothers, Sri Amritsar 
+
+### Bhai Nand Lal Ji
+
+Proof | Edition | Author | Publisher
+---|---|---|---
+Bhai Nand Lal Granthavali | 4th Ed., 2009 | Dr. Ganda Singh | Punjabi University, Patiala
+Rehitname | 8th Ed., June 2006 | Piara Singh Padam | Singh Brothers, Sri Amritsar
+
+### Sarabloh Granth
+
+Proof | Edition | Author | Publisher
+---|---|---|---
+Amrit Keertan | 40th Ed., July 2011 | "ਕੂਕਰ ਰਾਮ ਕਉ" | Khalsa Brothers, Sri Amritsar
+Sanpuran Steek Sri Sarabloh Granth Ji | June 2000 | Santa Singh | Budha Dal, Sri Anandpur Sahib
+Sanpuran Steek Sri Sarabloh Granth Ji | Unknown (From Punjab Digital Library) | Santa Singh | Budha Dal, Sri Anandpur Sahib

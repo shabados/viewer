@@ -26,5 +26,12 @@
     "eslint-plugin-jsdoc": "^4.0.1",
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.11.0"
+  },
+  "dependencies": {
+    "@shabados/database": "^4.0.12",
+    "compression": "^1.7.3",
+    "esm": "^3.1.1",
+    "express": "^4.16.4",
+    "helmet": "^3.15.0"
   }
 }

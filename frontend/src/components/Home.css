@@ -86,10 +86,14 @@
 
 @media screen and (max-width: 768px) {
   .home {
-    font-size: 1.5vw;
+    font-size: 2.7vw;
   }
 
   .home section {
     width: 100%;
+  }
+
+  .home .sources .source {
+    font-size: 2em;
   }
 }

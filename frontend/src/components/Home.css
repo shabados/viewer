@@ -44,14 +44,44 @@
   font-size: 1.5em;
   flex: 1 0 30%;
   height: 3em;
-  margin: 1vw;
-  border-radius: 2px;
+  margin: 1em;
+  border-radius: 0.25em;
   color: black;
   background-color: rgba(189, 184, 174, 0.5);
+  transition: 0.15s background-color ease-in-out;
 }
 
 .home .introduction .links .button:hover {
   font-weight: bold;
+  background-color: rgba(189, 184, 174, 0.9);
+}
+
+.home .sources {
+  background-color: #f6f0e4;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  align-items: center;
+  padding: 7.5%;
+  box-sizing: border-box;
+}
+
+.home .sources .source {
+  font-family: 'Open Gurbani Akhar Bold';
+  font-size: 1.4em;
+  width: 50%;
+  text-decoration: none;
+  color: black;
+  background-color: rgba(70, 170, 221, 0.42);
+  margin: 0.4em;
+  padding: 0.5em;
+  border-radius: 0.25em;
+  transition: 0.1s all ease-in-out;
+}
+
+.home .sources .source:hover {
+  font-family: 'Open Gurbani Akhar Black';
+  background-color: rgba(70, 170, 221, 0.7);
 }
 
 @media screen and (max-width: 768px) {
@@ -62,8 +92,4 @@
   .home section {
     width: 100%;
   }
-}
-
-.home .sources {
-  background-color: #f6f0e4;
 }

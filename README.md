@@ -55,7 +55,7 @@ Proof | Edition | Author | Publisher
 [Nitnem Gutka](https://drive.google.com/open?id=1AyQLCQgrNznDxI9Vby3knE4Piyrdsnxs) | May 2017 | - | SGPC, Sri Amritsar
 [Akal Ustat](https://drive.google.com/open?id=1QumuyIUC1oLRoODz3gaaEEnYwbqj1d5t) | 5th Ed., December 1995 | - | SGPC, Sri Amritsar
 [Bachittar Natak](https://drive.google.com/open?id=1z3Waum_FUoUzb1Faj7l5ZGzJYHG2THe1) | 7th Ed., July 2000 | - | SGPC, Sri Amritsar
-[Sri Dasam Granth](https://drive.google.com/open?id=1EG6okisvuibNK-RgSlLBLS1Z_T5-81_p) | - | Dr. Ratan Singh Jaggi | Gobind Sadan
+[Sri Dasam Granth](https://drive.google.com/open?id=1EG6okisvuibNK-RgSlLBLS1Z_T5-81_p) | - | Dr. Ratan Singh Jaggi | Gobind Sadan, New Delhi
 [Zafarnama](https://drive.google.com/open?id=1hR-CeTH1YTiCtUn79c2TwROa_ZvbPdwE) | 6th Ed., September 2013 | Piara Singh Padam | Singh Brothers, Sri Amritsar
 
 ### Vaaran Bhai Gurdaas Ji

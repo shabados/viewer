@@ -24,7 +24,7 @@ const Home = ( { sources } ) => (
       {sources.map( ( { nameGurmukhi, id } ) => (
         <Link
           className="gurmukhi source"
-          to={`/sources/${id}/1`}
+          to={`/sources/${id}/page/1`}
         >
           {nameGurmukhi}
         </Link>

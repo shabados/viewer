@@ -1,0 +1,69 @@
+.home {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  font-size: 1vw;
+  user-select: none;
+}
+
+.home section {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.home .introduction {
+  align-items: center;
+  justify-content: center;
+  background-image: url('../media/background.png');
+  background-position: right;
+}
+
+.home .introduction .logo {
+  width: 40%;
+}
+
+.home .introduction h1 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 3.5em;
+}
+
+.home .introduction .links {
+  display: flex;
+  flex-wrap: wrap;
+  width: 75%;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.home .introduction .links .button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 1.5em;
+  flex: 1 0 30%;
+  height: 3em;
+  margin: 1vw;
+  border-radius: 2px;
+  color: black;
+  background-color: rgba(189, 184, 174, 0.5);
+}
+
+.home .introduction .links .button:hover {
+  font-weight: bold;
+}
+
+@media screen and (max-width: 768px) {
+  .home {
+    font-size: 1.5vw;
+  }
+
+  .home section {
+    width: 100%;
+  }
+}
+
+.home .sources {
+  background-color: #f6f0e4;
+}

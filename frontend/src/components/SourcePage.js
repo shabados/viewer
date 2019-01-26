@@ -46,8 +46,8 @@ class SourcePage extends Component {
               tabIndex={index + 1}
               className="line"
               role="button"
-              onClick={() => window.open( issueUrl( { id, gurmukhi } ) )}
-              onKeyPress={( ( { key } ) => key === 'Enter' && window.open( issueUrl( { id, gurmukhi } ) ) )}
+              onClick={() => window.open( issueUrl( { id, gurmukhi, page, source } ) )}
+              onKeyPress={( ( { key } ) => key === 'Enter' && window.open( issueUrl( { id, gurmukhi, page, source } ) ) )}
             >
               {gurmukhi}
             </span>

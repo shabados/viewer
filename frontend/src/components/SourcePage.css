@@ -1,0 +1,62 @@
+.source-page {
+  display: flex;
+  flex-direction: column;
+  background-color: #f6f0e4;
+  min-height: 100%;
+  font-size: 1vmax;
+  user-select: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.source-page .lines {
+  font-family: 'Open Gurbani Akhar Bold';
+  font-size: 3em;
+  padding: 7.5%;
+}
+
+.source-page .lines .line {
+  padding: 0.1em;
+  line-height: 1.75em;
+  border-radius: 0.1em;
+  margin-right: 0.2em;
+  transition: 0.1s all ease-in-out;
+}
+
+.source-page .lines .line:last-child {
+  margin-right: 0;
+}
+
+.source-page .lines .line:hover, .source-page .lines .line:focus {
+  cursor: pointer;
+  background-color: rgba(70, 170, 221, 0.42);
+  outline: none;
+}
+
+.source-page .controls {
+  display: flex;
+  position: fixed;
+  bottom: 0.5em;
+  width: 100%;
+}
+
+.source-page .controls .button {
+  color: #47add3;
+  font-size: 7em;
+  transition: 0.1s all ease-in-out;
+  margin: 0 0.5em;
+}
+
+.source-page .controls .button:hover {
+  color: #1c83a8;
+}
+
+.source-page .controls .right.button {
+  margin-left: auto;
+}
+
+@media screen and (min-width: 1200px) {
+  .source-page {
+    font-size: 12px;
+  }
+}

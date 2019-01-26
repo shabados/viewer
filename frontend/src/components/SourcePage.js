@@ -4,16 +4,23 @@ import { string, oneOfType, number } from 'prop-types'
 import { PAGE_API } from '../lib/consts'
 
 import Loader from './Loader'
+import LinkButton from './LinkButton'
 
 import './SourcePage.css'
 
 class SourcePage extends Component {
   state = {
-    lines: [],
+    lines: null,
   }
 
   componentDidMount() {
     this.loadPage()
+  }
+
+  componentDidUpdate( { source: prevSource, page: prevPage } ) {
+    const { source, page } = this.props
+
+    if ( prevSource !== source || prevPage !== page ) this.loadPage()
   }
 
   loadPage = () => {
@@ -26,13 +33,28 @@ class SourcePage extends Component {
   }
 
   render() {
+    const { page, source, length } = this.props
     const { lines } = this.state
 
     return (
       <div className="source-page">
-        {!lines.length && <Loader />}
+        {!lines && <Loader />}
         <section className="lines">
-          {lines.map( ( { gurmukhi } ) => <span className="line">{gurmukhi}</span> )}
+          {lines && lines.map( ( { gurmukhi } ) => <span className="line">{gurmukhi}</span> )}
+        </section>
+        <section className="controls">
+          <LinkButton
+            className="left button"
+            icon="caret-left"
+            to={`/sources/${source}/page/${+page - 1}`}
+            disabled={page <= 1}
+          />
+          <LinkButton
+            className="right button"
+            icon="caret-right"
+            to={`/sources/${source}/page/${+page + 1}`}
+            disabled={page >= length}
+          />
         </section>
       </div>
     )

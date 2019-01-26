@@ -1,0 +1,10 @@
+.link-button {
+  text-decoration: none;
+  color: black;
+  font-size: 20px;
+}
+
+.link-button.disabled {
+  pointer-events: none;
+  color: grey !important;
+}

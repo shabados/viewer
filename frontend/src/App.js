@@ -34,7 +34,7 @@ class App extends Component {
               <SourcePage
                 page={page}
                 source={source}
-                {...sources.find( ( { id } ) => id === source )}
+                {...sources.find( ( { id } ) => id === +source )}
               />
             )
             }

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { string, oneOfType, number } from 'prop-types'
 
 import { PAGE_API } from '../lib/consts'
+import { issueUrl } from '../lib/utils'
 
 import Loader from './Loader'
 import LinkButton from './LinkButton'
@@ -40,7 +41,17 @@ class SourcePage extends Component {
       <div className="source-page">
         {!lines && <Loader />}
         <section className="lines">
-          {lines && lines.map( ( { gurmukhi } ) => <span className="line">{gurmukhi}</span> )}
+          {lines && lines.map( ( { id, gurmukhi }, index ) => (
+            <span
+              tabIndex={index + 1}
+              className="line"
+              role="button"
+              onClick={() => window.open( issueUrl( { id, gurmukhi } ) )}
+              onKeyPress={( ( { key } ) => key === 'Enter' && window.open( issueUrl( { id, gurmukhi } ) ) )}
+            >
+              {gurmukhi}
+            </span>
+          ) )}
         </section>
         <section className="controls">
           <LinkButton

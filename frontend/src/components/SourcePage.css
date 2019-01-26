@@ -27,9 +27,10 @@
   margin-right: 0;
 }
 
-.source-page .lines .line:hover {
+.source-page .lines .line:hover, .source-page .lines .line:focus {
   cursor: pointer;
   background-color: rgba(70, 170, 221, 0.42);
+  outline: none;
 }
 
 .source-page .controls {

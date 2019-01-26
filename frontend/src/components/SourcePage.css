@@ -1,0 +1,34 @@
+.source-page {
+  display: flex;
+  flex-direction: column;
+  background-color: #f6f0e4;
+  height: 100%;
+  font-size: 1vmax;
+  user-select: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.source-page .lines {
+  font-family: 'Open Gurbani Akhar Bold';
+  font-size: 3em;
+  padding: 5%;
+}
+
+.source-page .lines .line {
+  padding: 0.1em;
+  line-height: 1.75em;
+  border-radius: 0.1em;
+  transition: 0.1s all ease-in-out;
+}
+
+.source-page .lines .line:hover {
+  cursor: pointer;
+  background-color: rgba(70, 170, 221, 0.42);
+}
+
+@media screen and (min-width: 1200px) {
+  .source-page {
+    font-size: 12px;
+  }
+}

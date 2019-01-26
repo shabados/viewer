@@ -30,7 +30,14 @@ class App extends Component {
           <Route exact path="/" render={() => <Home sources={sources} />} />
           <Route
             path="/sources/:source/page/:page"
-            render={( { match: { params } } ) => <SourcePage {...params} />}
+            render={( { match: { params: { page, source } } } ) => (
+              <SourcePage
+                page={page}
+                source={source}
+                {...sources.find( ( { id } ) => id === source )}
+              />
+            )
+            }
           />
         </div>
       </Router>

@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   background-color: #f6f0e4;
-  height: 100%;
+  min-height: 100%;
   font-size: 1vmax;
   user-select: none;
   justify-content: center;
@@ -19,7 +19,12 @@
   padding: 0.1em;
   line-height: 1.75em;
   border-radius: 0.1em;
+  margin-right: 0.2em;
   transition: 0.1s all ease-in-out;
+}
+
+.source-page .lines .line:last-child {
+  margin-right: 0;
 }
 
 .source-page .lines .line:hover {

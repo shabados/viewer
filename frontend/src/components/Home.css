@@ -1,14 +1,12 @@
 .home {
   display: flex;
   flex-wrap: wrap;
-  height: 100%;
-  font-size: 1vw;
   user-select: none;
 }
 
 .home section {
-  width: 50%;
   height: 100%;
+  width: 50%;
   display: flex;
   flex-direction: column;
 }
@@ -16,23 +14,25 @@
 .home .introduction {
   align-items: center;
   justify-content: center;
-  background-image: url('../media/background.png');
+  background-color: #2D2026;
   background-position: right;
+  position: fixed;
+  color: #ffffff;
 }
 
 .home .introduction .logo {
-  width: 40%;
+  width: 32.444%;
 }
 
 .home .introduction h1 {
   font-family: 'Open Sans', sans-serif;
-  font-size: 3.5em;
+  font-size: 1em;
 }
 
 .home .introduction .links {
   display: flex;
   flex-wrap: wrap;
-  width: 75%;
+  width: 83.333%;
   font-family: 'Open Sans', sans-serif;
 }
 
@@ -41,59 +41,66 @@
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  font-size: 1.5em;
-  flex: 1 0 30%;
-  height: 3em;
-  margin: 1em;
-  border-radius: 0.25em;
-  color: black;
-  background-color: rgba(189, 184, 174, 0.5);
-  transition: 0.15s background-color ease-in-out;
+  font-size: 0.755em;
+  flex: 1 0 35%;
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.25);
+  border-bottom: 2px solid rgba(0,0,0,.5);
+  transition: 0.125s background-color ease-in-out;
+}
+
+.home .introduction .links .button, .home .sources .source {
+  padding: .570em .755em;
+  margin: .570em;
+  border-radius: 0.43em;
 }
 
 .home .introduction .links .button:hover {
-  font-weight: bold;
-  background-color: rgba(189, 184, 174, 0.9);
+  background-color: #693E4B;
+  border-bottom-color: rgba(0,0,0,1);
 }
 
 .home .sources {
-  background-color: #f6f0e4;
   display: flex;
   flex-wrap: wrap;
+  flex-direction: row;
   align-content: center;
   align-items: center;
-  padding: 7.5%;
+  padding: 8.333%;
+  min-height: 100vh;
+  margin-left: 50%;
   box-sizing: border-box;
 }
 
 .home .sources .source {
   font-family: 'Open Gurbani Akhar Bold';
-  font-size: 1.4em;
-  width: 50%;
+  font-size: 1em;
+  width: auto;
   text-decoration: none;
-  color: black;
-  background-color: rgba(70, 170, 221, 0.42);
-  margin: 0.4em;
-  padding: 0.5em;
-  border-radius: 0.25em;
-  transition: 0.1s all ease-in-out;
+  color: #000000;
+  background-color: rgba(255,255,255,.8);
+  border-bottom: 2px solid rgba(0,0,0,.2);
+  text-align: center;
+  transition: 0.125s all ease-in-out;
 }
 
 .home .sources .source:hover {
-  font-family: 'Open Gurbani Akhar Black';
-  background-color: rgba(70, 170, 221, 0.7);
+  background: #DCCDA2;
+  border-bottom: 2px solid rgba(0,0,0,.1);
+  color: black;
 }
 
-@media screen and (max-width: 768px) {
-  .home {
-    font-size: 2.7vw;
+@media screen and (max-width: 1100px) {
+  .home .introduction, .home .sources {
+    width: 100%
   }
-
-  .home section {
+  .home .introduction {
     width: 100%;
+    position: static;
+    min-height: 50vh;
   }
-
-  .home .sources .source {
-    font-size: 2em;
+  .home .sources {
+    margin: 0;
+    min-height: auto;
   }
 }

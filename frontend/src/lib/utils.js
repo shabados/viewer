@@ -4,7 +4,7 @@ export const issueUrl = ( { id, gurmukhi, page, nameEnglish } ) => newGithubIssu
   user: 'ShabadOS',
   repo: 'Database',
   assignee: 'Sarabveer',
-  labels: [ 'correction' ],
+  labels: [ 'correction', nameEnglish ],
   title: `${id}`,
   body: `
 > Use the preview tab to see the example given below. Edit the relevant information and preview the changes before submitting. You may delete these instructions.

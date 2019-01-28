@@ -33,8 +33,9 @@ class SourcePage extends Component {
       .catch( err => console.error( err ) )
   }
 
-  openIssue = (id, gurmukhi, page, source) => {
-	 window.open ( issueUrl( { id, gurmukhi, page, source } ) )
+  openIssue = (id, gurmukhi) => {
+    const { page, source } = this.props
+    window.open ( issueUrl( { id, gurmukhi, page, source } ) )
   }
 
   render() {
@@ -50,8 +51,8 @@ class SourcePage extends Component {
               tabIndex={index + 1}
               className="line"
               role="button"
-              onClick={() => this.openIssue() }
-              onKeyPress={( ( { key } ) => key === 'Enter' && this.openIssue() )}
+              onClick={() => this.openIssue(id, gurmukhi) }
+              onKeyPress={( ( { key } ) => key === 'Enter' && this.openIssue(id, gurmukhi) )}
             >
               {gurmukhi}
             </span>
@@ -82,6 +83,7 @@ SourcePage.propTypes = {
   length: number.isRequired,
   pageNameGurmukhi: string.isRequired,
   nameGurmukhi: string.isRequired,
+  nameEnglish: string.isRequired,
 }
 
 SourcePage.defaultProps = {

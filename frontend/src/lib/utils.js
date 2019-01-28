@@ -1,6 +1,6 @@
 import newGithubIssueUrl from 'new-github-issue-url'
 
-export const issueUrl = ( { id, gurmukhi, page, source } ) => newGithubIssueUrl( {
+export const issueUrl = ( { id, gurmukhi, page, nameEnglish } ) => newGithubIssueUrl( {
   user: 'ShabadOS',
   repo: 'Database',
   assignee: 'Sarabveer',
@@ -12,7 +12,7 @@ export const issueUrl = ( { id, gurmukhi, page, source } ) => newGithubIssueUrl(
 | Key | Value |
 | --- | --- |
 | ID | ${id} |
-| Source | ${source} |
+| Source | ${nameEnglish} |
 | Page | ${page} |
 | Line | \`\`\`${gurmukhi}\`\`\` |
 | Correction | \`\`\`THIS\`\`\` ≠ \`\`\`THAT\`\`\`  |

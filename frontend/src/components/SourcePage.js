@@ -34,8 +34,8 @@ class SourcePage extends Component {
   }
 
   openIssue = (id, gurmukhi) => {
-    const { page, source } = this.props
-    window.open ( issueUrl( { id, gurmukhi, page, source } ) )
+    const { page, nameEnglish } = this.props
+    window.open ( issueUrl( { id, gurmukhi, page, nameEnglish } ) )
   }
 
   render() {

@@ -8,10 +8,12 @@ import Loader from './Loader'
 import LinkButton from './LinkButton'
 
 import './SourcePage.css'
+import Error from './Error'
 
 class SourcePage extends Component {
   state = {
     lines: null,
+    err: null,
   }
 
   componentDidMount() {
@@ -30,19 +32,21 @@ class SourcePage extends Component {
     fetch( `${PAGE_API}/${source}/page/${page}` )
       .then( res => res.json() )
       .then( lines => this.setState( { lines } ) )
-      .catch( err => console.error( err ) )
+      .catch( err => this.setState( { err } ) )
   }
 
   render() {
     const { page, source, length } = this.props
-    const { lines } = this.state
+    const { lines, err } = this.state
 
     return (
       <div className="source-page">
-        {!lines && <Loader />}
+        {err && <Error err={err} />}
+        {!( lines || err ) && <Loader />}
         <section className="lines">
           {lines && lines.map( ( { id, gurmukhi }, index ) => (
             <span
+              key={id}
               tabIndex={index + 1}
               className="line"
               role="button"

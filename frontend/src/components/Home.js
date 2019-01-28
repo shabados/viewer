@@ -1,13 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { arrayOf, string } from 'prop-types'
+import { arrayOf, string, shape } from 'prop-types'
 
 import Loader from './Loader'
+import Error from './Error'
 import logo from '../media/logo.svg'
 
 import './Home.css'
 
-const Home = ( { sources } ) => (
+const Home = ( { err, sources } ) => (
   <div className="home">
     <section className="introduction">
       <img className="logo" src={logo} alt="Shabad OS Logo" />
@@ -19,10 +20,12 @@ const Home = ( { sources } ) => (
         <a href="#" className="button">Tutorial Video</a>
       </div>
     </section>
-    <section className="sources" style={{ justifyContent: sources.length ? 'initial' : 'center' }}>
-      {!sources.length && <Loader />}
+    <section className="sources" style={{ justifyContent: !sources && sources.length ? 'initial' : 'center' }}>
+      {err && <Error err={err} />}
+      {!( sources || err ) && <Loader />}
       {sources.map( ( { nameGurmukhi, id } ) => (
         <Link
+          key={id}
           className="gurmukhi source"
           to={`/sources/${id}/page/1`}
         >
@@ -35,10 +38,12 @@ const Home = ( { sources } ) => (
 
 Home.propTypes = {
   sources: arrayOf( string ),
+  err: shape( { message: string } ),
 }
 
 Home.defaultProps = {
-  sources: [],
+  sources: null,
+  err: null,
 }
 
 export default Home

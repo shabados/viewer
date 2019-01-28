@@ -10,6 +10,7 @@ import './App.css'
 class App extends Component {
   state = {
     sources: [],
+    err: null,
   }
 
   componentDidMount() {
@@ -19,15 +20,15 @@ class App extends Component {
   loadSources = () => fetch( SOURCES_API )
     .then( res => res.json() )
     .then( sources => this.setState( { sources } ) )
-    .catch( err => console.error( err ) )
+    .catch( err => this.setState( { err } ) )
 
   render() {
-    const { sources } = this.state
+    const { sources, err } = this.state
 
     return (
       <Router>
         <div className="app">
-          <Route exact path="/" render={() => <Home sources={sources} />} />
+          <Route exact path="/" render={() => <Home err={err} sources={sources} />} />
           <Route
             path="/sources/:source/page/:page"
             render={( { match: { params: { page, source } } } ) => (

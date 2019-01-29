@@ -1,6 +1,8 @@
 // API Server
-export const API_HOST = 'localhost'
-export const API_PORT = 52525
+const { NODE_ENV } = process.env
+const { location: { hostname, port } } = window
+export const API_HOST = hostname
+export const API_PORT = NODE_ENV === 'production' ? port : 52525
 export const API_URL = `http://${API_HOST}:${API_PORT}`
 
 // API Routes

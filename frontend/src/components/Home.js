@@ -20,7 +20,7 @@ const Home = ( { err, sources } ) => (
         <a href="#" className="button">Tutorial Video</a>
       </div>
     </section>
-    <section className="sources" style={{ justifyContent: !sources && sources.length ? 'initial' : 'center' }}>
+    <section className="sources" style={{ justifyContent: sources && sources.length ? 'initial' : 'center' }}>
       {err && <Error err={err} />}
       {!( sources || err ) && <Loader />}
       {sources.map( ( { nameGurmukhi, id } ) => (

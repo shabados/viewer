@@ -45,7 +45,7 @@
   flex: 1 0 35%;
   color: inherit;
   background-color: rgba(0, 0, 0, 0.25);
-  border-bottom: 2px solid rgba(0,0,0,.5);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.5);
   transition: 0.125s background-color ease-in-out;
 }
 
@@ -57,7 +57,7 @@
 
 .home .introduction .links .button:hover {
   background-color: #693E4B;
-  border-bottom-color: rgba(0,0,0,1);
+  border-bottom-color: rgba(0, 0, 0, 1.0);
 }
 
 .home .sources {
@@ -86,7 +86,7 @@
 
 .home .sources .source:hover {
   background: #DCCDA2;
-  border-bottom: 2px solid rgba(0,0,0,.1);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
   color: black;
 }
 
@@ -104,3 +104,4 @@
     min-height: auto;
   }
 }
+

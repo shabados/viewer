@@ -27,17 +27,17 @@
 .source-page .lines .line:hover, .source-page .lines .line:focus {
   cursor: pointer;
   outline: none;
-  border-bottom: 2px solid rgba(0,0,0,.1);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
 }
 
 .source-page .lines .line:hover {
   background: #DCCDA2;
-  border-bottom: 2px solid rgba(0,0,0,.1);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
 }
 
 .source-page .lines .line:focus {
   background: #F5CD3D;
-  border-bottom: 2px solid rgba(0,0,0,.1);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
 }
 
 .source-page .controls {

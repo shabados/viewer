@@ -16,9 +16,7 @@
 }
 
 .source-page .lines .line {
-  padding: 0.18em;
   line-height: 1.756em;
-  border-radius: 0.18em;
   transition: 0.125s all ease-in-out;
   padding: 0.18em 0.238em;
   border-radius: 0.136em;

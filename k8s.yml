@@ -59,8 +59,8 @@ spec:
       - path: /api
         backend:
           serviceName: database-viewer-service
-          servicePort: 52526
+          servicePort: backend
       - path: /
         backend:
           serviceName: database-viewer-service
-          servicePort: 80
+          servicePort: frontend

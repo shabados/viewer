@@ -19,7 +19,7 @@ spec:
           name: database-viewer-frontend
           env:
             - name: PORT
-              value: 52526
+              value: "52526"
           ports:
             - containerPort: 52526
               name: http
@@ -37,9 +37,11 @@ spec:
   selector:
     app: database-viewer
   ports:
-  - port: 52526
+  - name: backend
+    port: 52526
     targetPort: 52526
-  - port: 80
+  - name: frontend
+    port: 80
     targetPort: 80
 ---
 apiVersion: extensions/v1beta1

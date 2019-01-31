@@ -1,5 +1,5 @@
 {
-  "name": "@shabados/database-viewer",
+  "name": "@shabados/database-viewer--backend",
   "version": "0.0.1",
   "description": "Shabad OS Database Viewer",
   "main": "server.js",

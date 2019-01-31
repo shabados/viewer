@@ -15,7 +15,6 @@ app.use( helmet() )
 app.use( compression() )
 app.use( cors() )
 app.use( '/api', api )
-app.use( '/', express.static( 'frontend/build' ) )
 
 // Start the server
 const { PORT } = process.env

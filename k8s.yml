@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: database-viewer-deployment
+  labels:
+    app: database-viewer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: database-viewer
+  template:
+    metadata:
+      labels:
+        app: database-viewer
+    spec:
+      containers:
+        - image: shabados/database-viewer-frontend:latest
+          name: database-viewer-frontend
+          env:
+            - name: PORT
+              value: 52526
+          ports:
+            - containerPort: 52526
+              name: http
+        - image: shabados/database-viewer-backend:latest
+          name: database-viewer-backend
+          ports:
+            - containerPort: 80
+              name: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: database-viewer-service
+spec:
+  selector:
+    app: database-viewer
+  ports:
+  - port: 52526
+    targetPort: 52526
+  - port: 80
+    targetPort: 80
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: database-viewer-ingress
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.frontend.rule.type: PathPrefixStrip
+spec:
+  rules:
+  - host: database.shabados.com
+    http:
+      paths:
+      - path: /api
+        backend:
+          serviceName: database-viewer-service
+          servicePort: 52526
+      - path: /
+        backend:
+          serviceName: database-viewer-service
+          servicePort: 80

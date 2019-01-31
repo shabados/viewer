@@ -17,15 +17,15 @@ Work in-progress: An online viewer of the bani database. Authenticated by GitHub
 - [Table of Contents](#table-of-contents)
 - [Getting Started](#getting-started)
 - [Contributing](#contributing)
-  - [Folder structure](#folder-structure)
   - [Proofs for Bani](#proofs-for-bani)
-    - [Sri Guru Granth Sahib](#sri-guru-granth-sahib-ji)
+    - [Sri Guru Granth Sahib Ji](#sri-guru-granth-sahib-ji)
     - [Sri Dasam Granth](#sri-dasam-granth)
     - [Vaaran Bhai Gurdaas Ji](#vaaran-bhai-gurdaas-ji)
     - [Kabit Savaiye Bhai Gurdaas Ji](#kabit-savaiye-bhai-gurdaas-ji)
     - [Bhai Nand Lal Ji](#bhai-nand-lal-ji)
     - [Sarabloh Granth](#sarabloh-granth)
   - [Origin of Proofs](#origin-of-proofs)
+- [Running](#running)
 
 # Getting Started
 
@@ -33,7 +33,7 @@ Tutorial pending.
 
 # Contributing
 
-Anyone with a GitHub account can help contribute content and accuracy to the database. 
+Anyone with a GitHub account can help contribute content and accuracy to the database. If you wish to contribute to the source-code of the Database Viewer itself, please follow the [contributing guidelines set out](CONTRIBUTING.md).
 
 ## Proofs for Bani
 
@@ -109,3 +109,11 @@ Proof | Origin
 [Amrit Keertan](https://drive.google.com/open?id=1QJdE1ZeutRhkT1FDh1S0b83Z-4rTQyNa) | [sikhbookclub.com](http://sikhbookclub.com/Book/Amrit-Kirtan1)
 [Sanpuran Steek Sri Sarabloh Granth Ji](https://drive.google.com/open?id=1-C8E3YYeAFIqacfe8Xy7scDFpTyn62_U) | [adelaidesangat.com](http://www.adelaidesangat.com/index.php/downloads/Gurbani-PDF/Sri-Sarabloh-Granth-Sahib/Complete-Sri-Sarbloh-Granth-Sahib-Ji-Steek.pdf/)
 [Sanpuran Steek Sri Sarabloh Granth Ji (Vol. 1)](https://drive.google.com/open?id=1-dbLAUCw2ME4gyBXS7QttId9WxDEkQnf)<br> [Sanpuran Steek Sri Sarabloh Granth Ji (Vol. 2)](https://drive.google.com/open?id=1ooERm2R6rwtedMTs1z21HakqtvHxMqjr) | Vol. 1: [panjabdigilib.org](http://panjabdigilib.org/webuser/searches/displayPage.jsp?ID=9210&page=1&CategoryID=1&Searched=)<br> Vol. 2: [panjabdigilib.org](http://panjabdigilib.org/webuser/searches/displayPage.jsp?ID=9209&page=1&CategoryID=1&Searched=)
+
+# Running
+
+The viewer consists of two components: the backend, and the frontend. Each can be started independently, and are wrapped in their own containers.
+
+To fire up both the frontend and backend, install Docker and run `docker-compose up`.
+
+You can also navigate to either folder individually, and run `npm start`.

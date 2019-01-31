@@ -1,3 +1,4 @@
+
 import { readJSON, remove, move } from 'fs-extra'
 import { manifest, extract } from 'pacote'
 import importFresh from 'import-fresh'
@@ -24,8 +25,9 @@ export const getSources = () => Sources.query()
 export const getLinesOnPage = ( sourceId, page ) => Lines
   .query()
   .join( 'shabads', 'shabads.id', 'lines.shabad_id' )
+  .eager( 'shabad.[section, subsection]' )
   .where( 'source_page', page )
-  .andWhere( 'source_id', sourceId )
+  .andWhere( 'shabads.source_id', sourceId )
   .orderBy( 'order_id' )
 
 /**

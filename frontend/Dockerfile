@@ -12,5 +12,5 @@ COPY ./ /usr/app/
 RUN npm run build
 
 # Stage 1, based on Nginx, production-ready
-FROM nginx:1.15-alpine
+FROM zalari/nginx-html5
 COPY --from=build-stage /usr/app/build/ /usr/share/nginx/html

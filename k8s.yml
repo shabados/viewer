@@ -15,12 +15,12 @@ spec:
         app: database-viewer
     spec:
       containers:
-        - image: shabados/database-viewer-frontend:latest
+        - image: shabados/database-viewer-frontend:{{ IMAGE_TAG }}
           name: database-viewer-frontend
           ports:
             - containerPort: 52526
               name: http
-        - image: shabados/database-viewer-backend:latest
+        - image: shabados/database-viewer-backend:{{ IMAGE_TAG }}
           name: database-viewer-backend
           env:
             - name: PORT

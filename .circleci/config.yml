@@ -12,9 +12,9 @@ jobs:
       # Log in to Docker Hub
       - run: docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
       # Build the image, tagging it as latest
-      - run: docker build -t shabados/database-viewer-frontend:latest frontend
+      - run: docker build -t shabados/database-viewer-frontend:${CIRCLE_SHA1} frontend
       # Push the image to Docker Hub
-      - run: docker push shabados/database-viewer-frontend:latest
+      - run: docker push shabados/database-viewer-frontend:${CIRCLE_SHA1}
 
   build:backend:
     docker:
@@ -27,9 +27,9 @@ jobs:
       # Log in to Docker Hub
       - run: docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
       # Build the image, tagging it as latest
-      - run: docker build -t shabados/database-viewer-backend:latest backend
+      - run: docker build -t shabados/database-viewer-backend:${CIRCLE_SHA1} backend
       # Push the image to Docker Hub
-      - run: docker push shabados/database-viewer-backend:latest
+      - run: docker push shabados/database-viewer-backend:${CIRCLE_SHA1}
 
   deploy:
     docker:
@@ -43,6 +43,8 @@ jobs:
       - run: az aks get-credentials --resource-group ${AZURE_RESOURCE_GROUP} --name ${AZURE_CLUSTER_NAME}
       # Install Kubernetes CLI
       - run: az aks install-cli
+      # Update the k8s.yml with the commit tag
+      - run: sed -i "s#{{ IMAGE_TAG }}#${CIRCLE_SHA1}#g" k8s.yml
       # Pull the latest deployment with kubernetes
       - run: kubectl apply -f k8s.yml
 

@@ -17,14 +17,14 @@ spec:
       containers:
         - image: shabados/database-viewer-frontend:latest
           name: database-viewer-frontend
-          env:
-            - name: PORT
-              value: "52526"
           ports:
             - containerPort: 52526
               name: http
         - image: shabados/database-viewer-backend:latest
           name: database-viewer-backend
+          env:
+            - name: PORT
+              value: "52526"
           ports:
             - containerPort: 80
               name: http

@@ -1,9 +1,8 @@
 .source-page {
   display: flex;
   flex-direction: column;
-  background-color: #f6f0e4;
+  background-color: #F0EDE9;
   min-height: 100%;
-  font-size: 1vmax;
   user-select: none;
   justify-content: center;
   align-items: center;
@@ -11,52 +10,56 @@
 
 .source-page .lines {
   font-family: 'Open Gurbani Akhar Bold';
-  font-size: 3em;
-  padding: 7.5%;
+  font-size: 1.325em;
+  padding: 8.333%;
+  text-align: justify;
 }
 
 .source-page .lines .line {
-  padding: 0.1em;
-  line-height: 1.75em;
-  border-radius: 0.1em;
-  margin-right: 0.2em;
-  transition: 0.1s all ease-in-out;
-}
-
-.source-page .lines .line:last-child {
-  margin-right: 0;
+  line-height: 1.756em;
+  transition: 0.125s all ease-in-out;
+  padding: 0.18em 0.238em;
+  border-radius: 0.136em;
 }
 
 .source-page .lines .line:hover, .source-page .lines .line:focus {
   cursor: pointer;
-  background-color: rgba(70, 170, 221, 0.42);
   outline: none;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.source-page .lines .line:hover {
+  background: #DCCDA2;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.source-page .lines .line:focus {
+  background: #F5CD3D;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
 }
 
 .source-page .controls {
+  background-image: linear-gradient(#E1DFDDCC, #E1DFDDFF);
   display: flex;
   position: fixed;
-  bottom: 0.5em;
+  bottom: 0;
+  padding-bottom: 0.163em;
+  border-top: 1px solid #D4D1CD;
   width: 100%;
 }
 
 .source-page .controls .button {
-  color: #47add3;
-  font-size: 7em;
-  transition: 0.1s all ease-in-out;
+  color: #BA3F6A;
+  font-size: 3.082em;
+  transition: 0.125s all ease-in-out;
   margin: 0 0.5em;
 }
 
 .source-page .controls .button:hover {
-  color: #1c83a8;
+  color: #693E4B;
 }
 
 .source-page .controls .right.button {
   margin-left: auto;
 }
 
-@media screen and (min-width: 1200px) {
-  .source-page {
-    font-size: 12px;
-  }
-}

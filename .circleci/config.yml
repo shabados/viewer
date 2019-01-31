@@ -1,0 +1,64 @@
+version: 2
+
+jobs:
+  build:frontend:
+    docker:
+      - image: circleci/node
+    steps:
+      # Enable Docker environment
+      - setup_remote_docker
+      # Fetch the source code
+      - checkout
+      # Log in to Docker Hub
+      - run: docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
+      # Build the image, tagging it as latest
+      - run: docker build -t shabados/database-viewer-frontend:latest frontend
+      # Push the image to Docker Hub
+      - run: docker push shabados/database-viewer-frontend:latest
+
+  build:backend:
+    docker:
+      - image: circleci/node
+    steps:
+      # Enable Docker environment
+      - setup_remote_docker
+      # Fetch the source code
+      - checkout
+      # Log in to Docker Hub
+      - run: docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
+      # Build the image, tagging it as latest
+      - run: docker build -t shabados/database-viewer-backend:latest backend
+      # Push the image to Docker Hub
+      - run: docker push shabados/database-viewer-backend:latest
+
+  deploy:
+    docker:
+      - image: microsoft/azure-cli
+    steps:
+      # Fetch the source code
+      - checkout
+      # Log in to Azure
+      - run: az login --service-principal -u ${AZURE_USERNAME} -p ${AZURE_PASSWORD} --tenant ${AZURE_TENANT}
+      # Get kubernetes credentials
+      - run: az aks get-credentials --resource-group ${AZURE_RESOURCE_GROUP} --name ${AZURE_CLUSTER_NAME}
+      # Install Kubernetes CLI
+      - run: az aks install-cli
+      # Pull the latest deployment with kubernetes
+      - run: kubectl apply -f k8s.yml
+
+workflows:
+  version: 2
+  deploy:
+    jobs:
+      - build:backend:
+          filters:
+            branches:
+              only: master
+      - build:frontend:
+          filters:
+            branches:
+              only: master
+      - deploy:
+          requires:
+            - build:frontend
+            - build:backend

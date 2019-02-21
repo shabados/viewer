@@ -14,8 +14,8 @@ export const issueUrl = ( { id, gurmukhi, page, nameEnglish } ) => newGithubIssu
 | ID | ${id} |
 | Source | ${nameEnglish} |
 | Page | ${page} |
-| Line | \`\`\`${gurmukhi}\`\`\` |
-| Correction | \`\`\`THIS\`\`\` ≠ \`\`\`THAT\`\`\`  |
+| Line | ${gurmukhi} |
+| Correction | THIS ≠ THAT  |
 
 PROOF (EDITION)
 

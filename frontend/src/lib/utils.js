@@ -15,7 +15,6 @@ export const issueUrl = ( { id, gurmukhi, source, page, nameEnglish } ) => newGi
 | Page | ${page} |
 | ID | ${id} |
 | Line | ${gurmukhi} |
-| Correction | THIS ≠ THAT  |
 
 PROOF (EDITION)
 

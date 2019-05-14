@@ -6,18 +6,17 @@ export const issueUrl = ( { id, gurmukhi, source, page, nameEnglish } ) => newGi
   labels: [ 'correction', nameEnglish ],
   title: `${id}`,
   body: `
-> Use the preview tab to see the example given below. Edit the relevant information and preview the changes before submitting. You may delete these instructions.
+<!-- These instructions are hidden. Use the preview tab to visualize the code. Tutorial can be found at https://database.shabados.com. -->
 
 | Key | Value |
-| --- | --- |
-| View | https://database.shabados.com/sources/${source}/page/${page} |
-| Source | ${nameEnglish} |
-| Page | ${page} |
-| ID | ${id} |
-| Line | ${gurmukhi} |
+| --- | ----- |
+View | https://database.shabados.com/sources/${source}/page/${page}
+Source | ${nameEnglish}
+Page | ${page}
+ID | ${id}
+Line | ${gurmukhi}
 
-PROOF (EDITION)
+<!-- Bold any differences in the line above. Provide the name, edition, and image of the physical proof below. Attached images should include context and an indication of where to look. -->
 
-Image:
 `,
 } )

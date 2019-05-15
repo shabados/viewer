@@ -7,13 +7,16 @@
 .home section {
   height: 100%;
   width: 50%;
+  padding: 2.65em; /* 1.325 (reader font-size) x 2 */
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
 }
 
 .home .introduction {
-  align-items: center;
-  justify-content: center;
   background-color: #2D2026;
   background-position: right;
   position: fixed;
@@ -21,17 +24,18 @@
 }
 
 .home .introduction .logo {
-  width: 32.444%;
+  width: 9.5em;
 }
 
 .home .introduction h1 {
-  font-size: 1em;
+  font-size: 1.75em;
+  font-weight: 100;
 }
 
 .home .introduction .links {
   display: flex;
   flex-wrap: wrap;
-  width: 83.333%;
+  justify-content: center;
 }
 
 .home .introduction .links .button {
@@ -39,8 +43,7 @@
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  font-size: 0.755em;
-  flex: 1 0 35%;
+  font-size: 1em;
   color: inherit;
   background-color: rgba(0, 0, 0, 0.25);
   border-bottom: 2px solid rgba(0, 0, 0, 0.5);
@@ -62,18 +65,13 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  align-content: center;
-  align-items: center;
-  justify-content: center;
-  padding: 8.333%;
   min-height: 100vh;
   margin-left: 50%;
-  box-sizing: border-box;
 }
 
 .home .sources .source {
   font-family: 'Open Gurbani Akhar Bold';
-  font-size: 1em;
+  font-size: 1.05em;
   width: auto;
   text-decoration: none;
   color: #000000;
@@ -97,7 +95,7 @@
   .home .introduction {
     width: 100%;
     position: static;
-    min-height: 50vh;
+    order: 2;
   }
 
   .home .sources {

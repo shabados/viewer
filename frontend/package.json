@@ -9,7 +9,7 @@
     "i": "^0.3.6",
     "new-github-issue-url": "^0.2.1",
     "npm": "^6.7.0",
-    "prop-types": "^15.6.2",
+    "prop-types": "^15.7.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-router-dom": "^4.3.1",

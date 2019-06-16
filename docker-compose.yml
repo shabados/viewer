@@ -12,6 +12,7 @@ services:
       - ./frontend:/usr/app
     environment:
       - DEV_BACKEND_URL=http://backend:52526
+      - CHOKIDAR_USEPOLLING=true
 
   backend:
     build: ./backend

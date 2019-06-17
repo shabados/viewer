@@ -5,6 +5,7 @@ import { string, oneOfType, number } from 'prop-types'
 import { history } from 'react-router-prop-types'
 import classNames from 'classnames'
 import { GlobalHotKeys } from 'react-hotkeys'
+import { debounce } from 'lodash'
 
 import { PAGE_API } from '../lib/consts'
 import { issueUrl, savePosition } from '../lib/utils'
@@ -18,6 +19,8 @@ import './SourcePage.css'
 
 class SourcePage extends Component {
   lineRefs = {}
+
+  navigatingTimeout = null
 
   keyMap = {
     previousLine: [ 'shift+tab', 'left' ],
@@ -34,9 +37,22 @@ class SourcePage extends Component {
   state = {
     lines: null,
     err: null,
+    navigating: false,
   }
 
   blockedKeys = [ 'Tab', 'ArrowUp', 'ArrowDown' ]
+
+  loadPage = debounce( async () => {
+    const { page, source } = this.props
+
+    fetch( `${PAGE_API}/${source}/page/${page}` )
+      .then( res => res.json() )
+      .then( lines => {
+        this.lineRefs = {}
+        this.setState( { lines } )
+      } )
+      .catch( err => this.setState( { err } ) )
+  }, 100 )
 
   componentDidMount() {
     this.loadPage()
@@ -79,6 +95,11 @@ class SourcePage extends Component {
   goToPage = page => {
     const { history, source, page: currentPage } = this.props
 
+    // Display current page number
+    this.setState( { navigating: true } )
+    clearTimeout( this.navigatingTimeout )
+    this.navigatingTimeout = setTimeout( () => this.setState( { navigating: false } ), 600 )
+
     if ( page && page !== +currentPage ) history.push( `/sources/${source}/page/${page}/line/0` )
   }
 
@@ -114,18 +135,6 @@ class SourcePage extends Component {
     const { lines } = this.state
 
     this.focusLine( lines.length - 1 )
-  }
-
-  loadPage = async () => {
-    const { page, source } = this.props
-
-    fetch( `${PAGE_API}/${source}/page/${page}` )
-      .then( res => res.json() )
-      .then( lines => {
-        this.lineRefs = {}
-        this.setState( { lines } )
-      } )
-      .catch( err => this.setState( { err } ) )
   }
 
   onLineClick = index => {
@@ -204,7 +213,7 @@ class SourcePage extends Component {
 
   render() {
     const { line, page, pageNameGurmukhi, source, length } = this.props
-    const { lines, err } = this.state
+    const { lines, err, navigating } = this.state
 
     return (
       <div className="source-page">
@@ -238,6 +247,7 @@ class SourcePage extends Component {
               value={page}
               label={pageNameGurmukhi}
               onChange={( [ page ] ) => this.goToPage( page )}
+              tooltipActive={navigating}
             />
             <LinkButton
               className="right button"

@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { number, string, func, shape } from 'prop-types'
+import { number, string, func, shape, bool } from 'prop-types'
 
 import Tooltip from './Tooltip'
 
@@ -19,13 +19,14 @@ class Handle extends Component {
       handle: { id, value, percent },
       getHandleProps,
       label,
+      tooltipActive,
     } = this.props
 
     const { mouseOver } = this.state
 
     return (
       <Fragment>
-        {mouseOver && (
+        {( mouseOver || tooltipActive ) && (
           <div
             style={{
               left: `${percent}%`,
@@ -59,6 +60,7 @@ class Handle extends Component {
 }
 
 Handle.propTypes = {
+  tooltipActive: bool,
   min: number.isRequired,
   max: number.isRequired,
   handle: shape( {
@@ -68,6 +70,10 @@ Handle.propTypes = {
   } ).isRequired,
   label: string.isRequired,
   getHandleProps: func.isRequired,
+}
+
+Handle.defaultProps = {
+  tooltipActive: false,
 }
 
 export default Handle

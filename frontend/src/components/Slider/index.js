@@ -1,5 +1,5 @@
 import React from 'react'
-import { string, func, number } from 'prop-types'
+import { string, func, number, bool } from 'prop-types'
 import { Slider, Rail, Handles, Tracks } from 'react-compound-slider'
 
 import Handle from './Handle'
@@ -12,7 +12,7 @@ const sliderStyle = {
   width: '100%',
 }
 
-const PageSlider = ( { min, max, value, onChange, label } ) => (
+const PageSlider = ( { min, max, value, onChange, label, tooltipActive } ) => (
   <div className="slider">
     <Slider
       mode={1}
@@ -34,6 +34,7 @@ const PageSlider = ( { min, max, value, onChange, label } ) => (
                 label={label}
                 min={min}
                 max={max}
+                tooltipActive={tooltipActive}
               />
             ) )}
           </div>
@@ -66,10 +67,12 @@ PageSlider.propTypes = {
   max: number.isRequired,
   value: number.isRequired,
   label: string.isRequired,
+  tooltipActive: bool,
 }
 
 PageSlider.defaultProps = {
   onChange: () => {},
+  tooltipActive: false,
 }
 
 export default PageSlider

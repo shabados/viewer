@@ -1,6 +1,6 @@
 import React from 'react'
 import { string, bool } from 'prop-types'
-import classNames from 'class-names'
+import classNames from 'classnames'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 

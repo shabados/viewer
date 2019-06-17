@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { arrayOf, string, shape } from 'prop-types'
+import { arrayOf, string, number, shape } from 'prop-types'
 
 import Loader from './Loader'
 import Error from './Error'
@@ -8,7 +8,9 @@ import logo from '../media/logo.svg'
 
 import './Home.css'
 
-const Home = ( { err, sources } ) => (
+const getPosition = ( source, positions ) => positions[ source ] || { line: 0, page: 1 }
+
+const Home = ( { err, sources, positions } ) => (
   <div className="home">
     <section className="introduction">
       <img className="logo" src={logo} alt="Shabad OS Logo" />
@@ -27,7 +29,7 @@ const Home = ( { err, sources } ) => (
         <Link
           key={id}
           className="gurmukhi source"
-          to={`/sources/${id}/page/1`}
+          to={`/sources/${id}/page/${getPosition( id, positions ).page}/line/${getPosition( id, positions ).line}`}
         >
           {nameGurmukhi}
         </Link>
@@ -38,6 +40,7 @@ const Home = ( { err, sources } ) => (
 
 Home.propTypes = {
   sources: arrayOf( string ),
+  positions: shape( { page: number } ).isRequired,
   err: shape( { message: string } ),
 }
 

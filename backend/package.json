@@ -4,7 +4,8 @@
   "description": "Shabad OS Database Viewer",
   "main": "server.js",
   "scripts": {
-    "start": "node -r esm server.js",
+    "start": "nodemon --ignore temp/ -L --exec npm run start:production",
+    "start:production": "node -r esm server",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint ."
   },
@@ -25,7 +26,8 @@
     "eslint-plugin-import": "^2.17.3",
     "eslint-plugin-jsdoc": "^8.1.0",
     "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-react": "^7.13.0"
+    "eslint-plugin-react": "^7.13.0",
+    "nodemon": "^1.19.1"
   },
   "dependencies": {
     "@shabados/database": "^4.0.12",

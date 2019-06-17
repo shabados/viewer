@@ -23,6 +23,7 @@ spec:
               name: http
         - image: shabados/database-viewer-backend:{{ IMAGE_TAG }}
           name: database-viewer-backend
+          command: ["npm", "run", "start:production"]
           env:
             - name: PORT
               value: "52526"

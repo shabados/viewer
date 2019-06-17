@@ -172,7 +172,7 @@ class SourcePage extends Component {
             <LinkButton
               className="left button"
               icon="caret-left"
-              to={`/sources/${source}/page/${+page - 1}`}
+              to={`/sources/${source}/page/${+page - 1}/line/0`}
               disabled={page <= 1}
             />
             <Slider
@@ -185,7 +185,7 @@ class SourcePage extends Component {
             <LinkButton
               className="right button"
               icon="caret-right"
-              to={`/sources/${source}/page/${+page + 1}`}
+              to={`/sources/${source}/page/${+page + 1}/line/0`}
               disabled={page >= length}
             />
           </section>

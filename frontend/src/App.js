@@ -32,7 +32,7 @@ class App extends Component {
         <div className="app">
           <Route exact path="/" render={() => <Home err={err} sources={sources} positions={positions} />} />
           <Route
-            path="/sources/:source/page/:page/line/:line?"
+            path="/sources/:source/page/:page/line/:line"
             render={( { match: { params: { page, source, line } } } ) => (
               <SourcePage
                 page={page}

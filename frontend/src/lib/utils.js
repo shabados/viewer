@@ -21,7 +21,7 @@ Line | ${gurmukhi}
 `,
 } )
 
-export const getPositions = () => JSON.parse( localStorage.getItem( 'positions' ) )
+export const getPositions = () => JSON.parse( localStorage.getItem( 'positions' ) ) || {}
 
 export const savePosition = ( source, page, line ) => localStorage.setItem(
   'positions',

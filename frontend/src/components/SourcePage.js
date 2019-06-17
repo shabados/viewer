@@ -110,11 +110,6 @@ class SourcePage extends Component {
     this.focusLine( lines.length - 1 )
   }
 
-  openIssue = ( id, gurmukhi ) => {
-    const { source, page, nameEnglish } = this.props
-    window.open( issueUrl( { id, gurmukhi, source, page, nameEnglish } ) )
-  }
-
   loadPage = async () => {
     const { page, source } = this.props
 
@@ -123,13 +118,14 @@ class SourcePage extends Component {
       .then( lines => {
         this.lineRefs = {}
         this.setState( { lines } )
-        window.scrollTo( 0, 0 )
       } )
       .catch( err => this.setState( { err } ) )
   }
 
-  onLineClick = ( { index, id, gurmukhi } ) => {
-    this.openIssue( id, gurmukhi )
+  onLineClick = ( { index, id, gurmukhi, line } ) => {
+    const { source, page, nameEnglish } = this.props
+
+    window.open( issueUrl( { id, line, gurmukhi, source, page, nameEnglish } ) )
 
     this.focusLine( index )
   }
@@ -161,8 +157,8 @@ class SourcePage extends Component {
                 key={id}
                 tabIndex={0}
                 role="button"
-                onClick={() => this.onLineClick( { id, gurmukhi, index } )}
-                onKeyPress={( ( { key } ) => key === 'Enter' && this.openIssue( id, gurmukhi ) )}
+                onClick={() => this.onLineClick( { id, gurmukhi, index, line: index } )}
+                onKeyPress={( ( { key } ) => key === 'Enter' && this.onLineClick( { id, gurmukhi, line: index } ) )}
               >
                 {gurmukhi}
               </span>

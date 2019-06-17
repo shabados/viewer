@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { string, oneOfType, number } from 'prop-types'
@@ -23,6 +24,9 @@ class SourcePage extends Component {
     nextLine: [ 'tab', 'right' ],
     firstLine: [ 'home' ],
     lastLine: [ 'end' ],
+    belowLine: [ 'down' ],
+    aboveLine: [ 'up' ],
+    openLine: [ 'enter' ],
     previousPage: [ 'ctrl+left', 'pageup' ],
     nextPage: [ 'ctrl+right', 'pagedown' ],
   }
@@ -122,12 +126,21 @@ class SourcePage extends Component {
       .catch( err => this.setState( { err } ) )
   }
 
-  onLineClick = ( { index, id, gurmukhi, line } ) => {
+  onLineClick = index => {
     const { source, page, nameEnglish } = this.props
+    const { lines } = this.state
 
-    window.open( issueUrl( { id, line, gurmukhi, source, page, nameEnglish } ) )
+    const { id, gurmukhi } = lines[ index ]
+
+    window.open( issueUrl( { id, line: index, gurmukhi, source, page, nameEnglish } ) )
 
     this.focusLine( index )
+  }
+
+  onLineEnter = () => {
+    const { line } = this.props
+
+    this.onLineClick( line )
   }
 
   // eslint-disable-next-line react/sort-comp
@@ -136,8 +149,11 @@ class SourcePage extends Component {
     nextLine: this.nextLine,
     firstLine: this.firstLine,
     lastLine: this.lastLine,
+    belowLine: this.belowLine,
+    aboveLine: this.aboveLine,
     previousPage: this.previousPage,
     nextPage: this.nextPage,
+    openLine: this.onLineEnter,
   }
 
   render() {
@@ -157,8 +173,7 @@ class SourcePage extends Component {
                 key={id}
                 tabIndex={0}
                 role="button"
-                onClick={() => this.onLineClick( { id, gurmukhi, index, line: index } )}
-                onKeyPress={( ( { key } ) => key === 'Enter' && this.onLineClick( { id, gurmukhi, line: index } ) )}
+                onClick={() => this.onLineClick( index )}
               >
                 {gurmukhi}
               </span>

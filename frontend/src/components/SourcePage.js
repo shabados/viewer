@@ -26,12 +26,13 @@ class SourcePage extends Component {
     if ( prevSource !== source || prevPage !== page ) this.loadPage()
   }
 
-  loadPage = () => {
+  loadPage = async () => {
     const { page, source } = this.props
 
     fetch( `${PAGE_API}/${source}/page/${page}` )
       .then( res => res.json() )
       .then( lines => this.setState( { lines } ) )
+      .then( () => window.scrollTo( 0, 0 ) )
       .catch( err => this.setState( { err } ) )
   }
 

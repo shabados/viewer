@@ -11,6 +11,7 @@ import { issueUrl } from '../lib/utils'
 import Loader from './Loader'
 import LinkButton from './LinkButton'
 import Error from './Error'
+import Slider from './Slider'
 
 import './SourcePage.css'
 
@@ -57,15 +58,21 @@ class SourcePage extends Component {
     this.lineRefs[ focused ].scrollIntoView( { block: 'center' } )
   }
 
-  nextPage = () => {
-    const { history, page, source, length } = this.props
+  goToPage = page => {
+    const { history, source } = this.props
 
-    if ( page < length ) history.push( `/sources/${source}/page/${+page + 1}` )
+    if ( page ) history.push( `/sources/${source}/page/${page}` )
+  }
+
+  nextPage = () => {
+    const { page, length } = this.props
+
+    if ( page < length ) this.goToPage( +page + 1 )
   }
 
   previousPage = () => {
-    const { history, page, source } = this.props
-    if ( page > 1 ) history.push( `/sources/${source}/page/${+page - 1}` )
+    const { page } = this.props
+    if ( page > 1 ) this.goToPage( +page - 1 )
   }
 
   nextLine = () => {
@@ -119,7 +126,7 @@ class SourcePage extends Component {
   }
 
   render() {
-    const { page, source, length } = this.props
+    const { page, pageNameGurmukhi, source, length } = this.props
     const { focused, lines, err } = this.state
 
     return (
@@ -148,6 +155,13 @@ class SourcePage extends Component {
               icon="caret-left"
               to={`/sources/${source}/page/${+page - 1}`}
               disabled={page <= 1}
+            />
+            <Slider
+              min={1}
+              max={length}
+              value={page}
+              label={pageNameGurmukhi}
+              onChange={this.goToPage}
             />
             <LinkButton
               className="right button"

@@ -36,10 +36,12 @@ class SourcePage extends Component {
     err: null,
   }
 
+  blockedKeys = [ 'Tab', 'ArrowUp', 'ArrowDown' ]
+
   componentDidMount() {
     this.loadPage()
 
-    document.addEventListener( 'keydown', this.blockTab )
+    document.addEventListener( 'keydown', this.blockKeys )
     this.savePosition()
   }
 
@@ -55,11 +57,11 @@ class SourcePage extends Component {
   }
 
   componentWillUnmount() {
-    document.removeEventListener( 'keydown', this.blockTab )
+    document.removeEventListener( 'keydown', this.blockKeys )
   }
 
-  blockTab = event => {
-    if ( event.key === 'Tab' ) event.preventDefault()
+  blockKeys = event => {
+    if ( this.blockedKeys.some( key => event.key === key ) ) event.preventDefault()
   }
 
   savePosition = () => {
@@ -141,6 +143,50 @@ class SourcePage extends Component {
     const { line } = this.props
 
     this.onLineClick( line )
+  }
+
+  belowLine = () => {
+    const { line } = this.props
+
+    const lineRef = this.lineRefs[ line ]
+    const { offsetTop, offsetLeft } = lineRef
+    const { scrollY } = window
+
+    // Scroll element into view
+    lineRef.scrollIntoView( { block: 'center' } )
+
+    // Calculate element's relative y position to viewport
+    const styles = getComputedStyle( lineRef )
+    const [ lineHeight ] = styles[ 'line-height' ].split( 'px' )
+    const relativeY = offsetTop - scrollY
+
+    // Get below the line element and index
+    const element = document.elementFromPoint( offsetLeft + 4, +lineHeight + relativeY )
+
+    const [ index ] = Object.entries( this.lineRefs ).find( ( [ , line ] ) => line === element )
+
+    this.focusLine( index )
+  }
+
+  aboveLine = () => {
+    const { line } = this.props
+
+    const lineRef = this.lineRefs[ line ]
+    const { offsetTop, offsetLeft } = lineRef
+    const { scrollY } = window
+
+    // Scroll element into view
+    lineRef.scrollIntoView( { block: 'center' } )
+
+    // Calculate element's relative y position to viewport
+    const relativeY = offsetTop - scrollY
+
+    // Get above the line element and index
+    const element = document.elementFromPoint( offsetLeft + 4, relativeY - 1 )
+
+    const [ index ] = Object.entries( this.lineRefs ).find( ( [ , line ] ) => line === element )
+
+    this.focusLine( index )
   }
 
   // eslint-disable-next-line react/sort-comp

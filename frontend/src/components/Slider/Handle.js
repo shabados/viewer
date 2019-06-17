@@ -44,6 +44,8 @@ class Handle extends Component {
           {...getHandleProps( id, {
             onMouseEnter: this.onMouseEnter,
             onMouseLeave: this.onMouseLeave,
+            onTouchStart: this.onMouseEnter,
+            onTouchEnd: this.onMouseLeave,
           } )}
         />
         <div

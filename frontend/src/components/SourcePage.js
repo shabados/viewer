@@ -21,10 +21,10 @@ class SourcePage extends Component {
   keyMap = {
     previousLine: [ 'shift+tab', 'left' ],
     nextLine: [ 'tab', 'right' ],
-    firstLine: [ 'pageup' ],
-    lastLine: [ 'pagedown' ],
-    previousPage: [ 'ctrl+left' ],
-    nextPage: [ 'ctrl+right' ],
+    firstLine: [ 'home' ],
+    lastLine: [ 'end' ],
+    previousPage: [ 'ctrl+left', 'pageup' ],
+    nextPage: [ 'ctrl+right', 'pagedown' ],
   }
 
   state = {

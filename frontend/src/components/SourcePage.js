@@ -21,6 +21,8 @@ class SourcePage extends Component {
     focused: null,
   }
 
+  lineRefs = {}
+
   keyMap = {
     previousLine: [ 'shift+tab', 'left' ],
     nextLine: [ 'tab', 'right' ],
@@ -32,12 +34,27 @@ class SourcePage extends Component {
 
   componentDidMount() {
     this.loadPage()
+
+    document.addEventListener( 'keydown', this.blockTab )
   }
 
   componentDidUpdate( { source: prevSource, page: prevPage } ) {
     const { source, page } = this.props
 
     if ( prevSource !== source || prevPage !== page ) this.loadPage()
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener( 'keydown', this.blockTab )
+  }
+
+  blockTab = event => {
+    if ( event.key === 'Tab' ) event.preventDefault()
+  }
+
+  focusLine = focused => {
+    this.setState( { focused } )
+    this.lineRefs[ focused ].scrollIntoView( { block: 'center' } )
   }
 
   nextPage = () => {
@@ -54,23 +71,23 @@ class SourcePage extends Component {
   nextLine = () => {
     const { lines, focused } = this.state
 
-    if ( focused < lines.length - 1 ) this.setState( { focused: focused + 1 } )
+    if ( focused < lines.length - 1 ) this.focusLine( focused + 1 )
     else this.nextPage()
   }
 
   previousLine = () => {
     const { focused } = this.state
 
-    if ( focused > 0 ) this.setState( { focused: focused - 1 } )
+    if ( focused > 0 ) this.focusLine( focused - 1 )
     else this.previousPage()
   }
 
-  firstLine = () => this.setState( { focused: 0 } )
+  firstLine = () => this.focusLine( 0 )
 
   lastLine = () => {
     const { lines } = this.state
 
-    this.setState( { focused: lines.length - 1 } )
+    this.focusLine( lines.length - 1 )
   }
 
   openIssue = ( id, gurmukhi ) => {
@@ -83,8 +100,11 @@ class SourcePage extends Component {
 
     fetch( `${PAGE_API}/${source}/page/${page}` )
       .then( res => res.json() )
-      .then( lines => this.setState( { lines, focused: 0 } ) )
-      .then( () => window.scrollTo( 0, 0 ) )
+      .then( lines => {
+        this.lineRefs = {}
+        this.setState( { lines, focused: 0 } )
+        window.scrollTo( 0, 0 )
+      } )
       .catch( err => this.setState( { err } ) )
   }
 
@@ -110,9 +130,10 @@ class SourcePage extends Component {
           <section className="lines">
             {lines && lines.map( ( { id, gurmukhi }, index ) => (
               <span
+                ref={ref => { this.lineRefs[ index ] = ref }}
                 className={classNames( 'line', { focused: focused === index } )}
                 key={id}
-                tabIndex={focused === index ? 1 : -1}
+                tabIndex={0}
                 role="button"
                 onClick={() => this.openIssue( id, gurmukhi )}
                 onKeyPress={( ( { key } ) => key === 'Enter' && this.openIssue( id, gurmukhi ) )}

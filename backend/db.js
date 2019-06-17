@@ -2,7 +2,7 @@
 import { readJSON, remove, move } from 'fs-extra'
 import { manifest, extract } from 'pacote'
 import importFresh from 'import-fresh'
-import { Lines, Sources, knex } from '@shabados/database'
+import { Lines, Shabads, knex } from '@shabados/database'
 
 import { dependencies } from './package.json'
 
@@ -15,7 +15,11 @@ const UPDATE_TMP_FOLDER = 'temp'
 /**
  * Gets all the DB sources.
  */
-export const getSources = () => Sources.query()
+export const getSources = () => Shabads
+  .query()
+  .select( 'sources.id', 'name_gurmukhi', 'name_english', 'page_name_gurmukhi', 'page_name_english', 'length' )
+  .distinct( 'source_id' )
+  .join( 'sources', 'sources.id', 'shabads.source_id' )
 
 /**
  * Get all the lines on a page for a source.

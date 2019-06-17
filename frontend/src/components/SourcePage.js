@@ -115,6 +115,12 @@ class SourcePage extends Component {
       .catch( err => this.setState( { err } ) )
   }
 
+  onLineClick = ( { index, id, gurmukhi } ) => {
+    this.openIssue( id, gurmukhi )
+
+    this.focusLine( index )
+  }
+
   // eslint-disable-next-line react/sort-comp
   handlers = {
     previousLine: this.previousLine,
@@ -142,7 +148,7 @@ class SourcePage extends Component {
                 key={id}
                 tabIndex={0}
                 role="button"
-                onClick={() => this.openIssue( id, gurmukhi )}
+                onClick={() => this.onLineClick( { id, gurmukhi, index } )}
                 onKeyPress={( ( { key } ) => key === 'Enter' && this.openIssue( id, gurmukhi ) )}
               >
                 {gurmukhi}
@@ -161,7 +167,7 @@ class SourcePage extends Component {
               max={length}
               value={page}
               label={pageNameGurmukhi}
-              onChange={this.goToPage}
+              onChange={( [ page ] ) => this.goToPage( page )}
             />
             <LinkButton
               className="right button"

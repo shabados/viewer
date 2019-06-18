@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import { string, oneOfType, number } from 'prop-types'
+import { string, oneOfType, number, elementType } from 'prop-types'
 import { history } from 'react-router-prop-types'
 import classNames from 'classnames'
 import { GlobalHotKeys } from 'react-hotkeys'
@@ -200,12 +200,12 @@ class SourcePage extends Component {
     const relativeY = offsetTop - scrollY
 
     // Get above the line element and index
-    const element = document.elementFromPoint( offsetLeft + 4, relativeY - 1 )
+    const element = document.elementFromPoint( offsetLeft + 4, relativeY - 4 )
 
     const [ index ] = Object
       .entries( this.lineRefs )
       .find( ( [ , line ] ) => line === element )
-      || [ 0 ]
+    || [ line ]
 
     this.focusLine( index )
   }

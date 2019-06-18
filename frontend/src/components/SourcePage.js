@@ -40,7 +40,7 @@ class SourcePage extends Component {
     navigating: false,
   }
 
-  blockedKeys = [ 'Tab', 'ArrowUp', 'ArrowDown' ]
+  blockedKeys = [ 'Tab', 'ArrowUp', 'ArrowDown', 'PageUp', 'PageDown' ]
 
   loadPage = debounce( async () => {
     const { page, source } = this.props
@@ -172,7 +172,10 @@ class SourcePage extends Component {
     // Get below the line element and index
     const element = document.elementFromPoint( offsetLeft + 4, +lineHeight + relativeY )
 
-    const [ index ] = Object.entries( this.lineRefs ).find( ( [ , line ] ) => line === element )
+    const [ index ] = Object
+      .entries( this.lineRefs )
+      .find( ( [ , line ] ) => line === element )
+    || [ line ]
 
     this.focusLine( index )
   }
@@ -193,7 +196,10 @@ class SourcePage extends Component {
     // Get above the line element and index
     const element = document.elementFromPoint( offsetLeft + 4, relativeY - 1 )
 
-    const [ index ] = Object.entries( this.lineRefs ).find( ( [ , line ] ) => line === element )
+    const [ index ] = Object
+      .entries( this.lineRefs )
+      .find( ( [ , line ] ) => line === element )
+      || [ 0 ]
 
     this.focusLine( index )
   }

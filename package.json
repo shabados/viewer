@@ -1,0 +1,29 @@
+{
+  "name": "@shabados/database-viewer",
+  "version": "1.1.0",
+  "description": "A database viewer for the Shabad OS database",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm-run-all -l -p start:*",
+    "start:backend": "cd backend && npm start",
+    "start:frontend": "cd frontend && npm start",
+    "build": "cd frontend && npm run build",
+    "install-deps": "npm-run-all -l -p install-deps:*",
+    "install-deps:frontend": "cd frontend && npm install",
+    "install-deps:backend": "cd backend && npm install",
+    "postinstall": "npm run install-deps"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShabadOS/database-viewer.git"
+  },
+  "author": "Shabad OS Team <team@shabados.com>",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/ShabadOS/database-viewer/issues"
+  },
+  "homepage": "https://github.com/ShabadOS/database-viewer#readme",
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
+  }
+}

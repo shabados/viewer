@@ -44,7 +44,7 @@ class SourcePage extends Component {
     loading: true,
   }
 
-  blockedKeys = [ 'Tab', 'ArrowUp', 'ArrowDown', 'PageUp', 'PageDown' ]
+  blockedKeys = [ 'Tab', 'PageUp', 'PageDown' ]
 
   loadPage = debounce( async () => {
     const { page, source } = this.props

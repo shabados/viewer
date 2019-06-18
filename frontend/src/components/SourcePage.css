@@ -68,3 +68,11 @@
   margin-left: auto;
 }
 
+.fade-enter {
+  opacity: 0.2;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 200ms;
+}

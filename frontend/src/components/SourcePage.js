@@ -6,6 +6,7 @@ import { history } from 'react-router-prop-types'
 import classNames from 'classnames'
 import { GlobalHotKeys } from 'react-hotkeys'
 import { debounce } from 'lodash'
+import { CSSTransition } from 'react-transition-group'
 
 import { PAGE_API } from '../lib/consts'
 import { issueUrl, savePosition } from '../lib/utils'
@@ -231,20 +232,26 @@ class SourcePage extends Component {
         {err && <Error err={err} />}
         {loading && !( lines || err ) && <Loader />}
         <GlobalHotKeys keyMap={this.keyMap} handlers={this.handlers}>
-          <section className="lines">
-            {lines && lines.map( ( { id, gurmukhi }, index ) => (
-              <span
-                ref={ref => { this.lineRefs[ index ] = ref }}
-                className={classNames( 'line', { focused: +line === index && !loading } )}
-                key={id}
-                tabIndex={0}
-                role="button"
-                onClick={() => this.onLineClick( index )}
-              >
-                {gurmukhi}
-              </span>
-            ) )}
-          </section>
+          <CSSTransition
+            in={!loading}
+            timeout={200}
+            classNames="fade"
+          >
+            <section className="lines">
+              {lines && lines.map( ( { id, gurmukhi }, index ) => (
+                <span
+                  ref={ref => { this.lineRefs[ index ] = ref }}
+                  className={classNames( 'line', { focused: +line === index && !loading } )}
+                  key={id}
+                  tabIndex={0}
+                  role="button"
+                  onClick={() => this.onLineClick( index )}
+                >
+                  {gurmukhi}
+                </span>
+              ) )}
+            </section>
+          </CSSTransition>
           <section className="controls">
             <LinkButton
               className="left button"

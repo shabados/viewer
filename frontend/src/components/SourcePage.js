@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import { string, oneOfType, number, elementType } from 'prop-types'
+import { string, oneOfType, number } from 'prop-types'
 import { history } from 'react-router-prop-types'
 import classNames from 'classnames'
 import { GlobalHotKeys } from 'react-hotkeys'
@@ -28,8 +28,8 @@ class SourcePage extends Component {
     nextLine: [ 'tab', 'right' ],
     firstLine: [ 'home' ],
     lastLine: [ 'end' ],
-    belowLine: [ 'down' ],
-    aboveLine: [ 'up' ],
+    // belowLine: [ 'down' ],
+    // aboveLine: [ 'up' ],
     openLine: [ 'enter' ],
     previousPage: [ 'ctrl+left', 'pageup' ],
     nextPage: [ 'ctrl+right', 'pagedown' ],

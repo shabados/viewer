@@ -33,6 +33,8 @@ class SourcePage extends Component {
     openLine: [ 'enter' ],
     previousPage: [ 'ctrl+left', 'pageup' ],
     nextPage: [ 'ctrl+right', 'pagedown' ],
+    firstPage: [ 'ctrl+home' ],
+    lastPage: [ 'ctrl+end' ],
   }
 
   state = {
@@ -118,6 +120,14 @@ class SourcePage extends Component {
   previousPage = () => {
     const { page } = this.props
     if ( page > 1 ) this.goToPage( +page - 1 )
+  }
+
+  firstPage = () => this.goToPage( 1 )
+
+  lastPage = () => {
+    const { length } = this.props
+
+    this.goToPage( length )
   }
 
   nextLine = () => {
@@ -220,6 +230,8 @@ class SourcePage extends Component {
     aboveLine: this.aboveLine,
     previousPage: this.previousPage,
     nextPage: this.nextPage,
+    firstPage: this.firstPage,
+    lastPage: this.lastPage,
     openLine: this.onLineEnter,
   }
 

@@ -108,7 +108,7 @@ class SourcePage extends Component {
     clearTimeout( this.navigatingTimeout )
     this.navigatingTimeout = setTimeout( () => this.setState( { navigating: false } ), 600 )
 
-    if ( page && page !== +currentPage ) history.push( `/sources/${source}/page/${page}/line/0` )
+    if ( page && page !== +currentPage ) history.replace( `/sources/${source}/page/${page}/line/0` )
   }
 
   nextPage = () => {

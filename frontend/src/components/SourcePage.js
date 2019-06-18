@@ -1,9 +1,11 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { string, oneOfType, number } from 'prop-types'
 import { history } from 'react-router-prop-types'
 import classNames from 'classnames'
 import { GlobalHotKeys } from 'react-hotkeys'
+import { debounce } from 'lodash'
 
 import { PAGE_API } from '../lib/consts'
 import { issueUrl, savePosition } from '../lib/utils'
@@ -18,24 +20,44 @@ import './SourcePage.css'
 class SourcePage extends Component {
   lineRefs = {}
 
+  navigatingTimeout = null
+
   keyMap = {
     previousLine: [ 'shift+tab', 'left' ],
     nextLine: [ 'tab', 'right' ],
-    firstLine: [ 'pageup' ],
-    lastLine: [ 'pagedown' ],
-    previousPage: [ 'ctrl+left' ],
-    nextPage: [ 'ctrl+right' ],
+    firstLine: [ 'home' ],
+    lastLine: [ 'end' ],
+    belowLine: [ 'down' ],
+    aboveLine: [ 'up' ],
+    openLine: [ 'enter' ],
+    previousPage: [ 'ctrl+left', 'pageup' ],
+    nextPage: [ 'ctrl+right', 'pagedown' ],
   }
 
   state = {
     lines: null,
     err: null,
+    navigating: false,
   }
+
+  blockedKeys = [ 'Tab', 'ArrowUp', 'ArrowDown' ]
+
+  loadPage = debounce( async () => {
+    const { page, source } = this.props
+
+    fetch( `${PAGE_API}/${source}/page/${page}` )
+      .then( res => res.json() )
+      .then( lines => {
+        this.lineRefs = {}
+        this.setState( { lines } )
+      } )
+      .catch( err => this.setState( { err } ) )
+  }, 100 )
 
   componentDidMount() {
     this.loadPage()
 
-    document.addEventListener( 'keydown', this.blockTab )
+    document.addEventListener( 'keydown', this.blockKeys )
     this.savePosition()
   }
 
@@ -51,11 +73,11 @@ class SourcePage extends Component {
   }
 
   componentWillUnmount() {
-    document.removeEventListener( 'keydown', this.blockTab )
+    document.removeEventListener( 'keydown', this.blockKeys )
   }
 
-  blockTab = event => {
-    if ( event.key === 'Tab' ) event.preventDefault()
+  blockKeys = event => {
+    if ( this.blockedKeys.some( key => event.key === key ) ) event.preventDefault()
   }
 
   savePosition = () => {
@@ -72,6 +94,11 @@ class SourcePage extends Component {
 
   goToPage = page => {
     const { history, source, page: currentPage } = this.props
+
+    // Display current page number
+    this.setState( { navigating: true } )
+    clearTimeout( this.navigatingTimeout )
+    this.navigatingTimeout = setTimeout( () => this.setState( { navigating: false } ), 600 )
 
     if ( page && page !== +currentPage ) history.push( `/sources/${source}/page/${page}/line/0` )
   }
@@ -110,26 +137,63 @@ class SourcePage extends Component {
     this.focusLine( lines.length - 1 )
   }
 
-  openIssue = ( id, gurmukhi ) => {
+  onLineClick = index => {
     const { source, page, nameEnglish } = this.props
-    window.open( issueUrl( { id, gurmukhi, source, page, nameEnglish } ) )
+    const { lines } = this.state
+
+    const { id, gurmukhi } = lines[ index ]
+
+    window.open( issueUrl( { id, line: index, gurmukhi, source, page, nameEnglish } ) )
+
+    this.focusLine( index )
   }
 
-  loadPage = async () => {
-    const { page, source } = this.props
+  onLineEnter = () => {
+    const { line } = this.props
 
-    fetch( `${PAGE_API}/${source}/page/${page}` )
-      .then( res => res.json() )
-      .then( lines => {
-        this.lineRefs = {}
-        this.setState( { lines } )
-        window.scrollTo( 0, 0 )
-      } )
-      .catch( err => this.setState( { err } ) )
+    this.onLineClick( line )
   }
 
-  onLineClick = ( { index, id, gurmukhi } ) => {
-    this.openIssue( id, gurmukhi )
+  belowLine = () => {
+    const { line } = this.props
+
+    const lineRef = this.lineRefs[ line ]
+    const { offsetTop, offsetLeft } = lineRef
+    const { scrollY } = window
+
+    // Scroll element into view
+    lineRef.scrollIntoView( { block: 'center' } )
+
+    // Calculate element's relative y position to viewport
+    const styles = getComputedStyle( lineRef )
+    const [ lineHeight ] = styles[ 'line-height' ].split( 'px' )
+    const relativeY = offsetTop - scrollY
+
+    // Get below the line element and index
+    const element = document.elementFromPoint( offsetLeft + 4, +lineHeight + relativeY )
+
+    const [ index ] = Object.entries( this.lineRefs ).find( ( [ , line ] ) => line === element )
+
+    this.focusLine( index )
+  }
+
+  aboveLine = () => {
+    const { line } = this.props
+
+    const lineRef = this.lineRefs[ line ]
+    const { offsetTop, offsetLeft } = lineRef
+    const { scrollY } = window
+
+    // Scroll element into view
+    lineRef.scrollIntoView( { block: 'center' } )
+
+    // Calculate element's relative y position to viewport
+    const relativeY = offsetTop - scrollY
+
+    // Get above the line element and index
+    const element = document.elementFromPoint( offsetLeft + 4, relativeY - 1 )
+
+    const [ index ] = Object.entries( this.lineRefs ).find( ( [ , line ] ) => line === element )
 
     this.focusLine( index )
   }
@@ -140,13 +204,16 @@ class SourcePage extends Component {
     nextLine: this.nextLine,
     firstLine: this.firstLine,
     lastLine: this.lastLine,
+    belowLine: this.belowLine,
+    aboveLine: this.aboveLine,
     previousPage: this.previousPage,
     nextPage: this.nextPage,
+    openLine: this.onLineEnter,
   }
 
   render() {
     const { line, page, pageNameGurmukhi, source, length } = this.props
-    const { lines, err } = this.state
+    const { lines, err, navigating } = this.state
 
     return (
       <div className="source-page">
@@ -161,8 +228,7 @@ class SourcePage extends Component {
                 key={id}
                 tabIndex={0}
                 role="button"
-                onClick={() => this.onLineClick( { id, gurmukhi, index } )}
-                onKeyPress={( ( { key } ) => key === 'Enter' && this.openIssue( id, gurmukhi ) )}
+                onClick={() => this.onLineClick( index )}
               >
                 {gurmukhi}
               </span>
@@ -181,6 +247,7 @@ class SourcePage extends Component {
               value={page}
               label={pageNameGurmukhi}
               onChange={( [ page ] ) => this.goToPage( page )}
+              tooltipActive={navigating}
             />
             <LinkButton
               className="right button"

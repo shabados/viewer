@@ -1,6 +1,13 @@
 import newGithubIssueUrl from 'new-github-issue-url'
 
-export const issueUrl = ( { id, gurmukhi, source, page, nameEnglish } ) => newGithubIssueUrl( {
+export const issueUrl = ( {
+  id,
+  gurmukhi,
+  source,
+  page,
+  nameEnglish,
+  line,
+} ) => newGithubIssueUrl( {
   user: 'ShabadOS',
   repo: 'Database',
   labels: [ 'correction', nameEnglish ],
@@ -10,7 +17,7 @@ export const issueUrl = ( { id, gurmukhi, source, page, nameEnglish } ) => newGi
 
 | Key | Value |
 | --- | ----- |
-View | https://database.shabados.com/sources/${source}/page/${page}
+View | https://database.shabados.com/sources/${source}/page/${page}/line/${line}
 Source | ${nameEnglish}
 Page | ${page}
 ID | ${id}
@@ -21,7 +28,7 @@ Line | ${gurmukhi}
 `,
 } )
 
-export const getPositions = () => JSON.parse( localStorage.getItem( 'positions' ) )
+export const getPositions = () => JSON.parse( localStorage.getItem( 'positions' ) ) || {}
 
 export const savePosition = ( source, page, line ) => localStorage.setItem(
   'positions',

@@ -12,7 +12,15 @@
   z-index: 300;
 }
 
+.slider-rail.all.disabled {
+  pointer-events: none;
+}
+
 .slider-rail.filled {
   pointer-events: none;
   background-color: rgb(165, 121, 145);
+}
+
+.slider-rail.filled.disabled {
+  background-color: grey;
 }

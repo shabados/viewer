@@ -13,9 +13,17 @@
   height: 24px;
 }
 
+.slider-handle.filled.disabled {
+  background-color: grey;
+}
+
 .slider-handle.hover {
   z-index: 400;
   cursor: pointer;
   height: 42px;
   width: 26px;
+}
+
+.slider-handle.hover.disabled {
+  pointer-events: none;
 }

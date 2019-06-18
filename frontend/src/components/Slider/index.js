@@ -12,7 +12,7 @@ const sliderStyle = {
   width: '100%',
 }
 
-const PageSlider = ( { min, max, value, onChange, label, tooltipActive } ) => (
+const PageSlider = ( { min, max, value, onChange, label, tooltipActive, disabled } ) => (
   <div className="slider">
     <Slider
       mode={1}
@@ -22,7 +22,7 @@ const PageSlider = ( { min, max, value, onChange, label, tooltipActive } ) => (
       onChange={onChange}
       values={[ value ]}
     >
-      <Rail>{railProps => <TooltipRail {...railProps} label={label} />}</Rail>
+      <Rail>{railProps => <TooltipRail {...railProps} label={label} disabled={disabled} />}</Rail>
       <Handles>
         {( { handles, getHandleProps } ) => (
           <div className="slider-handles">
@@ -35,6 +35,7 @@ const PageSlider = ( { min, max, value, onChange, label, tooltipActive } ) => (
                 min={min}
                 max={max}
                 tooltipActive={tooltipActive}
+                disabled={disabled}
               />
             ) )}
           </div>
@@ -68,11 +69,13 @@ PageSlider.propTypes = {
   value: number.isRequired,
   label: string.isRequired,
   tooltipActive: bool,
+  disabled: bool,
 }
 
 PageSlider.defaultProps = {
   onChange: () => {},
   tooltipActive: false,
+  disabled: false,
 }
 
 export default PageSlider

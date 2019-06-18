@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { number, string, func, shape, bool } from 'prop-types'
+import classNames from 'classnames'
 
 import Tooltip from './Tooltip'
 
@@ -20,13 +21,14 @@ class Handle extends Component {
       getHandleProps,
       label,
       tooltipActive,
+      disabled,
     } = this.props
 
     const { mouseOver } = this.state
 
     return (
       <Fragment>
-        {( mouseOver || tooltipActive ) && (
+        {!disabled && ( mouseOver || tooltipActive ) && (
           <div
             style={{
               left: `${percent}%`,
@@ -39,7 +41,7 @@ class Handle extends Component {
           </div>
         )}
         <div
-          className="slider-handle hover"
+          className={classNames( 'slider-handle', 'hover', { disabled } )}
           style={{ left: `${percent}%` }}
           {...getHandleProps( id, {
             onMouseEnter: this.onMouseEnter,
@@ -49,7 +51,7 @@ class Handle extends Component {
           } )}
         />
         <div
-          className="slider-handle filled"
+          className={classNames( 'slider-handle', 'filled', { disabled } )}
           role="slider"
           aria-valuemin={min}
           aria-valuemax={max}
@@ -72,10 +74,12 @@ Handle.propTypes = {
   } ).isRequired,
   label: string.isRequired,
   getHandleProps: func.isRequired,
+  disabled: bool,
 }
 
 Handle.defaultProps = {
   tooltipActive: false,
+  disabled: false,
 }
 
 export default Handle

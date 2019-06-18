@@ -254,6 +254,7 @@ class SourcePage extends Component {
               label={pageNameGurmukhi}
               onChange={( [ page ] ) => this.goToPage( page )}
               tooltipActive={navigating}
+              disabled={length === 1}
             />
             <LinkButton
               className="right button"

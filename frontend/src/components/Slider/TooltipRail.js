@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
-import { func, string } from 'prop-types'
+import { func, string, bool } from 'prop-types'
+import classNames from 'classnames'
 
 import Tooltip from './Tooltip'
 
@@ -29,7 +30,7 @@ class TooltipRail extends Component {
 
   render() {
     const { value, percent } = this.state
-    const { label, getRailProps } = this.props
+    const { label, getRailProps, disabled } = this.props
 
     return (
       <Fragment>
@@ -46,22 +47,27 @@ class TooltipRail extends Component {
           </div>
         )}
         <div
-          className="slider-rail all"
+          className={classNames( 'slider-rail', 'all', { disabled } )}
           {...getRailProps( {
             onMouseEnter: this.onMouseEnter,
             onMouseLeave: this.onMouseLeave,
           } )}
         />
-        <div className="slider-rail filled" />
+        <div className={classNames( 'slider-rail', 'filled', { disabled } )} />
       </Fragment>
     )
   }
 }
 
 TooltipRail.propTypes = {
+  disabled: bool,
   getEventData: func.isRequired,
   getRailProps: func.isRequired,
   label: string.isRequired,
+}
+
+TooltipRail.defaultProps = {
+  disabled: false,
 }
 
 export default TooltipRail

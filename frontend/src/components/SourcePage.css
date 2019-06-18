@@ -6,12 +6,12 @@
   user-select: none;
   justify-content: center;
   align-items: center;
-  padding-bottom: 3.245em;
 }
 
 .source-page .lines {
   padding: 1em;
   text-align: justify;
+  margin-bottom: 3.245em;
 }
 
 .source-page .lines .line {

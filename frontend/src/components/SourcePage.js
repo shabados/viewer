@@ -38,6 +38,7 @@ class SourcePage extends Component {
     lines: null,
     err: null,
     navigating: false,
+    loading: true,
   }
 
   blockedKeys = [ 'Tab', 'ArrowUp', 'ArrowDown', 'PageUp', 'PageDown' ]
@@ -49,9 +50,9 @@ class SourcePage extends Component {
       .then( res => res.json() )
       .then( lines => {
         this.lineRefs = {}
-        this.setState( { lines } )
+        this.setState( { lines, loading: false } )
       } )
-      .catch( err => this.setState( { err } ) )
+      .catch( err => this.setState( { err, loading: false } ) )
   }, 100 )
 
   componentDidMount() {
@@ -61,15 +62,19 @@ class SourcePage extends Component {
     this.savePosition()
   }
 
-  componentDidUpdate( { source: prevSource, page: prevPage, line: prevLine } ) {
+  //! Lots of repetition can be refactored out here
+  componentDidUpdate(
+    { source: prevSource, page: prevPage, line: prevLine },
+    { lines: prevLines },
+  ) {
     const { source, page, line } = this.props
+    const { lines, loading } = this.state
 
     if ( prevSource !== source || prevPage !== page ) this.loadPage()
 
-    if ( prevSource !== source || prevPage !== page || prevLine !== line ) {
-      this.savePosition()
-      this.lineRefs[ line ].scrollIntoView( { block: 'center' } )
-    }
+    if ( prevSource !== source || prevPage !== page || prevLine !== line ) this.savePosition()
+
+    if ( lines && lines !== prevLines && !loading ) this.lineRefs[ line ].scrollIntoView( { block: 'center' } )
   }
 
   componentWillUnmount() {
@@ -96,7 +101,7 @@ class SourcePage extends Component {
     const { history, source, page: currentPage } = this.props
 
     // Display current page number
-    this.setState( { navigating: true } )
+    this.setState( { navigating: true, loading: true } )
     clearTimeout( this.navigatingTimeout )
     this.navigatingTimeout = setTimeout( () => this.setState( { navigating: false } ), 600 )
 
@@ -219,18 +224,18 @@ class SourcePage extends Component {
 
   render() {
     const { line, page, pageNameGurmukhi, source, length } = this.props
-    const { lines, err, navigating } = this.state
+    const { lines, err, navigating, loading } = this.state
 
     return (
       <div className="source-page">
         {err && <Error err={err} />}
-        {!( lines || err ) && <Loader />}
+        {loading && !( lines || err ) && <Loader />}
         <GlobalHotKeys keyMap={this.keyMap} handlers={this.handlers}>
           <section className="lines">
             {lines && lines.map( ( { id, gurmukhi }, index ) => (
               <span
                 ref={ref => { this.lineRefs[ index ] = ref }}
-                className={classNames( 'line', { focused: +line === index } )}
+                className={classNames( 'line', { focused: +line === index && !loading } )}
                 key={id}
                 tabIndex={0}
                 role="button"

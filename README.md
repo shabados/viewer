@@ -1,3 +1,4 @@
+
 # Shabad OS Database Viewer
 
 <div align="center">
@@ -56,15 +57,15 @@ Proof | Edition | Author | Publisher
 [Nitnem Gutka](https://drive.google.com/open?id=1AyQLCQgrNznDxI9Vby3knE4Piyrdsnxs) | May 2017 | - | SGPC, Sri Amritsar 
 [Akal Ustat](https://drive.google.com/open?id=1QumuyIUC1oLRoODz3gaaEEnYwbqj1d5t) | 5th Ed., December 1995 | - | SGPC, Sri Amritsar 
 [Bachittar Natak](https://drive.google.com/open?id=1z3Waum_FUoUzb1Faj7l5ZGzJYHG2THe1) | 7th Ed., July 2000 | - | SGPC, Sri Amritsar 
-[Sri Dasam Granth](https://drive.google.com/open?id=1EG6okisvuibNK-RgSlLBLS1Z_T5-81_p) | - | Dr. Ratan Singh Jaggi | Gobind Sadan, New Delhi 
 [Zafarnama](https://drive.google.com/open?id=1hR-CeTH1YTiCtUn79c2TwROa_ZvbPdwE) | 6th Ed., September 2013 | Piara Singh Padam | Singh Brothers, Sri Amritsar 
+[Sri Dasam Granth Shiromani Steek (Vol. 1)](https://drive.google.com/open?id=10V2Ah4i5s1m_sxpMvFp_uxwVAzHEPwcl)<br> [Sri Dasam Granth Shiromani Steek (Vol. 2)](https://drive.google.com/open?id=1dK3b13mznXq2c88dywk4A5VP2PzBpmhU)<br> [Sri Dasam Granth Shiromani Steek (Vol. 3)](https://drive.google.com/open?id=1w9dvC0M2G1_hRmEDoxZj3aNakK1zv-9W)<br> [Sri Dasam Granth Shiromani Steek (Vol. 4)](https://drive.google.com/open?id=1mxqCLhrCuazeCsstYZUGc2UmW8-TButx)<br> [Sri Dasam Granth Shiromani Steek (Vol. 5)](https://drive.google.com/open?id=1ipiQa7gSQtt5zrRKK-sT0X1kHaStr7kU)<br> [Sri Dasam Granth Shiromani Steek (Vol. 6)](https://drive.google.com/open?id=16R0IrpxnMFBJZ-wvnt0DQ_czrTIqxyXC) | Vol. 1-6: Vaisakhi 1999 | Eshar Singh Ramgharia Ropar | Gurdwara Rajdhani Bunga Nihung Singh, Mehron, Dist. Moga 
+[Sri Dasam Granth](https://drive.google.com/open?id=1EG6okisvuibNK-RgSlLBLS1Z_T5-81_p) | - | Dr. Ratan Singh Jaggi | Gobind Sadan, New Delhi 
 
 ### Vaaran Bhai Gurdaas Ji
 
 Proof | Edition | Author | Publisher 
 ---|---|---|---
 [Vaaran Bhai Gurdaas Ji](https://drive.google.com/open?id=1_lw_qOndvQJnT5ClYBbLb63aX9-IslwZ) | November 2011 | Shamsher Singh Ashok | SGPC, Sri Amritsar 
-[Amrit Keertan](https://drive.google.com/open?id=1QJdE1ZeutRhkT1FDh1S0b83Z-4rTQyNa) | 40th Ed., July 2011 | "ਕੂਕਰ ਰਾਮ ਕਉ" | Khalsa Brothers, Sri Amritsar 
 
 ### Kabit Savaiye Bhai Gurdaas Ji
 
@@ -106,7 +107,8 @@ Proof | Origin
 [Kabit Savaiye Bhai Gurdas Ji Steek](https://drive.google.com/open?id=1-imMygFPdXKj0DuydErsUrtg1IWiu_q7) | [sikhbookclub.com](http://sikhbookclub.com/Book/Kabit-Sawaiye-Bhai-Gurdas-Ji-Steek3)
 [Bhai Nand Lal Granthavali](https://drive.google.com/open?id=1bKjrbqUAn_7TDThLeHcH_GSZuM8iY268) | [sikhbookclub.com](http://sikhbookclub.com/Book/Bhai-Nand-Lal-Granthavali)
 [Rehitname](https://drive.google.com/open?id=1-mJn4UdGMtwb8ELG4VREYU0EPHqXzpu8) | GurbaniNow.com / ShabadOS
-[Amrit Keertan](https://drive.google.com/open?id=1QJdE1ZeutRhkT1FDh1S0b83Z-4rTQyNa) | [sikhbookclub.com](http://sikhbookclub.com/Book/Amrit-Kirtan1)
+[Amrit Keertan](https://drive.google.com/open?id=1QJdE1ZeutRhkT1FDh1S0b83Z-4rTQyNa) | [sikhbookclub.com](http://sikhbookclub.com/Book/Amrit-Kirtan1) 
+[Sri Dasam Granth Shiromani Steek (Vol. 1)](https://drive.google.com/open?id=10V2Ah4i5s1m_sxpMvFp_uxwVAzHEPwcl)<br> [Sri Dasam Granth Shiromani Steek (Vol. 2)](https://drive.google.com/open?id=1dK3b13mznXq2c88dywk4A5VP2PzBpmhU)<br> [Sri Dasam Granth Shiromani Steek (Vol. 3)](https://drive.google.com/open?id=1w9dvC0M2G1_hRmEDoxZj3aNakK1zv-9W)<br> [Sri Dasam Granth Shiromani Steek (Vol. 4)](https://drive.google.com/open?id=1mxqCLhrCuazeCsstYZUGc2UmW8-TButx)<br> [Sri Dasam Granth Shiromani Steek (Vol. 5)](https://drive.google.com/open?id=1ipiQa7gSQtt5zrRKK-sT0X1kHaStr7kU)<br> [Sri Dasam Granth Shiromani Steek (Vol. 6)](https://drive.google.com/open?id=16R0IrpxnMFBJZ-wvnt0DQ_czrTIqxyXC) | Vol. 1: [discoversikhism.com](http://www.discoversikhism.com/sikh_library/gurmukhi/dasam_sri_guru_granth_sahib_ji_shiromani_steek_1.html)<br> Vol. 2: [discoversikhism.com](http://www.discoversikhism.com/sikh_library/gurmukhi/dasam_sri_guru_granth_sahib_ji_shiromani_steek_2.html)<br> Vol. 3: [discoversikhism.com](http://www.discoversikhism.com/sikh_library/gurmukhi/dasam_sri_guru_granth_sahib_ji_shiromani_steek_3.html)<br> Vol. 4: [discoversikhism.com](http://www.discoversikhism.com/sikh_library/gurmukhi/dasam_sri_guru_granth_sahib_ji_shiromani_steek_4.html)<br> Vol. 5: [discoversikhism.com](http://www.discoversikhism.com/sikh_library/gurmukhi/dasam_sri_guru_granth_sahib_ji_shiromani_steek_5.html)<br> Vol. 6: [discoversikhism.com](http://www.discoversikhism.com/sikh_library/gurmukhi/dasam_sri_guru_granth_sahib_ji_shiromani_steek_6.html) 
 [Sanpuran Steek Sri Sarabloh Granth Ji](https://drive.google.com/open?id=1-C8E3YYeAFIqacfe8Xy7scDFpTyn62_U) | [adelaidesangat.com](http://www.adelaidesangat.com/index.php/downloads/Gurbani-PDF/Sri-Sarabloh-Granth-Sahib/Complete-Sri-Sarbloh-Granth-Sahib-Ji-Steek.pdf/)
 [Sanpuran Steek Sri Sarabloh Granth Ji (Vol. 1)](https://drive.google.com/open?id=1-dbLAUCw2ME4gyBXS7QttId9WxDEkQnf)<br> [Sanpuran Steek Sri Sarabloh Granth Ji (Vol. 2)](https://drive.google.com/open?id=1ooERm2R6rwtedMTs1z21HakqtvHxMqjr) | Vol. 1: [panjabdigilib.org](http://panjabdigilib.org/webuser/searches/displayPage.jsp?ID=9210&page=1&CategoryID=1&Searched=)<br> Vol. 2: [panjabdigilib.org](http://panjabdigilib.org/webuser/searches/displayPage.jsp?ID=9209&page=1&CategoryID=1&Searched=)
 

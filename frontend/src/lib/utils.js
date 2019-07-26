@@ -13,7 +13,7 @@ export const issueUrl = ( {
   labels: [ 'correction', nameEnglish ],
   title: `${id}`,
   body: `
-<!-- These instructions are hidden. Use the preview tab to visualize the code. Tutorial can be found at https://database.shabados.com. -->
+<!-- Instructions are hidden. Use the preview tab. Tutorial: https://database.shabados.com -->
 
 | Key | Value |
 | --- | ----- |
@@ -23,7 +23,7 @@ Page | ${page}
 ID | ${id}
 Line | ${gurmukhi}
 
-<!-- Bold any differences in the line above. Provide the name, edition, and image of the physical proof below. Attached images should include context and an indication of where to look. -->
+<!-- Add details & attach image(s) below. Provide context & indication. Example: https://github.com/ShabadOS/database/issues/812 -->
 
 `,
 } )

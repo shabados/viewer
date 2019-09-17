@@ -95,7 +95,6 @@ export const checkUpdates = async () => {
  * Provides a recursive update checking function.
  * Checks for updates at constant interval.
  */
-export const updateLoop = async () => {
-  await checkUpdates()
-  setTimeout( updateLoop, UPDATE_CHECK_INTERVAL )
-}
+export const updateLoop = async () => checkUpdates()
+  .catch( err => console.error( 'Unable to check for updates', err ) )
+  .finally( () => setTimeout( updateLoop, UPDATE_CHECK_INTERVAL ) )

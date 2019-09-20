@@ -31,26 +31,9 @@ jobs:
       # Push the image to Docker Hub
       - run: docker push shabados/database-viewer-backend:${CIRCLE_SHA1}
 
-  deploy:
-    docker:
-      - image: microsoft/azure-cli
-    steps:
-      # Fetch the source code
-      - checkout
-      # Log in to Azure
-      - run: az login --service-principal -u ${AZURE_USERNAME} -p ${AZURE_PASSWORD} --tenant ${AZURE_TENANT}
-      # Get kubernetes credentials
-      - run: az aks get-credentials --resource-group ${AZURE_RESOURCE_GROUP} --name ${AZURE_CLUSTER_NAME}
-      # Install Kubernetes CLI
-      - run: az aks install-cli
-      # Update the k8s.yml with the commit tag
-      - run: sed -i "s#{{ IMAGE_TAG }}#${CIRCLE_SHA1}#g" k8s.yml
-      # Pull the latest deployment with kubernetes
-      - run: kubectl apply -f k8s.yml
-
 workflows:
   version: 2
-  deploy:
+  build:
     jobs:
       - build:backend:
           filters:
@@ -60,7 +43,3 @@ workflows:
           filters:
             branches:
               only: master
-      - deploy:
-          requires:
-            - build:frontend
-            - build:backend

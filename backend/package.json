@@ -37,6 +37,6 @@
     "fs-extra": "^8.0.1",
     "helmet": "^3.18.0",
     "import-fresh": "^3.0.0",
-    "pacote": "^9.5.1"
+    "pacote": "^10.3.1"
   }
 }

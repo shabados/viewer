@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import { getSources, getLinesOnPage } from './db'
+import { getSources, getLinesOnPage, getLine } from './db'
 
 const api = Router()
 
@@ -13,6 +13,12 @@ api.get( '/sources', ( _, res ) => (
 api.get( '/source/:sourceId/page/:pageId', ( { params: { sourceId, pageId } }, res ) => (
   getLinesOnPage( sourceId, pageId )
     .then( lines => res.json( lines ) )
+    .catch( err => res.status( 400 ).json( err ) )
+) )
+
+api.get( '/line/:lineId', ( { params: { lineId } }, res ) => (
+  getLine( lineId )
+    .then( line => res.json( line ) )
     .catch( err => res.status( 400 ).json( err ) )
 ) )
 

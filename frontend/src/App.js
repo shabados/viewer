@@ -3,8 +3,10 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 import { getPositions } from './lib/utils'
 import { SOURCES_API } from './lib/consts'
+
 import Home from './components/Home'
 import SourcePage from './components/SourcePage'
+import LineRedirect from './components/LineRedirect'
 
 import './App.css'
 
@@ -31,6 +33,7 @@ class App extends Component {
       <Router>
         <div className="app">
           <Route exact path="/" render={() => <Home err={err} sources={sources} positions={positions} />} />
+
           <Route
             path="/sources/:source/page/:page/line/:line"
             render={( { match: { params: { page, source, line } } } ) => (
@@ -43,6 +46,12 @@ class App extends Component {
             )
             }
           />
+
+          <Route
+            path="/line/:id"
+            render={( { match: { params: { id } } } ) => ( <LineRedirect id={id} /> )}
+          />
+
         </div>
       </Router>
     )

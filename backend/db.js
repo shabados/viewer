@@ -53,6 +53,22 @@ export const isLatestDatabase = async () => {
 }
 
 /**
+ * Get local database version.
+ * @async
+ * @returns {string} Local database verison.
+ */
+export const getDbVersion = async () => {
+  // Read package.json database semver and database package file
+  const [ , { version } ] = await Promise.all( [
+    manifest( databasePackage ),
+    readJSON( 'node_modules/@shabados/database/package.json', 'utf-8' ),
+  ] )
+
+  return version
+}
+
+
+/**
  * Downloads the latest version of the database, according to semver.
  * Hot-reloads the data only.
  * ! Code will not be hot-reloaded, and code updates require a restart.

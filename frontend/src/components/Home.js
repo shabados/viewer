@@ -10,11 +10,12 @@ import './Home.css'
 
 const getPosition = ( source, positions ) => positions[ source ] || { line: 0, page: 1 }
 
-const Home = ( { err, sources, positions } ) => (
+const Home = ( { err, sources, positions, version: { version } } ) => (
   <div className="home">
     <section className="introduction">
       <img className="logo" src={logo} alt="Shabad OS Logo" />
       <h1>Database Viewer</h1>
+      <h4>{ !version ? 'Version loading...' : `Version ${version}`}</h4>
       <div className="links">
         <a href="https://github.com/ShabadOS/database-viewer#getting-started" className="button">Getting Started</a>
         <a href="https://github.com/ShabadOS/database-viewer/blob/master/CONTRIBUTING.md" className="button">Contributing</a>
@@ -42,11 +43,13 @@ Home.propTypes = {
   sources: arrayOf( string ),
   positions: shape( { page: number } ).isRequired,
   err: shape( { message: string } ),
+  version: shape( { version: string } ),
 }
 
 Home.defaultProps = {
   sources: null,
   err: null,
+  version: null,
 }
 
 export default Home

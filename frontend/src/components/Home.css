@@ -34,6 +34,8 @@
 
 .home .introduction h4 {
   margin-top: 0;
+  font-weight: 100;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .home .introduction .links {

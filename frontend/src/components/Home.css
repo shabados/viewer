@@ -32,6 +32,10 @@
   font-weight: 100;
 }
 
+.home .introduction h4 {
+  margin-top: 0;
+}
+
 .home .introduction .links {
   display: flex;
   flex-wrap: wrap;

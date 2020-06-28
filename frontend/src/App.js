@@ -12,12 +12,12 @@ class App extends Component {
   state = {
     sources: [],
     err: null,
-    version: {},
+    version: '',
   }
 
   componentDidMount() {
     this.loadSources()
-    this.dbVersion()
+    this.localDbVersion()
   }
 
   loadSources = () => fetch( SOURCES_API )
@@ -25,7 +25,7 @@ class App extends Component {
     .then( sources => this.setState( { sources } ) )
     .catch( err => this.setState( { err } ) )
 
-  dbVersion = () => fetch( DB_VERSION )
+  localDbVersion = () => fetch( DB_VERSION )
     .then( res => res.json() )
     .then( version => this.setState( { version } ) )
     .catch( err => this.setState( { err } ) )

@@ -59,10 +59,7 @@ export const isLatestDatabase = async () => {
  */
 export const getDbVersion = async () => {
   // Read package.json database semver and database package file
-  const [ , { version } ] = await Promise.all( [
-    manifest( databasePackage ),
-    readJSON( 'node_modules/@shabados/database/package.json', 'utf-8' ),
-  ] )
+  const { version } = await readJSON( 'node_modules/@shabados/database/package.json', 'utf-8' )
 
   return version
 }

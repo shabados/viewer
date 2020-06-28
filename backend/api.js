@@ -16,6 +16,6 @@ api.get( '/source/:sourceId/page/:pageId', ( { params: { sourceId, pageId } }, r
     .catch( err => res.status( 400 ).json( err ) )
 ) )
 
-api.get( '/version', async ( _, res ) => res.json( { version: await getDbVersion() } ) )
+api.get( '/version', async ( _, res ) => res.json( await getDbVersion() ) )
 
 export default api

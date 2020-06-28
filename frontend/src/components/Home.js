@@ -10,7 +10,7 @@ import './Home.css'
 
 const getPosition = ( source, positions ) => positions[ source ] || { line: 0, page: 1 }
 
-const Home = ( { err, sources, positions, version: { version } } ) => (
+const Home = ( { err, sources, positions, version } ) => (
   <div className="home">
     <section className="introduction">
       <img className="logo" src={logo} alt="Shabad OS Logo" />
@@ -43,7 +43,7 @@ Home.propTypes = {
   sources: arrayOf( string ),
   positions: shape( { page: number } ).isRequired,
   err: shape( { message: string } ),
-  version: shape( { version: string } ),
+  version: string,
 }
 
 Home.defaultProps = {

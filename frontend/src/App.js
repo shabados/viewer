@@ -12,7 +12,7 @@ class App extends Component {
   state = {
     sources: [],
     err: null,
-    version: '',
+    dbVersion: '',
   }
 
   componentDidMount() {
@@ -27,17 +27,17 @@ class App extends Component {
 
     loadDbVersion = () => fetch( DB_VERSION )
       .then( res => res.json() )
-      .then( version => this.setState( { version } ) )
+      .then( dbVersion => this.setState( { dbVersion } ) )
       .catch( err => this.setState( { err } ) )
 
     render() {
-      const { sources, err, version } = this.state
+      const { sources, err, dbVersion } = this.state
       const positions = getPositions()
 
       return (
         <Router>
           <div className="app">
-            <Route exact path="/" render={() => <Home err={err} sources={sources} version={version} positions={positions} />} />
+            <Route exact path="/" render={() => <Home err={err} sources={sources} dbVersion={dbVersion} positions={positions} />} />
             <Route
               path="/sources/:source/page/:page/line/:line"
               render={( { match: { params: { page, source, line } } } ) => (

@@ -40,7 +40,7 @@ const Home = ( { err, sources, positions, dbVersion } ) => (
 )
 
 Home.propTypes = {
-  sources: arrayOf( string ),
+  sources: arrayOf( shape( {} ) ),
   positions: shape( { page: number } ).isRequired,
   err: shape( { message: string } ),
   dbVersion: string,

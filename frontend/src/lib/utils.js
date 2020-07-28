@@ -34,3 +34,14 @@ export const savePosition = ( source, page, line ) => localStorage.setItem(
   'positions',
   JSON.stringify( { ...getPositions(), [ source ]: { page, line } } ),
 )
+
+/**
+ * Get data from using `fetch` and set it to state.
+ * @param {string} source The source to fetch data.
+ * @param {React.SetStateAction} setState
+ * @param {React.SetStateAction} setErr
+ */
+export const getSetData = ( source, setState, setErr ) => fetch( source )
+  .then( res => res.json() )
+  .then( jsonRes => setState( jsonRes ) )
+  .catch( err => setErr( err ) )

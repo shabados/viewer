@@ -2,21 +2,21 @@
   "name": "@shabados/database-viewer--frontend",
   "version": "0.1.0",
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.19",
-    "@fortawesome/free-solid-svg-icons": "^5.9.0",
-    "@fortawesome/react-fontawesome": "^0.1.4",
+    "@fortawesome/fontawesome-svg-core": "^1.2.30",
+    "@fortawesome/free-solid-svg-icons": "^5.14.0",
+    "@fortawesome/react-fontawesome": "^0.1.11",
     "classnames": "^2.2.6",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.20",
     "new-github-issue-url": "^0.2.1",
     "prop-types": "^15.7.2",
-    "react": "^16.8.6",
-    "react-compound-slider": "^2.0.0",
-    "react-dom": "^16.8.6",
-    "react-hotkeys": "^2.0.0-pre8",
-    "react-router-dom": "^5.0.1",
+    "react": "^16.13.1",
+    "react-compound-slider": "^2.5.0",
+    "react-dom": "^16.13.1",
+    "react-hotkeys": "^2.0.0",
+    "react-router-dom": "^5.2.0",
     "react-router-prop-types": "^1.0.4",
     "react-scripts": "3.0.1",
-    "react-transition-group": "^4.1.1"
+    "react-transition-group": "^4.4.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -36,14 +36,14 @@
   },
   "homepage": "/",
   "devDependencies": {
-    "babel-eslint": "^10.0.2",
+    "babel-eslint": "^10.1.0",
     "eslint": "^5.16.0",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-plugin-import": "^2.17.3",
-    "eslint-plugin-jsdoc": "^8.1.0",
-    "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-react": "^7.13.0",
-    "http-proxy-middleware": "^0.19.1"
+    "eslint-config-airbnb": "^17.1.1",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsdoc": "^8.7.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.20.6",
+    "http-proxy-middleware": "^0.19.2"
   },
   "browserslist": [
     ">0.2%",

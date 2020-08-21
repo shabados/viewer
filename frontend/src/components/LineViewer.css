@@ -1,0 +1,31 @@
+.line-viewer {
+  height: 100%;
+  background: white;
+}
+
+.line-viewer .line {
+  display: flex;
+  justify-content: space-between;
+  background-color: #F0EDE9;
+}
+
+.line-viewer .line h1 {
+  font-family: 'Open Gurbani Akhar Bold';
+  font-size: 2em;
+  transition: 0.125s all ease-in-out;
+  text-align: center;
+}
+
+.line-viewer .line .button {
+  color: #BA3F6A;
+  font-size: 2.326em;
+  transition: 0.125s all ease-in-out;
+  padding: 0 0.7em;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.line-viewer .content {
+
+  margin: 0 2em;
+}

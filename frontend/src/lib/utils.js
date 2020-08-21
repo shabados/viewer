@@ -1,4 +1,5 @@
 import newGithubIssueUrl from 'new-github-issue-url'
+import { isEmpty } from 'lodash'
 
 export const issueUrl = ( {
   id,
@@ -32,3 +33,13 @@ export const savePosition = ( source, page, line ) => localStorage.setItem(
   'positions',
   JSON.stringify( { ...getPositions(), [ source ]: { page, line } } ),
 )
+
+/**
+ *
+ * @param {object} info Objects that needs to be deserialized.
+ * @returns {object} Deserialized object.
+ */
+export const desierialzeObject = obj => {
+  if ( isEmpty( obj ) ) return {}
+  return ( JSON.parse( obj ) )
+}

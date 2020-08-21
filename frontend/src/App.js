@@ -1,13 +1,16 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import { getPositions } from './lib/utils'
 import { SOURCES_API, DB_VERSION_API } from './lib/consts'
 import Home from './components/Home'
 import SourcePage from './components/SourcePage'
 import LineRedirect from './components/LineRedirect'
+import LineViewer from './components/LineViewer'
 
 import './App.css'
+
+const LINES_PATH_FRONTEND = '/sources/:source/page/:page/line/:line'
 
 class App extends Component {
   state = {
@@ -52,11 +55,12 @@ class App extends Component {
             }
             />
 
+            <Route path={`${LINES_PATH_FRONTEND}/:lineId/view`} component={LineViewer} />
+
             <Route
               path="/line/:id"
               render={( { match: { params: { id } } } ) => ( <LineRedirect id={id} /> )}
             />
-
           </div>
         </Router>
       )

@@ -1,3 +1,8 @@
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .source-page {
   display: flex;
   flex-direction: column;

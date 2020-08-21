@@ -35,6 +35,25 @@ export const getLinesOnPage = ( sourceId, page ) => Lines
   .orderBy( 'order_id' )
 
 /**
+ * Gets a line, and the line index for the page.
+ * Todo: Performance can be increased by not querying getLinesOnPage().
+ * @param {string} id The id of the line.
+ */
+export const getLine = async id => {
+  const line = await Lines
+    .query()
+    .eager( 'shabad' )
+    .where( 'lines.id', id )
+    .first()
+
+  const pageLines = await getLinesOnPage( line.shabad.sourceId, line.sourcePage )
+
+  const index = pageLines.findIndex( ( { id } ) => id === line.id )
+
+  return { ...line, index }
+}
+
+/**
  * Determines whether the database is the latest version, according to semver.
  * @async
  * @returns {boolean} Whether or not the latest database is installed.

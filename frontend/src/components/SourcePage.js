@@ -154,12 +154,12 @@ class SourcePage extends Component {
   }
 
   onLineClick = index => {
-    const { source, page, nameEnglish } = this.props
+    const { page, nameEnglish } = this.props
     const { lines } = this.state
 
     const { id, gurmukhi } = lines[ index ]
 
-    window.open( issueUrl( { id, line: index, gurmukhi, source, page, nameEnglish } ) )
+    window.open( issueUrl( { id, gurmukhi, page, nameEnglish } ) )
 
     this.focusLine( index )
   }

@@ -3,10 +3,8 @@ import newGithubIssueUrl from 'new-github-issue-url'
 export const issueUrl = ( {
   id,
   gurmukhi,
-  source,
   page,
   nameEnglish,
-  line,
 } ) => newGithubIssueUrl( {
   user: 'ShabadOS',
   repo: 'Database',
@@ -17,7 +15,7 @@ export const issueUrl = ( {
 
 | Key | Value |
 | --- | ----- |
-View | https://database.shabados.com/sources/${source}/page/${page}/line/${line}
+View | https://database.shabados.com/line/${id}
 Source | ${nameEnglish}
 Page | ${page}
 ID | ${id}

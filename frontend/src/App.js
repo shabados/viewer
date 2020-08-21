@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 import { getPositions } from './lib/utils'
-import { SOURCES_API, DB_VERSION } from './lib/consts'
+import { SOURCES_API, DB_VERSION_API } from './lib/consts'
 import Home from './components/Home'
 import SourcePage from './components/SourcePage'
+import LineRedirect from './components/LineRedirect'
 
 import './App.css'
 
@@ -25,7 +26,7 @@ class App extends Component {
     .then( sources => this.setState( { sources } ) )
     .catch( err => this.setState( { err } ) )
 
-    loadDbVersion = () => fetch( DB_VERSION )
+    loadDbVersion = () => fetch( DB_VERSION_API )
       .then( res => res.json() )
       .then( dbVersion => this.setState( { dbVersion } ) )
       .catch( err => this.setState( { err } ) )
@@ -50,6 +51,12 @@ class App extends Component {
               )
             }
             />
+
+            <Route
+              path="/line/:id"
+              render={( { match: { params: { id } } } ) => ( <LineRedirect id={id} /> )}
+            />
+
           </div>
         </Router>
       )

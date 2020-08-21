@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import { string, oneOfType, number } from 'prop-types'
 import { history } from 'react-router-prop-types'
 import classNames from 'classnames'
@@ -9,7 +9,7 @@ import { debounce } from 'lodash'
 import { CSSTransition } from 'react-transition-group'
 
 import { PAGE_API } from '../lib/consts'
-import { issueUrl, savePosition } from '../lib/utils'
+import { savePosition } from '../lib/utils'
 
 import Loader from './Loader'
 import LinkButton from './LinkButton'
@@ -153,22 +153,20 @@ class SourcePage extends Component {
     this.focusLine( lines.length - 1 )
   }
 
-  onLineClick = index => {
-    const { page, nameEnglish } = this.props
+  getLineRoute = index => {
+    const { source, page } = this.props
     const { lines } = this.state
+    const { id } = lines[ index ]
 
-    const { id, gurmukhi } = lines[ index ]
-
-    window.open( issueUrl( { id, gurmukhi, page, nameEnglish } ) )
-
-    this.focusLine( index )
+    return `/sources/${source}/page/${page}/line/${index}/${id}/view`
   }
 
   onLineEnter = () => {
-    const { line } = this.props
+    const { line, history } = this.props
 
-    this.onLineClick( line )
+    history.replace( this.getLineRoute( line ) )
   }
+
 
   belowLine = () => {
     const { line } = this.props
@@ -250,18 +248,21 @@ class SourcePage extends Component {
             classNames="fade"
           >
             <section className="lines">
+
               {lines && lines.map( ( { id, gurmukhi }, index ) => (
-                <span
-                  ref={ref => { this.lineRefs[ index ] = ref }}
-                  className={classNames( 'line', { focused: +line === index && !loading } )}
-                  key={id}
-                  tabIndex={0}
-                  role="button"
-                  onClick={() => this.onLineClick( index )}
-                >
-                  {gurmukhi}
-                </span>
+                <Link to={this.getLineRoute( index )}>
+                  <span
+                    ref={ref => { this.lineRefs[ index ] = ref }}
+                    className={classNames( 'line', { focused: +line === index && !loading } )}
+                    key={id}
+                    tabIndex={0}
+                    role="button"
+                  >
+                    {gurmukhi}
+                  </span>
+                </Link>
               ) )}
+
             </section>
           </CSSTransition>
           <section className="controls">

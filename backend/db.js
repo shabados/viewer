@@ -83,7 +83,6 @@ export const getDbVersion = async () => {
   return version
 }
 
-
 /**
  * Downloads the latest version of the database, according to semver.
  * Hot-reloads the data only.
@@ -130,3 +129,13 @@ export const checkUpdates = async () => {
 export const updateLoop = async () => checkUpdates()
   .catch( err => console.error( 'Unable to check for updates', err ) )
   .finally( () => setTimeout( updateLoop, UPDATE_CHECK_INTERVAL ) )
+
+/**
+ * Get a line.
+ * @param {string} lineId The ID of line.
+ */
+export const getLine = lineId => Lines
+  .query()
+  .where( 'id', lineId )
+  .eager( '[]' )
+  .withTranslations()

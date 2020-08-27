@@ -2,7 +2,7 @@
 import { readJSON, remove, move } from 'fs-extra'
 import { manifest, extract } from 'pacote'
 import importFresh from 'import-fresh'
-import { Lines, Shabads, knex } from '@shabados/database'
+import { Lines, Shabads, knex, TranslationSources } from '@shabados/database'
 
 import { dependencies } from './package.json'
 
@@ -22,6 +22,11 @@ export const getSources = () => Shabads
   .join( 'sources', 'sources.id', 'shabads.source_id' )
 
 /**
+ * Gets all the DB translation sources.
+ */
+export const getTranslationSources = () => TranslationSources.query().eager( 'language' )
+
+/**
  * Get all the lines on a page for a source.
  * @param {number} sourceId The ID of the source to use.
  * @param {number} page The page in the source to retrieve all lines from.
@@ -33,6 +38,22 @@ export const getLinesOnPage = ( sourceId, page ) => Lines
   .where( 'source_page', page )
   .andWhere( 'shabads.source_id', sourceId )
   .orderBy( 'order_id' )
+
+/**
+ * Gets a line for the source page.
+ * @param {number} sourceId The ID of the source to use.
+ * @param {number} page The page in the source to retrieve all lines from.
+ * @param {string} lineIndex The index of the line on the source's page.
+ */
+export const getLineOnPage = async ( sourceId, page, lineIndex ) => Lines
+  .query()
+  .join( 'shabads', 'shabads.id', 'lines.shabad_id' )
+  .where( 'source_page', page )
+  .andWhere( 'shabads.source_id', sourceId )
+  .withTranslations()
+  .orderBy( 'order_id' )
+  .offset( lineIndex )
+  .then( ( [ line ] ) => line )
 
 /**
  * Gets a line, and the line index for the page.

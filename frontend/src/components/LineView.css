@@ -1,0 +1,75 @@
+.line-view {
+  height: 100%;
+  min-height: 100vh;
+  background: white;
+}
+
+.line-view .header {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  justify-content: space-between;
+  background: #F0EDE9;
+  padding: 1em;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.line-view .header h1 {
+  font-family: 'Open Gurbani Akhar Regular';
+  font-weight: normal;
+  transition: 0.125s all ease-in-out;
+  text-align: center;
+  font-size: 1.5em;
+  color: #2D2026;
+}
+
+.line-view .header .left.buttons {
+  display: flex;
+}
+
+.line-view .header .button {
+  color: #BA3F6A;
+  font-size: 1.75em;
+  transition: 0.125s all ease-in-out;
+  padding: 0 0.7em;
+  margin: auto 0;
+}
+
+.line-view .content {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 2em;
+  height: 100%;
+  position: relative;
+}
+
+.line-view .content .translation-block:first-child {
+  margin: 1em 0;
+  border-top: 1px solid #C4C4C4;
+}
+
+.line-view .content .translation-block {
+  border-bottom: 1px solid #C4C4C4;
+}
+
+.line-view .content .translation-block .source-name {
+  margin-top: 1.5em;
+  font-size: 1em;
+  font-family: 'Noto Sans';
+}
+
+.line-view .content .translation-block .blocks {
+  display: flex;
+  justify-content: space-between;
+}
+
+.line-view .content .translation-block .blocks .block {
+  width: 47%;
+}
+
+.line-view .content .translation-block .punjabi.translation {
+  font-family: 'Noto Sans Gurmukhi';
+  font-size: 1.25em;
+}

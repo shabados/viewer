@@ -3,23 +3,23 @@ a {
   color: inherit;
 }
 
-.source-page {
+.source-view {
   display: flex;
   flex-direction: column;
   background-color: #F0EDE9;
-  min-height: 100%;
+  min-height: 100vh;
   user-select: none;
   justify-content: center;
   align-items: center;
 }
 
-.source-page .lines {
+.source-view .lines {
   padding: 1em;
   text-align: justify;
   margin-bottom: 3.245em;
 }
 
-.source-page .lines .line {
+.source-view .lines .line {
   font-family: 'Open Gurbani Akhar Bold';
   font-size: 1.325em;
   line-height: 1.756em;
@@ -28,27 +28,27 @@ a {
   border-radius: 0.136em;
 }
 
-.source-page .lines .line:hover {
+.source-view .lines .line:hover {
   cursor: pointer;
   outline: none;
   border-bottom: 2px solid rgba(0, 0, 0, 0.1);
 }
 
-.source-page .lines .line:focus {
+.source-view .lines .line:focus {
   outline: none;    
 }
 
-.source-page .lines .line:hover {
+.source-view .lines .line:hover {
   background: #DCCDA2;
   border-bottom: 2px solid rgba(0, 0, 0, 0.1);
 }
 
-.source-page .lines .line.focused {
+.source-view .lines .line.focused {
   background: #F5CD3D;
   border-bottom: 2px solid rgba(0, 0, 0, 0.1);
 }
 
-.source-page .controls {
+.source-view .controls {
   background-image: linear-gradient(#E1DFDDCC, #E1DFDDFF);
   display: flex;
   position: fixed;
@@ -58,18 +58,18 @@ a {
   width: 100%;
 }
 
-.source-page .controls .button {
+.source-view .controls .button {
   color: #BA3F6A;
   font-size: 2.326em;
   transition: 0.125s all ease-in-out;
   padding: 0 0.5em;
 }
 
-.source-page .controls .button:hover {
+.source-view .controls .button:hover {
   color: #693E4B;
 }
 
-.source-page .controls .right.button {
+.source-view .controls .right.button {
   margin-left: auto;
 }
 

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { string, oneOfType, number, shape } from 'prop-types'
-import { withRouter, useLocation } from 'react-router-dom'
+import { withRouter, useLocation, useHistory } from 'react-router-dom'
 import Popover from 'react-tiny-popover'
 import { stripVishraams, toUnicode } from 'gurmukhi-utils'
+import { GlobalHotKeys } from 'react-hotkeys'
+import { useDebounce } from 'use-debounce'
 
 import { PAGE_API } from '../lib/consts'
 import { getDictionaryLink, getIssueUrl } from '../lib/utils'
@@ -17,6 +19,26 @@ import MenuItem from './MenuItem'
 
 import './LineView.css'
 
+const keyMap = {
+  goPreviousLine: [ 'left', 'shift+tab' ],
+  goNextLine: [ 'right', 'tab' ],
+  goUp: [ 'home', 'esc', 'backspace' ],
+}
+
+const getPreviousLineUrl = ( source, page, line ) => {
+  if ( !( page - 1 ) && !line ) return null
+
+  return line
+    ? `/sources/${source}/page/${page}/line/${line - 1}/view`
+    : `/sources/${source}/page/${page - 1}/line/${0}/view`
+}
+
+const getNextLineUrl = ( source, length, page, line ) => {
+  if ( page - 1 >= length - 1 ) return null
+
+  return `/sources/${source}/page/${page}/line/${line + 1}/view`
+}
+
 const LineView = ( {
   lineNumber,
   sourceNumber,
@@ -24,48 +46,61 @@ const LineView = ( {
   source,
   length,
 } ) => {
+  // 3 dot menu
   const [ menuOpen, setMenuOpen ] = useState( false )
   const toggleMenu = () => setMenuOpen( !menuOpen )
-
-  const [ lineData, setData ] = useState()
-  const [ loading, setLoading ] = useState( true )
-  const [ err, setErr ] = useState()
-
-  const { pathname } = useLocation()
-
-  const sourceViewUrl = pathname.split( '/' ).slice( 0, -1 ).join( '/' )
-  const previousPageUrl = page > 0 && `/sources/${sourceNumber}/page/${page}/line/${+lineNumber - 1}/view`
-  const nextPageUrl = page < length - 1 && `/sources/${sourceNumber}/page/${page}/line/${+lineNumber + 1}/view`
 
   const closeMenuAfter = fn => () => {
     fn()
     setMenuOpen( false )
   }
 
-  const submitCorrection = () => window.open( getIssueUrl( { page, ...source, ...lineData } ), 'blank' )
+  const { pathname } = useLocation()
+  const history = useHistory()
+
+  // Navigation urls
+  const sourceViewUrl = pathname.split( '/' ).slice( 0, -1 ).join( '/' )
+  const previousLineUrl = getPreviousLineUrl( sourceNumber, page, lineNumber )
+  const nextLineUrl = getNextLineUrl( sourceNumber, length, page, lineNumber )
+
+  // Hotkey handlers
+  const goPreviousLine = () => previousLineUrl && history.replace( previousLineUrl )
+  const goNextLine = () => nextLineUrl && history.replace( nextLineUrl )
+  const goUp = () => history.replace( sourceViewUrl )
+
+  const handlers = { goPreviousLine, goNextLine, goUp }
+
+  // Line data
+  const [ line, setLine ] = useState()
+  const [ loading, setLoading ] = useState( true )
+  const [ err, setErr ] = useState()
+
+  const [ debouncedLineNumber ] = useDebounce( lineNumber, 100 )
 
   useEffect( () => {
-    fetch( `${PAGE_API}/${sourceNumber}/page/${page}/line/${lineNumber}` )
+    fetch( `${PAGE_API}/${sourceNumber}/page/${page}/line/${debouncedLineNumber}` )
       .then( res => res.json() )
-      .then( setData )
+      .then( setLine )
       .catch( setErr )
       .finally( () => setLoading( false ) )
-  }, [ lineNumber, sourceNumber, page, setData ] )
+  }, [ debouncedLineNumber, setLine, setErr, setLoading, sourceNumber, page ] )
 
-  const { translations, gurmukhi } = lineData || {}
+  const { translations, gurmukhi } = line || {}
+
+  const submitCorrection = () => window.open( getIssueUrl( { page, ...source, ...line } ), 'blank' )
 
   return (
     <div className="line-view">
 
       {err && <Error err={err} />}
-      {loading && !lineData && !err && <Loader />}
+      {loading && !line && !err && <Loader />}
 
-      {lineData && (
-        <>
+      {line && (
+        <GlobalHotKeys keyMap={keyMap} handlers={handlers} allowChanges>
           <div className="header">
             <div className="left buttons">
               <LinkButton className="button" icon="level-up-alt" to={sourceViewUrl} />
-              <LinkButton className="button" icon="caret-left" replace to={previousPageUrl} />
+              <LinkButton className="button" icon="caret-left" disabled={!previousLineUrl} replace to={previousLineUrl} />
             </div>
 
             <h1>
@@ -86,7 +121,7 @@ const LineView = ( {
 
             <div className="right buttons">
 
-              <LinkButton className="button" icon="caret-right" replace to={nextPageUrl} />
+              <LinkButton className="button" icon="caret-right" replace to={nextLineUrl} />
 
               <Popover
                 isOpen={menuOpen}
@@ -121,7 +156,7 @@ const LineView = ( {
               .reverse()}
           </div>
 
-        </>
+        </GlobalHotKeys>
       )}
 
     </div>

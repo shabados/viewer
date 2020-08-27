@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { shape, string, oneOfType, number, arrayOf } from 'prop-types'
-import { withRouter } from 'react-router-dom'
-import { location } from 'react-router-prop-types'
-import classNames from 'classnames'
+import { string, oneOfType, number } from 'prop-types'
+import { withRouter, useLocation } from 'react-router-dom'
 import { stripVishraams, toUnicode } from 'gurmukhi-utils'
 
 import { PAGE_API } from '../lib/consts'
@@ -11,22 +9,11 @@ import { getDictionaryLink } from '../lib/utils'
 import Error from './Error'
 import Loader from './Loader'
 import LinkButton from './LinkButton'
+import TranslationBlock from './TranslationBlock'
 
 import './LineView.css'
 
-const languages = {
-  english: 1,
-  punjabi: 2,
-}
-
-const languageFonts = {
-  [ languages.english ]: 'latin',
-  [ languages.punjabi ]: 'punjabi',
-}
-
 const LineView = ( {
-  location: { pathname },
-  translationSources,
   line,
   source,
   page,
@@ -35,6 +22,8 @@ const LineView = ( {
   const [ lineData, setData ] = useState()
   const [ loading, setLoading ] = useState( true )
   const [ err, setErr ] = useState()
+
+  const { pathname } = useLocation()
 
   const sourceViewUrl = pathname.split( '/' ).slice( 0, -1 ).join( '/' )
   const previousPageUrl = page > 0 && `/sources/${source}/page/${page}/line/${+line - 1}/view`
@@ -85,37 +74,14 @@ const LineView = ( {
 
           <div className="content">
             {translations
-              .map( ( { translationSourceId, translation, additionalInformation } ) => {
-                const source = translationSources.find( ( { id } ) => translationSourceId === id )
-
-                if (
-                  !Object.values( languages ).includes( source.languageId )
-                  || !translation
-                ) return null
-
-                return (
-                  <div className="translation-block" key={translationSourceId}>
-                    <h2 className="source-name">{`[${source.language.nameEnglish}] ${source.nameEnglish}`}</h2>
-
-                    <div className="blocks">
-                      <div className="block">
-                        <p className={classNames( languageFonts[ source.languageId ], 'translation' )}>{translation}</p>
-                        {Object
-                          .entries( additionalInformation )
-                          .filter( ( [ , v ] ) => v )
-                          .map( ( [ name, information ] ) => (
-                            <p key={name} className={classNames( languageFonts[ source.languageId ], 'translation' )}>
-                              {[ name, information ].join( '. ' )}
-                            </p>
-                          ) )}
-                      </div>
-                      <p className="punjabi translation block">{translation}</p>
-                    </div>
-                  </div>
-                )
-              } )
-              .reverse()
-              .filter( x => x )}
+              .map( translation => (
+                <TranslationBlock
+                  key={translation.translationSourceId}
+                  {...translation}
+                />
+              ) )
+              .filter( x => x )
+              .reverse()}
           </div>
 
         </>
@@ -130,12 +96,7 @@ LineView.propTypes = {
   page: oneOfType( [ string, number ] ).isRequired,
   source: oneOfType( [ string, number ] ).isRequired,
   length: number.isRequired,
-  location: location.isRequired,
   line: number.isRequired,
-  translationSources: arrayOf( shape( {
-    language: shape( { nameEnglish: string } ),
-    nameEnglish: string,
-  } ) ).isRequired,
 }
 
 export default withRouter( LineView )

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import { getPositions } from './lib/utils'
 import { SOURCES_API, TRANSLATION_SOURCES_API, DB_VERSION_API } from './lib/consts'
+import { TranslationSourcesContext } from './lib/contexts'
 import Home from './components/Home'
 import SourceView from './components/SourceView'
 import LineView from './components/LineView'
@@ -37,7 +38,13 @@ class App extends Component {
     const { sources, translationSources, err, dbVersion } = this.state
     const positions = getPositions()
 
-    return (
+    const withContexts = [
+      [ TranslationSourcesContext.Provider, translationSources ],
+    ].reduce( ( withContexts, [ Provider, value ] ) => children => withContexts(
+      <Provider value={value}>{children}</Provider>,
+    ), context => context )
+
+    return withContexts(
       <div className="app">
         <Router>
           <Switch>
@@ -74,7 +81,7 @@ class App extends Component {
 
           </Switch>
         </Router>
-      </div>
+      </div>,
     )
   }
 }

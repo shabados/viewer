@@ -50,32 +50,3 @@
   height: 100%;
   position: relative;
 }
-
-.line-view .content .translation-block:first-child {
-  margin: 1em 0;
-  border-top: 1px solid #C4C4C4;
-}
-
-.line-view .content .translation-block {
-  border-bottom: 1px solid #C4C4C4;
-}
-
-.line-view .content .translation-block .source-name {
-  margin-top: 1.5em;
-  font-size: 1em;
-  font-family: 'Noto Sans';
-}
-
-.line-view .content .translation-block .blocks {
-  display: flex;
-  justify-content: space-between;
-}
-
-.line-view .content .translation-block .blocks .block {
-  width: 47%;
-}
-
-.line-view .content .translation-block .punjabi.translation {
-  font-family: 'Noto Sans Gurmukhi';
-  font-size: 1.25em;
-}

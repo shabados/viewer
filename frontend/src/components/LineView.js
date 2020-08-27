@@ -19,24 +19,35 @@ import MenuItem from './MenuItem'
 
 import './LineView.css'
 
+const OVERFLOW_LINE = 10000000
+
 const keyMap = {
   goPreviousLine: [ 'left', 'shift+tab' ],
   goNextLine: [ 'right', 'tab' ],
   goUp: [ 'home', 'esc', 'backspace' ],
 }
 
-const getPreviousLineUrl = ( source, page, line ) => {
-  if ( !( page - 1 ) && !line ) return null
+const getPreviousLineUrl = ( { sourceNumber, page, lineNumber } ) => {
+  if ( !( page - 1 ) && !lineNumber ) return null
 
-  return line
-    ? `/sources/${source}/page/${page}/line/${line - 1}/view`
-    : `/sources/${source}/page/${page - 1}/line/${0}/view`
+  return lineNumber
+    ? `/sources/${sourceNumber}/page/${page}/line/${lineNumber - 1}/view`
+    : `/sources/${sourceNumber}/page/${page - 1}/line/${OVERFLOW_LINE}/view`
 }
 
-const getNextLineUrl = ( source, length, page, line ) => {
-  if ( page - 1 >= length - 1 ) return null
+const getNextLineUrl = ( {
+  sourceNumber,
+  source,
+  lines,
+  page,
+  lineNumber,
+} ) => {
+  if ( !source || page - 1 >= source.length - 1 ) return null
 
-  return `/sources/${source}/page/${page}/line/${line + 1}/view`
+
+  return lineNumber < lines.length - 1
+    ? `/sources/${sourceNumber}/page/${page}/line/${lineNumber + 1}/view`
+    : `/sources/${sourceNumber}/page/${page + 1}/line/0/view`
 }
 
 const LineView = ( {
@@ -44,7 +55,6 @@ const LineView = ( {
   sourceNumber,
   page,
   source,
-  length,
 } ) => {
   // 3 dot menu
   const [ menuOpen, setMenuOpen ] = useState( false )
@@ -55,25 +65,11 @@ const LineView = ( {
     setMenuOpen( false )
   }
 
-  const { pathname } = useLocation()
-  const history = useHistory()
-
-  // Navigation urls
-  const sourceViewUrl = pathname.split( '/' ).slice( 0, -1 ).join( '/' )
-  const previousLineUrl = getPreviousLineUrl( sourceNumber, page, lineNumber )
-  const nextLineUrl = getNextLineUrl( sourceNumber, length, page, lineNumber )
-
-  // Hotkey handlers
-  const goPreviousLine = () => previousLineUrl && history.replace( previousLineUrl )
-  const goNextLine = () => nextLineUrl && history.replace( nextLineUrl )
-  const goUp = () => history.replace( sourceViewUrl )
-
-  const handlers = { goPreviousLine, goNextLine, goUp }
+  const [ err, setErr ] = useState()
 
   // Line data
   const [ line, setLine ] = useState()
-  const [ loading, setLoading ] = useState( true )
-  const [ err, setErr ] = useState()
+  const [ lineLoading, setLineLoading ] = useState( true )
 
   const [ debouncedLineNumber ] = useDebounce( lineNumber, 100 )
 
@@ -82,20 +78,60 @@ const LineView = ( {
       .then( res => res.json() )
       .then( setLine )
       .catch( setErr )
-      .finally( () => setLoading( false ) )
-  }, [ debouncedLineNumber, setLine, setErr, setLoading, sourceNumber, page ] )
+      .finally( () => setLineLoading( false ) )
+  }, [ debouncedLineNumber, setLine, setErr, setLineLoading, sourceNumber, page ] )
+
+  // Page data
+  const [ lines, setLines ] = useState( [] )
+  const [ linesLoading, setLinesLoading ] = useState( true )
+
+  useEffect( () => {
+    setLine( null )
+
+    fetch( `${PAGE_API}/${sourceNumber}/page/${page}` )
+      .then( res => res.json() )
+      .then( setLines )
+      .catch( setErr )
+      .finally( () => setLinesLoading( false ) )
+  }, [ setLines, setErr, sourceNumber, page ] )
 
   const { translations, gurmukhi } = line || {}
 
   const submitCorrection = () => window.open( getIssueUrl( { page, ...source, ...line } ), 'blank' )
 
+  const { pathname } = useLocation()
+  const history = useHistory()
+
+  // Navigation urls
+  const sourceViewUrl = pathname.split( '/' ).slice( 0, -1 ).join( '/' )
+  const previousLineUrl = getPreviousLineUrl( { sourceNumber, page, lineNumber } )
+  const nextLineUrl = getNextLineUrl( { sourceNumber, page, lineNumber, lines, source } )
+
+  // Hotkey handlers
+  const goPreviousLine = () => previousLineUrl && history.replace( previousLineUrl )
+  const goNextLine = () => nextLineUrl && history.replace( nextLineUrl )
+  const goUp = () => history.replace( sourceViewUrl )
+
+  const handlers = { goPreviousLine, goNextLine, goUp }
+
+  const isPreviousPageOverflow = lineNumber >= lines.length
+
+  useEffect( () => {
+    if ( !isPreviousPageOverflow || linesLoading || lineLoading ) return
+
+    setLineLoading( true )
+    history.replace( `/sources/${sourceNumber}/page/${page}/line/${lines.length - 1}/view` )
+  }, [ isPreviousPageOverflow, history, lines, setLineLoading, lineLoading, linesLoading ] )
+
+  const ready = source && !lineLoading && !linesLoading && !isPreviousPageOverflow
+
   return (
     <div className="line-view">
 
       {err && <Error err={err} />}
-      {loading && !line && !err && <Loader />}
+      {!ready && !err && <Loader />}
 
-      {line && (
+      {ready && gurmukhi && (
         <GlobalHotKeys keyMap={keyMap} handlers={handlers} allowChanges>
           <div className="header">
             <div className="left buttons">
@@ -106,9 +142,10 @@ const LineView = ( {
             <h1>
               {gurmukhi
                 .split( ' ' )
-                .map( word => (
+                .map( ( word, index ) => (
                   <a
-                    key={word}
+                    // eslint-disable-next-line react/no-array-index-key
+                    key={index}
                     href={getDictionaryLink( stripVishraams( toUnicode( word ) ) )}
                     target="_blank"
                     rel="noreferrer"
@@ -166,11 +203,14 @@ const LineView = ( {
 LineView.propTypes = {
   page: oneOfType( [ string, number ] ).isRequired,
   sourceNumber: oneOfType( [ string, number ] ).isRequired,
-  length: number.isRequired,
   lineNumber: number.isRequired,
   source: shape( {
     nameEnglish: string,
-  } ).isRequired,
+  } ),
+}
+
+LineView.defaultProps = {
+  source: null,
 }
 
 export default withRouter( LineView )

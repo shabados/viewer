@@ -1,24 +1,32 @@
 import React, { useEffect, useState } from 'react'
-import { string, oneOfType, number } from 'prop-types'
+import { string, oneOfType, number, shape } from 'prop-types'
 import { withRouter, useLocation } from 'react-router-dom'
+import Popover from 'react-tiny-popover'
 import { stripVishraams, toUnicode } from 'gurmukhi-utils'
 
 import { PAGE_API } from '../lib/consts'
-import { getDictionaryLink } from '../lib/utils'
+import { getDictionaryLink, getIssueUrl } from '../lib/utils'
 
 import Error from './Error'
 import Loader from './Loader'
 import LinkButton from './LinkButton'
+import IconButton from './IconButton'
 import TranslationBlock from './TranslationBlock'
+import Menu from './Menu'
+import MenuItem from './MenuItem'
 
 import './LineView.css'
 
 const LineView = ( {
-  line,
-  source,
+  lineNumber,
+  sourceNumber,
   page,
+  source,
   length,
 } ) => {
+  const [ menuOpen, setMenuOpen ] = useState( false )
+  const toggleMenu = () => setMenuOpen( !menuOpen )
+
   const [ lineData, setData ] = useState()
   const [ loading, setLoading ] = useState( true )
   const [ err, setErr ] = useState()
@@ -26,16 +34,23 @@ const LineView = ( {
   const { pathname } = useLocation()
 
   const sourceViewUrl = pathname.split( '/' ).slice( 0, -1 ).join( '/' )
-  const previousPageUrl = page > 0 && `/sources/${source}/page/${page}/line/${+line - 1}/view`
-  const nextPageUrl = page < length - 1 && `/sources/${source}/page/${page}/line/${+line + 1}/view`
+  const previousPageUrl = page > 0 && `/sources/${sourceNumber}/page/${page}/line/${+lineNumber - 1}/view`
+  const nextPageUrl = page < length - 1 && `/sources/${sourceNumber}/page/${page}/line/${+lineNumber + 1}/view`
+
+  const closeMenuAfter = fn => () => {
+    fn()
+    setMenuOpen( false )
+  }
+
+  const submitCorrection = () => window.open( getIssueUrl( { page, ...source, ...lineData } ), 'blank' )
 
   useEffect( () => {
-    fetch( `${PAGE_API}/${source}/page/${page}/line/${line}` )
+    fetch( `${PAGE_API}/${sourceNumber}/page/${page}/line/${lineNumber}` )
       .then( res => res.json() )
       .then( setData )
       .catch( setErr )
       .finally( () => setLoading( false ) )
-  }, [ line, source, page, setData ] )
+  }, [ lineNumber, sourceNumber, page, setData ] )
 
   const { translations, gurmukhi } = lineData || {}
 
@@ -69,7 +84,29 @@ const LineView = ( {
                 .reduce( ( prev, curr ) => [ prev, ' ', curr ] )}
             </h1>
 
-            <LinkButton className="button" icon="caret-right" replace to={nextPageUrl} />
+            <div className="right buttons">
+
+              <LinkButton className="button" icon="caret-right" replace to={nextPageUrl} />
+
+              <Popover
+                isOpen={menuOpen}
+                onClickOutside={() => setMenuOpen( false )}
+                containerClassName="popover-menu"
+                content={(
+                  <Menu>
+                    <MenuItem
+                      onClick={closeMenuAfter( submitCorrection )}
+                    >
+                      Submit Correction
+                    </MenuItem>
+                  </Menu>
+                )}
+                position="bottom"
+              >
+                <IconButton icon="ellipsis-v" onClick={toggleMenu} />
+              </Popover>
+
+            </div>
           </div>
 
           <div className="content">
@@ -87,16 +124,18 @@ const LineView = ( {
         </>
       )}
 
-
     </div>
   )
 }
 
 LineView.propTypes = {
   page: oneOfType( [ string, number ] ).isRequired,
-  source: oneOfType( [ string, number ] ).isRequired,
+  sourceNumber: oneOfType( [ string, number ] ).isRequired,
   length: number.isRequired,
-  line: number.isRequired,
+  lineNumber: number.isRequired,
+  source: shape( {
+    nameEnglish: string,
+  } ).isRequired,
 }
 
 export default withRouter( LineView )

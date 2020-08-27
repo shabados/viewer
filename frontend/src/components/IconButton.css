@@ -1,0 +1,14 @@
+.icon-button {
+  color: #BA3F6A;
+  font-size: 1.25rem;
+  transition: 0.125s all ease-in-out;
+  padding: 0 0.5em;
+  outline: none;
+  cursor: pointer;
+  border: none;
+  margin: auto 0;
+}
+
+.icon-button:hover {
+  color: #693E4B;
+}

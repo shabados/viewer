@@ -18,7 +18,8 @@
     "react-router-prop-types": "^1.0.4",
     "react-scripts": "3.0.1",
     "react-tiny-popover": "^5.1.0",
-    "react-transition-group": "^4.4.1"
+    "react-transition-group": "^4.4.1",
+    "use-debounce": "^3.4.3"
   },
   "scripts": {
     "start": "react-scripts start",

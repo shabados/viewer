@@ -1,8 +1,14 @@
-import React, { useContext } from 'react'
+/* eslint-disable
+  jsx-a11y/click-events-have-key-events,
+  jsx-a11y/no-noninteractive-element-interactions
+*/
+import React, { useContext, useState } from 'react'
 import { number, string, shape } from 'prop-types'
 import classNames from 'classnames'
 
 import { TranslationSourcesContext } from '../lib/contexts'
+
+import './TranslationBlock.css'
 
 const languages = {
   english: 1,
@@ -15,17 +21,20 @@ const languageFonts = {
 }
 
 const TranslationBlock = ( { translationSourceId, translation, additionalInformation } ) => {
-  const translationSources = useContext( TranslationSourcesContext )
+  const [ expanded, setExpanded ] = useState( true )
 
+  const toggleExpanded = () => setExpanded( !expanded )
+
+  const translationSources = useContext( TranslationSourcesContext )
   const source = translationSources.find( ( { id } ) => translationSourceId === id )
 
   if ( !Object.values( languages ).includes( source.languageId ) || !translation ) return null
 
   return (
     <div className="translation-block">
-      <h2 className="source-name">{`[${source.language.nameEnglish}] ${source.nameEnglish}`}</h2>
+      <h2 className="source-name" onClick={toggleExpanded}>{`[${source.language.nameEnglish}] ${source.nameEnglish}`}</h2>
 
-      <div className="blocks">
+      <div className={classNames( { expanded }, 'blocks' )}>
         <div className="block">
 
           <p className={classNames( languageFonts[ source.languageId ], 'translation' )}>{translation}</p>

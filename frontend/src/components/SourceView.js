@@ -296,8 +296,6 @@ SourceView.propTypes = {
   source: oneOfType( [ string, number ] ).isRequired,
   length: number.isRequired,
   pageNameGurmukhi: string.isRequired,
-  nameGurmukhi: string.isRequired,
-  nameEnglish: string.isRequired,
   history: history.isRequired,
   location: location.isRequired,
   line: number,

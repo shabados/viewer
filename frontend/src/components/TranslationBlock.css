@@ -1,5 +1,4 @@
 .translation-block:first-child {
-  margin: 1em 0;
   border-top: 1px solid #C4C4C4;
 }
 
@@ -8,12 +7,17 @@
 }
 
 .translation-block .source-name {
-  margin-top: 1.5em;
   font-size: 1em;
   font-family: 'Noto Sans';
+  cursor: pointer;
+  user-select: none;
 }
 
 .translation-block .blocks {
+  display: none;
+}
+
+.translation-block .expanded.blocks {
   display: flex;
   justify-content: space-between;
 }

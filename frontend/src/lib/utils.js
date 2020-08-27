@@ -1,6 +1,6 @@
 import newGithubIssueUrl from 'new-github-issue-url'
 
-export const issueUrl = ( {
+export const getIssueUrl = ( {
   id,
   gurmukhi,
   page,

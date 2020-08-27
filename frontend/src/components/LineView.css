@@ -32,7 +32,7 @@
   border-bottom: 2px solid rgba(0, 0, 0, 0.1);
 }
 
-.line-view .header .left.buttons {
+.line-view .header .buttons {
   display: flex;
 }
 
@@ -50,4 +50,8 @@
   padding: 0 2em;
   height: 100%;
   position: relative;
+}
+
+.popover-menu {
+  z-index: 10;
 }

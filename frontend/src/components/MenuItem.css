@@ -1,0 +1,8 @@
+.menu-item {
+  padding: 1em;
+  cursor: pointer;
+}
+
+.menu-item:hover {
+  background-color: #dddddd;
+}

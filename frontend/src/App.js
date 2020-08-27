@@ -55,13 +55,10 @@ class App extends Component {
               path="/sources/:source/page/:page/line/:line/view"
               render={( { match: { params: { page, source, line } } } ) => (
                 <LineView
-                  {...sources.find( ( { id } ) => id === +source )}
+                  source={sources.find( ( { id } ) => id === +source )}
                   page={page}
-                  source={source}
-                  line={line}
-                  translationSources={translationSources.filter(
-                    ( { sourceId } ) => sourceId === +source,
-                  )}
+                  sourceNumber={source}
+                  lineNumber={line}
                 />
               )}
             />

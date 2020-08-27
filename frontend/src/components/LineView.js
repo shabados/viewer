@@ -24,8 +24,6 @@ const languageFonts = {
   [ languages.punjabi ]: 'punjabi',
 }
 
-const sourceOrder = [ 1, 2, 3, 4, 5, 6 ]
-
 const LineView = ( {
   location: { pathname },
   translationSources,
@@ -116,6 +114,7 @@ const LineView = ( {
                   </div>
                 )
               } )
+              .reverse()
               .filter( x => x )}
           </div>
 

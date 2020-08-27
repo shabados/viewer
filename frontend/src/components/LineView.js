@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { shape, string, oneOfType, number, arrayOf } from 'prop-types'
 import { withRouter } from 'react-router-dom'
-import { location, history } from 'react-router-prop-types'
+import { location } from 'react-router-prop-types'
 import classNames from 'classnames'
+import { stripVishraams, toUnicode } from 'gurmukhi-utils'
 
 import { PAGE_API } from '../lib/consts'
 
@@ -11,6 +12,7 @@ import Loader from './Loader'
 import LinkButton from './LinkButton'
 
 import './LineView.css'
+import { getDictionaryLink } from '../lib/utils'
 
 const languages = {
   english: 1,
@@ -26,7 +28,6 @@ const languageFonts = {
 
 const LineView = ( {
   location: { pathname },
-  history,
   translationSources,
   line,
   source,
@@ -65,7 +66,22 @@ const LineView = ( {
               <LinkButton className="button" icon="caret-left" replace to={previousPageUrl} />
             </div>
 
-            <h1>{gurmukhi}</h1>
+            <h1>
+              {gurmukhi
+                .split( ' ' )
+                .map( word => (
+                  <a
+                    key={word}
+                    href={getDictionaryLink( stripVishraams( toUnicode( word ) ) )}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {word}
+                  </a>
+                ) )
+                .reduce( ( prev, curr ) => [ prev, ' ', curr ] )}
+            </h1>
+
             <LinkButton className="button" icon="caret-right" replace to={nextPageUrl} />
           </div>
 
@@ -101,7 +117,6 @@ LineView.propTypes = {
   source: oneOfType( [ string, number ] ).isRequired,
   length: number.isRequired,
   location: location.isRequired,
-  history: history.isRequired,
   line: number.isRequired,
   translationSources: arrayOf( shape( {
     language: shape( { nameEnglish: string } ),

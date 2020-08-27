@@ -121,7 +121,16 @@ const LineView = ( {
 
     setLineLoading( true )
     history.replace( `/sources/${sourceNumber}/page/${page}/line/${lines.length - 1}/view` )
-  }, [ isPreviousPageOverflow, history, lines, setLineLoading, lineLoading, linesLoading ] )
+  }, [
+    isPreviousPageOverflow,
+    history,
+    lines,
+    setLineLoading,
+    lineLoading,
+    linesLoading,
+    sourceNumber,
+    page,
+  ] )
 
   const ready = source && !lineLoading && !linesLoading && !isPreviousPageOverflow
 

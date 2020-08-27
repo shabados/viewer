@@ -1,0 +1,28 @@
+.translation-block:first-child {
+  margin: 1em 0;
+  border-top: 1px solid #C4C4C4;
+}
+
+.translation-block {
+  border-bottom: 1px solid #C4C4C4;
+}
+
+.translation-block .source-name {
+  margin-top: 1.5em;
+  font-size: 1em;
+  font-family: 'Noto Sans';
+}
+
+.translation-block .blocks {
+  display: flex;
+  justify-content: space-between;
+}
+
+.translation-block .blocks .block {
+  width: 47%;
+}
+
+.translation-block .punjabi.translation {
+  font-family: 'Noto Sans Gurmukhi';
+  font-size: 1.25em;
+}

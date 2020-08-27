@@ -53,7 +53,13 @@ export const getLineOnPage = async ( sourceId, page, lineIndex ) => Lines
   .withTranslations()
   .orderBy( 'order_id' )
   .offset( lineIndex )
-  .then( ( [ line ] ) => line )
+  .then( ( [ { translations, ...line } ] ) => ( {
+    ...line,
+    translations: translations.map( ( { additionalInformation, ...translation } ) => ( {
+      ...translation,
+      additionalInformation: JSON.parse( additionalInformation ),
+    } ) ),
+  } ) )
 
 /**
  * Gets a line, and the line index for the page.

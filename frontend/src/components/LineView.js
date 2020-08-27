@@ -6,25 +6,25 @@ import classNames from 'classnames'
 import { stripVishraams, toUnicode } from 'gurmukhi-utils'
 
 import { PAGE_API } from '../lib/consts'
+import { getDictionaryLink } from '../lib/utils'
 
 import Error from './Error'
 import Loader from './Loader'
 import LinkButton from './LinkButton'
 
 import './LineView.css'
-import { getDictionaryLink } from '../lib/utils'
 
 const languages = {
   english: 1,
   punjabi: 2,
-  spanish: 3,
 }
 
 const languageFonts = {
   [ languages.english ]: 'latin',
   [ languages.punjabi ]: 'punjabi',
-  [ languages.spanish ]: 'latin',
 }
+
+const sourceOrder = [ 1, 2, 3, 4, 5, 6 ]
 
 const LineView = ( {
   location: { pathname },
@@ -87,21 +87,36 @@ const LineView = ( {
 
           <div className="content">
             {translations
-              .filter( ( { translation } ) => translation )
-              .map( ( { translationSourceId, translation } ) => {
+              .map( ( { translationSourceId, translation, additionalInformation } ) => {
                 const source = translationSources.find( ( { id } ) => translationSourceId === id )
+
+                if (
+                  !Object.values( languages ).includes( source.languageId )
+                  || !translation
+                ) return null
 
                 return (
                   <div className="translation-block" key={translationSourceId}>
                     <h2 className="source-name">{`[${source.language.nameEnglish}] ${source.nameEnglish}`}</h2>
 
                     <div className="blocks">
-                      <p className={classNames( languageFonts[ source.languageId ], 'translation block' )}>{translation}</p>
+                      <div className="block">
+                        <p className={classNames( languageFonts[ source.languageId ], 'translation' )}>{translation}</p>
+                        {Object
+                          .entries( additionalInformation )
+                          .filter( ( [ , v ] ) => v )
+                          .map( ( [ name, information ] ) => (
+                            <p key={name} className={classNames( languageFonts[ source.languageId ], 'translation' )}>
+                              {[ name, information ].join( '. ' )}
+                            </p>
+                          ) )}
+                      </div>
                       <p className="punjabi translation block">{translation}</p>
                     </div>
                   </div>
                 )
-              } )}
+              } )
+              .filter( x => x )}
           </div>
 
         </>

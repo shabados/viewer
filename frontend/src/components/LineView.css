@@ -25,6 +25,12 @@
   color: #2D2026;
 }
 
+.line-view .header h1 a:hover {
+  cursor: pointer;
+  outline: none;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
+
 .line-view .header .left.buttons {
   display: flex;
 }

@@ -26,6 +26,8 @@ Line | ${gurmukhi}
 `,
 } )
 
+export const getDictionaryLink = word => `http://www.srigranth.org/servlet/gurbani.dictionary?Param=${word}`
+
 export const getPositions = () => JSON.parse( localStorage.getItem( 'positions' ) ) || {}
 
 export const savePosition = ( source, page, line ) => localStorage.setItem(

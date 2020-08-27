@@ -56,9 +56,9 @@ class App extends Component {
               render={( { match: { params: { page, source, line } } } ) => (
                 <LineView
                   source={sources.find( ( { id } ) => id === +source )}
-                  page={page}
-                  sourceNumber={source}
-                  lineNumber={line}
+                  page={+page}
+                  sourceNumber={+source}
+                  lineNumber={+line}
                 />
               )}
             />
@@ -67,9 +67,9 @@ class App extends Component {
               render={( { match: { params: { page, source, line } } } ) => (
                 <SourceView
                   {...sources.find( ( { id } ) => id === +source )}
-                  page={page}
-                  source={source}
-                  line={line}
+                  page={+page}
+                  source={+source}
+                  line={+line}
                 />
               )}
             />

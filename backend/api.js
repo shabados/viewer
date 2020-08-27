@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import { getSources, getLinesOnPage, getLine, getDbVersion } from './db'
+import { getSources, getLinesOnPage, getLine, getDbVersion, getLineOnPage, getTranslationSources } from './db'
 
 const api = Router()
 
@@ -10,9 +10,21 @@ api.get( '/sources', ( _, res ) => (
     .catch( err => res.status( 400 ).json( err ) )
 ) )
 
+api.get( '/translationSources', ( _, res ) => (
+  getTranslationSources()
+    .then( translationSources => res.json( translationSources ) )
+    .catch( err => res.status( 400 ).json( err ) )
+) )
+
 api.get( '/source/:sourceId/page/:pageId', ( { params: { sourceId, pageId } }, res ) => (
   getLinesOnPage( sourceId, pageId )
     .then( lines => res.json( lines ) )
+    .catch( err => res.status( 400 ).json( err ) )
+) )
+
+api.get( '/source/:sourceId/page/:pageId/line/:lineId', ( { params: { sourceId, pageId, lineId } }, res ) => (
+  getLineOnPage( sourceId, pageId, lineId )
+    .then( line => res.json( line ) )
     .catch( err => res.status( 400 ).json( err ) )
 ) )
 

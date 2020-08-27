@@ -2,6 +2,7 @@
   display: flex;
   flex-wrap: wrap;
   user-select: none;
+  height: 100vh;
 }
 
 .home section {
@@ -102,11 +103,13 @@
     width: 100%;
     position: static;
     order: 2;
+    height: auto;
   }
 
   .home .sources {
     margin: 0;
     min-height: auto;
+    height: auto;
   }
 }
 

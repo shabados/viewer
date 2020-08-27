@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { withRouter, Link } from 'react-router-dom'
 import { string, oneOfType, number } from 'prop-types'
-import { history } from 'react-router-prop-types'
+import { history, location } from 'react-router-prop-types'
 import classNames from 'classnames'
 import { GlobalHotKeys } from 'react-hotkeys'
 import { debounce } from 'lodash'
@@ -16,9 +16,9 @@ import LinkButton from './LinkButton'
 import Error from './Error'
 import Slider from './Slider'
 
-import './SourcePage.css'
+import './SourceView.css'
 
-class SourcePage extends Component {
+class SourceView extends Component {
   lineRefs = {}
 
   navigatingTimeout = null
@@ -153,18 +153,10 @@ class SourcePage extends Component {
     this.focusLine( lines.length - 1 )
   }
 
-  getLineRoute = index => {
-    const { source, page } = this.props
-    const { lines } = this.state
-    const { id } = lines[ index ]
-
-    return `/sources/${source}/page/${page}/line/${index}/${id}/view`
-  }
-
   onLineEnter = () => {
-    const { line, history } = this.props
+    const { location: { pathname }, history } = this.props
 
-    history.replace( this.getLineRoute( line ) )
+    history.push( `${pathname}/view` )
   }
 
 
@@ -238,9 +230,11 @@ class SourcePage extends Component {
     const { lines, err, navigating, loading } = this.state
 
     return (
-      <div className="source-page">
+      <div className="source-view">
+
         {err && <Error err={err} />}
         {loading && !( lines || err ) && <Loader />}
+
         <GlobalHotKeys keyMap={this.keyMap} handlers={this.handlers}>
           <CSSTransition
             in={!loading}
@@ -250,11 +244,10 @@ class SourcePage extends Component {
             <section className="lines">
 
               {lines && lines.map( ( { id, gurmukhi }, index ) => (
-                <Link to={this.getLineRoute( index )}>
+                <Link key={id} to={`${index}/view`}>
                   <span
                     ref={ref => { this.lineRefs[ index ] = ref }}
                     className={classNames( 'line', { focused: +line === index && !loading } )}
-                    key={id}
                     tabIndex={0}
                     role="button"
                   >
@@ -265,6 +258,7 @@ class SourcePage extends Component {
 
             </section>
           </CSSTransition>
+
           <section className="controls">
             <LinkButton
               className="left button"
@@ -272,6 +266,7 @@ class SourcePage extends Component {
               to={`/sources/${source}/page/${+page - 1}/line/0`}
               disabled={page <= 1}
             />
+
             <Slider
               min={1}
               max={length}
@@ -281,6 +276,7 @@ class SourcePage extends Component {
               tooltipActive={navigating}
               disabled={length === 1}
             />
+
             <LinkButton
               className="right button"
               icon="caret-right"
@@ -288,13 +284,14 @@ class SourcePage extends Component {
               disabled={page >= length}
             />
           </section>
+
         </GlobalHotKeys>
       </div>
     )
   }
 }
 
-SourcePage.propTypes = {
+SourceView.propTypes = {
   page: oneOfType( [ string, number ] ),
   source: oneOfType( [ string, number ] ).isRequired,
   length: number.isRequired,
@@ -302,12 +299,13 @@ SourcePage.propTypes = {
   nameGurmukhi: string.isRequired,
   nameEnglish: string.isRequired,
   history: history.isRequired,
+  location: location.isRequired,
   line: number,
 }
 
-SourcePage.defaultProps = {
+SourceView.defaultProps = {
   page: 1,
   line: 0,
 }
 
-export default withRouter( SourcePage )
+export default withRouter( SourceView )

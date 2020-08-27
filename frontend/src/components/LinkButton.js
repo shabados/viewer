@@ -6,8 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import './LinkButton.css'
 
-const LinkButton = ( { className, icon, to, disabled } ) => (
-  <Link to={to} className={classNames( 'link-button', className, { disabled } )}>
+const LinkButton = ( { className, icon, to, disabled, ...props } ) => (
+  <Link {...props} to={to} className={classNames( 'link-button', className, { disabled } )}>
     <FontAwesomeIcon icon={icon} />
   </Link>
 )

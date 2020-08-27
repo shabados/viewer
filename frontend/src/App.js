@@ -2,69 +2,81 @@ import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import { getPositions } from './lib/utils'
-import { SOURCES_API, DB_VERSION_API } from './lib/consts'
+import { SOURCES_API, TRANSLATION_SOURCES_API, DB_VERSION_API } from './lib/consts'
 import Home from './components/Home'
-import SourcePage from './components/SourcePage'
+import SourceView from './components/SourceView'
+import LineView from './components/LineView'
 import LineRedirect from './components/LineRedirect'
-import LineViewer from './components/LineViewer'
 
 import './App.css'
 
-const LINES_PATH_FRONTEND = '/sources/:source/page/:page/line/:line'
+const API_DATA = [
+  [ SOURCES_API, 'sources' ],
+  [ DB_VERSION_API, 'dbVersion' ],
+  [ TRANSLATION_SOURCES_API, 'translationSources' ],
+]
 
 class App extends Component {
   state = {
     sources: [],
+    translationSources: [],
     err: null,
     dbVersion: '',
   }
 
   componentDidMount() {
-    this.loadSources()
-    this.loadDbVersion()
+    API_DATA.forEach( params => this.loadApi( ...params ) )
   }
 
-  loadSources = () => fetch( SOURCES_API )
+  loadApi = ( endpoint, key ) => fetch( endpoint )
     .then( res => res.json() )
-    .then( sources => this.setState( { sources } ) )
+    .then( res => this.setState( { [ key ]: res } ) )
     .catch( err => this.setState( { err } ) )
 
-    loadDbVersion = () => fetch( DB_VERSION_API )
-      .then( res => res.json() )
-      .then( dbVersion => this.setState( { dbVersion } ) )
-      .catch( err => this.setState( { err } ) )
+  render() {
+    const { sources, translationSources, err, dbVersion } = this.state
+    const positions = getPositions()
 
-    render() {
-      const { sources, err, dbVersion } = this.state
-      const positions = getPositions()
-
-      return (
+    return (
+      <div className="app">
         <Router>
-          <div className="app">
+          <Switch>
+
             <Route exact path="/" render={() => <Home err={err} sources={sources} dbVersion={dbVersion} positions={positions} />} />
+
             <Route
-              path="/sources/:source/page/:page/line/:line"
+              path="/sources/:source/page/:page/line/:line/view"
               render={( { match: { params: { page, source, line } } } ) => (
-                <SourcePage
+                <LineView
+                  {...sources.find( ( { id } ) => id === +source )}
                   page={page}
                   source={source}
                   line={line}
-                  {...sources.find( ( { id } ) => id === +source )}
+                  translationSources={translationSources.filter(
+                    ( { sourceId } ) => sourceId === +source,
+                  )}
                 />
-              )
-            }
+              )}
             />
-
-            <Route path={`${LINES_PATH_FRONTEND}/:lineId/view`} component={LineViewer} />
-
             <Route
-              path="/line/:id"
-              render={( { match: { params: { id } } } ) => ( <LineRedirect id={id} /> )}
+              path="/sources/:source/page/:page/line/:line"
+              render={( { match: { params: { page, source, line } } } ) => (
+                <SourceView
+                  {...sources.find( ( { id } ) => id === +source )}
+                  page={page}
+                  source={source}
+                  line={line}
+                />
+              )}
             />
-          </div>
+
+            <Route path="/line/:id" render={( { match: { params: { id } } } ) => <LineRedirect id={id} />} />
+
+          </Switch>
         </Router>
-      )
-    }
+      </div>
+    )
+  }
 }
 
 export default App

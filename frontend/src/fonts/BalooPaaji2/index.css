@@ -1,0 +1,34 @@
+@font-face {
+    font-family: "Baloo Paaji 2";
+    font-style: normal;
+    font-weight: 400;
+    src: url("./BalooPaaji2-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Baloo Paaji 2";
+    font-style: normal;
+    font-weight: 500;
+    src: url("./BalooPaaji2-Medium.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Baloo Paaji 2";
+    font-style: normal;
+    font-weight: 600;
+    src: url("./BalooPaaji2-SemiBold.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Baloo Paaji 2";
+    font-style: normal;
+    font-weight: 700;
+    src: url("./BalooPaaji2-Bold.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Baloo Paaji 2";
+    font-style: normal;
+    font-weight: 800;
+    src: url("./BalooPaaji2-ExtraBold.ttf") format("truetype");
+}

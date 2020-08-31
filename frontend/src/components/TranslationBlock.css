@@ -4,11 +4,17 @@
 
 .translation-block {
   border-bottom: 1px solid #C4C4C4;
+  font-size: 1em;
+  font-family: 'Baloo Paaji 2';
+  font-weight: 400;
+  line-height: 2;
+  word-spacing: .05em;
+  letter-spacing: .05em;
 }
 
 .translation-block .source-name {
   font-size: 1em;
-  font-family: 'Noto Sans';
+  font-weight: 500;
   cursor: pointer;
   user-select: none;
 }
@@ -24,9 +30,4 @@
 
 .translation-block .blocks .block {
   width: 47%;
-}
-
-.translation-block .punjabi.translation {
-  font-family: 'Noto Sans Gurmukhi';
-  font-size: 1.25em;
 }

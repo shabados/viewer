@@ -11,6 +11,12 @@
   font-family: 'Noto Sans';
   cursor: pointer;
   user-select: none;
+  margin: 0;
+  padding: 1em 0;
+}
+
+.translation-block .source-name:hover {
+  background: #dccda280;
 }
 
 .translation-block .blocks {

@@ -1,6 +1,6 @@
 {
   "name": "@shabados/database-viewer",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A database viewer for the Shabad OS database",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

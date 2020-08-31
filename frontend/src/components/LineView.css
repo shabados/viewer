@@ -18,11 +18,12 @@
 }
 
 .line-view .header h1 {
-  font-family: 'Open Gurbani Akhar Regular';
+  font-family: 'Open Gurbani Akhar Bold';
   font-weight: normal;
   transition: 0.125s all ease-in-out;
   text-align: center;
-  font-size: 1.5em;
+  font-size: 1.325em;
+  line-height: 1.756em;
   color: #2D2026;
 }
 

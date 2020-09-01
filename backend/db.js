@@ -32,18 +32,19 @@ export const getSources = () => Shabads
  */
 export const getTranslationSources = () => TranslationSources.query().eager( 'language' )
 
+const getLinesOnPageBase = ( sourceId, page ) => Lines
+  .query()
+  .join( 'shabads', 'shabads.id', 'lines.shabad_id' )
+  .where( 'source_page', page )
+  .andWhere( 'shabads.source_id', sourceId )
+  .orderBy( 'order_id' )
+
 /**
  * Get all the lines on a page for a source.
  * @param {number} sourceId The ID of the source to use.
  * @param {number} page The page in the source to retrieve all lines from.
  */
-export const getLinesOnPage = ( sourceId, page ) => Lines
-  .query()
-  .join( 'shabads', 'shabads.id', 'lines.shabad_id' )
-  .eager( 'shabad.[section, subsection]' )
-  .where( 'source_page', page )
-  .andWhere( 'shabads.source_id', sourceId )
-  .orderBy( 'order_id' )
+export const getLinesOnPage = ( sourceId, page ) => getLinesOnPageBase( sourceId, page ).eager( 'shabad.[section, subsection]' )
 
 /**
  * Gets a line for the source page.
@@ -51,15 +52,15 @@ export const getLinesOnPage = ( sourceId, page ) => Lines
  * @param {number} page The page in the source to retrieve all lines from.
  * @param {string} lineIndex The index of the line on the source's page.
  */
-export const getLineOnPage = async ( sourceId, page, lineIndex ) => Lines
-  .query()
-  .join( 'shabads', 'shabads.id', 'lines.shabad_id' )
-  .where( 'source_page', page )
-  .andWhere( 'shabads.source_id', sourceId )
-  .withTranslations( query => query.joinEager( 'translationSource' ) )
-  .orderBy( 'order_id' )
+export const getLineOnPage = async (
+  sourceId,
+  page,
+  lineIndex,
+) => getLinesOnPageBase( sourceId, page )
   .offset( lineIndex )
-  .then( async ( [ { translations, ...line } ] ) => ( {
+  .first()
+  .then( ( { id } ) => Lines.query().where( 'id', id ).withTranslations( query => query.joinEager( 'translationSource' ) ) )
+  .then( ( [ { translations, ...line } ] ) => ( {
     ...line,
     translations: await Promise.all( translations.map( async ( {
       additionalInformation,

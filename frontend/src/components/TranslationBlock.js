@@ -3,7 +3,7 @@
   jsx-a11y/no-noninteractive-element-interactions
 */
 import React, { useContext, useState } from 'react'
-import { number, string, shape } from 'prop-types'
+import { number, string, arrayOf, shape } from 'prop-types'
 import classNames from 'classnames'
 
 import { TranslationSourcesContext } from '../lib/contexts'
@@ -20,7 +20,12 @@ const languageFonts = {
   [ languages.punjabi ]: 'punjabi',
 }
 
-const TranslationBlock = ( { translationSourceId, translation, additionalInformation } ) => {
+const TranslationBlock = ( {
+  translationSourceId,
+  translation,
+  english,
+  additionalInformation,
+} ) => {
   const [ expanded, setExpanded ] = useState( true )
 
   const toggleExpanded = () => setExpanded( !expanded )
@@ -28,7 +33,11 @@ const TranslationBlock = ( { translationSourceId, translation, additionalInforma
   const translationSources = useContext( TranslationSourcesContext )
   const source = translationSources.find( ( { id } ) => translationSourceId === id )
 
-  if ( !Object.values( languages ).includes( source.languageId ) || !translation ) return null
+  if (
+    !source
+    || !Object.values( languages ).includes( source.languageId )
+    || !translation
+  ) return null
 
   return (
     <div className="translation-block">
@@ -39,18 +48,27 @@ const TranslationBlock = ( { translationSourceId, translation, additionalInforma
 
           <p className={classNames( languageFonts[ source.languageId ], 'translation' )}>{translation}</p>
 
-          {Object
-            .entries( additionalInformation )
-            .filter( ( [ , v ] ) => v )
-            .map( ( [ name, information ] ) => (
-              <p key={name} className={classNames( languageFonts[ source.languageId ], 'translation' )}>
-                {[ name, information ].join( '. ' )}
+          {additionalInformation.map( ( { name, information } ) => (
+            <p key={name} className={classNames( languageFonts[ source.languageId ], 'translation' )}>
+              {[ name, information ].join( '. ' )}
+            </p>
+          ) )}
+
+        </div>
+
+        <div className="block">
+
+          <p className="english translation">{english}</p>
+
+          {additionalInformation
+            .filter( ( { english } ) => english )
+            .map( ( { name, english } ) => (
+              <p key={name} className="english translation">
+                {[ name, english ].join( '. ' )}
               </p>
             ) )}
 
         </div>
-
-        <p className="punjabi translation block">{translation}</p>
 
       </div>
     </div>
@@ -60,7 +78,12 @@ const TranslationBlock = ( { translationSourceId, translation, additionalInforma
 TranslationBlock.propTypes = {
   translationSourceId: number.isRequired,
   translation: string.isRequired,
-  additionalInformation: shape( {} ).isRequired,
+  english: string,
+  additionalInformation: arrayOf( shape( { name: string, information: string } ) ).isRequired,
+}
+
+TranslationBlock.defaultProps = {
+  english: null,
 }
 
 export default TranslationBlock

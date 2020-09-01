@@ -5,12 +5,18 @@ import importFresh from 'import-fresh'
 import { Lines, Shabads, knex, TranslationSources } from '@shabados/database'
 
 import { dependencies } from './package.json'
+import translate, { LANGUAGE_CODES } from './translate'
 
 const databasePackage = `@shabados/database@${dependencies[ '@shabados/database' ]}`
 
 // Check every 5 minutes for updates
 const UPDATE_CHECK_INTERVAL = 5 * 60 * 1000
 const UPDATE_TMP_FOLDER = 'temp'
+
+const languages = {
+  english: 1,
+  punjabi: 2,
+}
 
 /**
  * Gets all the DB sources.
@@ -53,13 +59,31 @@ export const getLineOnPage = async (
 ) => getLinesOnPageBase( sourceId, page )
   .offset( lineIndex )
   .first()
-  .then( ( { id } ) => Lines.query().where( 'id', id ).withTranslations() )
-  .then( ( [ { translations, ...line } ] ) => ( {
+  .then( ( { id } ) => Lines.query().where( 'id', id ).withTranslations( query => query.joinEager( 'translationSource' ) ) )
+  .then( async ( [ { translations, ...line } ] ) => ( {
     ...line,
-    translations: translations.map( ( { additionalInformation, ...translation } ) => ( {
-      ...translation,
-      additionalInformation: JSON.parse( additionalInformation ),
-    } ) ),
+    translations: await Promise.all( translations.map( async ( {
+      additionalInformation,
+      translationSource: { languageId },
+      translation,
+      ...rest
+    } ) => ( {
+      ...rest,
+      translation,
+      ...( languageId === languages.punjabi && {
+        english: await translate( translation, LANGUAGE_CODES.punjabi ),
+      } ),
+      additionalInformation: await Promise.all( Object
+        .entries( JSON.parse( additionalInformation ) )
+        .filter( ( [ , v ] ) => v )
+        .map( async ( [ name, information ] ) => ( {
+          name,
+          information,
+          ...( languageId === languages.punjabi && {
+            english: await translate( information, LANGUAGE_CODES.punjabi ),
+          } ),
+        } ) ) ),
+    } ) ) ),
   } ) )
 
 /**

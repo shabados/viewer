@@ -30,6 +30,7 @@
     "nodemon": "^1.19.1"
   },
   "dependencies": {
+    "@google-cloud/translate": "^6.0.2",
     "@shabados/database": "^4.0.16",
     "compression": "^1.7.4",
     "esm": "^3.2.25",
@@ -37,6 +38,7 @@
     "fs-extra": "^8.0.1",
     "helmet": "^3.18.0",
     "import-fresh": "^3.0.0",
+    "memoizee": "^0.4.14",
     "pacote": "^9.5.1"
   }
 }

@@ -5,6 +5,7 @@ import Popover from 'react-tiny-popover'
 import { stripVishraams, toUnicode } from 'gurmukhi-utils'
 import { GlobalHotKeys } from 'react-hotkeys'
 import { useDebounce } from 'use-debounce'
+import useSWR from 'swr'
 
 import { PAGE_API } from '../lib/consts'
 import { getDictionaryLink, getIssueUrl } from '../lib/utils'
@@ -42,7 +43,7 @@ const getNextLineUrl = ( {
   page,
   lineNumber,
 } ) => {
-  if ( !source || page - 1 >= source.length - 1 ) return null
+  if ( !source || page - 1 >= source.length - 1 || !lines ) return null
 
 
   return lineNumber < lines.length - 1
@@ -65,35 +66,20 @@ const LineView = ( {
     setMenuOpen( false )
   }
 
-  const [ err, setErr ] = useState()
-
   // Line data
-  const [ line, setLine ] = useState()
-  const [ lineLoading, setLineLoading ] = useState( true )
-
   const [ debouncedLineNumber ] = useDebounce( lineNumber, 100 )
 
-  useEffect( () => {
-    fetch( `${PAGE_API}/${sourceNumber}/page/${page}/line/${debouncedLineNumber}` )
-      .then( res => res.json() )
-      .then( setLine )
-      .catch( setErr )
-      .finally( () => setLineLoading( false ) )
-  }, [ debouncedLineNumber, setLine, setErr, setLineLoading, sourceNumber, page ] )
+  const {
+    data: line,
+    error: lineError,
+  } = useSWR( `${PAGE_API}/${sourceNumber}/page/${page}/line/${debouncedLineNumber}` )
+
+  // Pre-fetch next page + previous page
+  useSWR( `${PAGE_API}/${sourceNumber}/page/${page}/line/${debouncedLineNumber - 1}` )
+  useSWR( `${PAGE_API}/${sourceNumber}/page/${page}/line/${debouncedLineNumber + 1}` )
 
   // Page data
-  const [ lines, setLines ] = useState( [] )
-  const [ linesLoading, setLinesLoading ] = useState( true )
-
-  useEffect( () => {
-    setLine( null )
-
-    fetch( `${PAGE_API}/${sourceNumber}/page/${page}` )
-      .then( res => res.json() )
-      .then( setLines )
-      .catch( setErr )
-      .finally( () => setLinesLoading( false ) )
-  }, [ setLines, setErr, sourceNumber, page ] )
+  const { data: lines, error: linesError } = useSWR( `${PAGE_API}/${sourceNumber}/page/${page}` )
 
   const { translations, gurmukhi } = line || {}
 
@@ -114,42 +100,32 @@ const LineView = ( {
 
   const handlers = { goPreviousLine, goNextLine, goUp }
 
-  const isPreviousPageOverflow = lineNumber >= lines.length
+  const isPreviousPageOverflow = lineNumber >= ( lines || [] ).length
 
   useEffect( () => {
-    if ( !isPreviousPageOverflow || linesLoading || lineLoading ) return
+    if ( !isPreviousPageOverflow || !lines || !line ) return
 
-    setLineLoading( true )
     history.replace( `/sources/${sourceNumber}/page/${page}/line/${lines.length - 1}/view` )
-  }, [
-    isPreviousPageOverflow,
-    history,
-    lines,
-    setLineLoading,
-    lineLoading,
-    linesLoading,
-    sourceNumber,
-    page,
-  ] )
+  }, [ isPreviousPageOverflow, history, line, lines, sourceNumber, page ] )
 
-  const ready = source && !lineLoading && !linesLoading && !isPreviousPageOverflow
+  const err = linesError || lineError
 
   return (
     <div className="line-view">
 
       {err && <Error err={err} />}
-      {!ready && !err && <Loader />}
 
-      {ready && gurmukhi && (
-        <GlobalHotKeys keyMap={keyMap} handlers={handlers} allowChanges>
-          <div className="header">
-            <div className="left buttons">
-              <LinkButton className="button" icon="level-up-alt" to={sourceViewUrl} />
-              <LinkButton className="button" icon="caret-left" disabled={!previousLineUrl} replace to={previousLineUrl} />
-            </div>
+      <GlobalHotKeys keyMap={keyMap} handlers={handlers} allowChanges>
+        <div className="header">
+          <div className="left buttons">
+            <LinkButton className="button" icon="level-up-alt" to={sourceViewUrl} />
+            <LinkButton className="button" icon="caret-left" disabled={!previousLineUrl} replace to={previousLineUrl} />
+          </div>
 
-            <h1>
-              {gurmukhi
+          <h1>
+
+            {gurmukhi
+              ? gurmukhi
                 .split( ' ' )
                 .map( ( word, index ) => (
                   <a
@@ -162,48 +138,48 @@ const LineView = ( {
                     {word}
                   </a>
                 ) )
-                .reduce( ( prev, curr ) => [ prev, ' ', curr ] )}
-            </h1>
+                .reduce( ( prev, curr ) => [ prev, ' ', curr ] )
+              : <Loader size="1em" />}
+          </h1>
 
-            <div className="right buttons">
+          <div className="right buttons">
 
-              <LinkButton className="button" icon="caret-right" replace to={nextLineUrl} />
+            <LinkButton className="button" icon="caret-right" replace to={nextLineUrl} />
 
-              <Popover
-                isOpen={menuOpen}
-                onClickOutside={() => setMenuOpen( false )}
-                containerClassName="popover-menu"
-                content={(
-                  <Menu>
-                    <MenuItem
-                      onClick={closeMenuAfter( submitCorrection )}
-                    >
-                      Submit Correction
-                    </MenuItem>
-                  </Menu>
+            <Popover
+              isOpen={menuOpen}
+              onClickOutside={() => setMenuOpen( false )}
+              containerClassName="popover-menu"
+              content={(
+                <Menu>
+                  <MenuItem
+                    onClick={closeMenuAfter( submitCorrection )}
+                  >
+                    Submit Correction
+                  </MenuItem>
+                </Menu>
                 )}
-                position="bottom"
-              >
-                <IconButton icon="ellipsis-v" onClick={toggleMenu} />
-              </Popover>
+              position="bottom"
+            >
+              <IconButton icon="ellipsis-v" onClick={toggleMenu} />
+            </Popover>
 
-            </div>
           </div>
+        </div>
 
-          <div className="content">
-            {translations
-              .map( translation => (
-                <TranslationBlock
-                  key={translation.translationSourceId}
-                  {...translation}
-                />
-              ) )
-              .filter( x => x )
-              .reverse()}
-          </div>
+        <div className="content">
+          {translations && translations
+            .map( translation => (
+              <TranslationBlock
+                key={translation.translationSourceId}
+                {...translation}
+              />
+            ) )
+            .filter( x => x )
+            .reverse()}
+        </div>
 
-        </GlobalHotKeys>
-      )}
+      </GlobalHotKeys>
 
     </div>
   )

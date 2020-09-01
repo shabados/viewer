@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { SWRConfig } from 'swr'
 
 import { getPositions } from './lib/utils'
 import { SOURCES_API, TRANSLATION_SOURCES_API, DB_VERSION_API } from './lib/consts'
@@ -40,6 +41,13 @@ class App extends Component {
 
     const withContexts = [
       [ TranslationSourcesContext.Provider, translationSources ],
+      [
+        SWRConfig,
+        {
+          revalidateOnFocus: false,
+          fetcher: ( ...args ) => fetch( ...args ).then( res => res.json() ),
+        },
+      ],
     ].reduce( ( withContexts, [ Provider, value ] ) => children => withContexts(
       <Provider value={value}>{children}</Provider>,
     ), context => context )

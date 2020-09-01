@@ -3,13 +3,12 @@
   jsx-a11y/no-noninteractive-element-interactions
 */
 import React, { useContext, useState } from 'react'
-import { number, string, arrayOf } from 'prop-types'
+import { number, string, arrayOf, shape } from 'prop-types'
 import classNames from 'classnames'
 
 import { TranslationSourcesContext } from '../lib/contexts'
 
 import './TranslationBlock.css'
-
 
 const languages = {
   english: 1,
@@ -34,7 +33,11 @@ const TranslationBlock = ( {
   const translationSources = useContext( TranslationSourcesContext )
   const source = translationSources.find( ( { id } ) => translationSourceId === id )
 
-  if ( !Object.values( languages ).includes( source.languageId ) || !translation ) return null
+  if (
+    !source
+    || !Object.values( languages ).includes( source.languageId )
+    || !translation
+  ) return null
 
   return (
     <div className="translation-block">
@@ -76,7 +79,7 @@ TranslationBlock.propTypes = {
   translationSourceId: number.isRequired,
   translation: string.isRequired,
   english: string,
-  additionalInformation: arrayOf( string ).isRequired,
+  additionalInformation: arrayOf( shape( { name: string, information: string } ) ).isRequired,
 }
 
 TranslationBlock.defaultProps = {

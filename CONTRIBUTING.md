@@ -1,8 +1,17 @@
 # Contributing Guidelines
 
-We follow [Angular's Commit Message Guidelines](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#commit)
+## Setup
+
+Requires `node >= 12`.
+
+You will need to create a Google Cloud Project with the Translate API enabled to try out translation translating.
+
+Translations will be enabled if the `GOOGLE_APPLICATION_CREDENTIALS` environment variable is set to a path that contains the credentials for a Google Cloud Project's service account, which you must create. See the [following steps](https://www.npmjs.com/package/@google-cloud/translate#quickstart) for further guidance on setting up the Google Cloud Project.
 
 ## Commit Message Format
+
+We follow [Angular's Commit Message Guidelines](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#commit)
+
 Each commit message consists of a **header**, a **body** and a **footer**. The header has a special format that includes a **type**, a **scope** and a **subject**:
 
 ```

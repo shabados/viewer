@@ -60,7 +60,7 @@ export const getLineOnPage = async (
   .offset( lineIndex )
   .first()
   .then( ( { id } ) => Lines.query().where( 'id', id ).withTranslations( query => query.joinEager( 'translationSource' ) ) )
-  .then( ( [ { translations, ...line } ] ) => ( {
+  .then( async ( [ { translations, ...line } ] ) => ( {
     ...line,
     translations: await Promise.all( translations.map( async ( {
       additionalInformation,

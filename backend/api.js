@@ -4,36 +4,23 @@ import { getSources, getLinesOnPage, getLine, getDbVersion, getLineOnPage, getTr
 
 const api = Router()
 
-api.get( '/sources', ( _, res ) => (
-  getSources()
-    .then( sources => res.json( sources ) )
-    .catch( err => res.status( 400 ).json( err ) )
-) )
+const withRes = fn => ( req, res ) => fn( req, res )
+  .then( data => res.json( data ) )
+  .catch( error => {
+    console.error( error )
+    res.status( 404 ).json( error.message )
+  } )
 
-api.get( '/translationSources', ( _, res ) => (
-  getTranslationSources()
-    .then( translationSources => res.json( translationSources ) )
-    .catch( err => res.status( 400 ).json( err ) )
-) )
+api.get( '/sources', withRes( getSources ) )
 
-api.get( '/source/:sourceId/page/:pageId', ( { params: { sourceId, pageId } }, res ) => (
-  getLinesOnPage( sourceId, pageId )
-    .then( lines => res.json( lines ) )
-    .catch( err => res.status( 400 ).json( err ) )
-) )
+api.get( '/translationSources', withRes( getTranslationSources ) )
 
-api.get( '/source/:sourceId/page/:pageId/line/:lineId', ( { params: { sourceId, pageId, lineId } }, res ) => (
-  getLineOnPage( sourceId, pageId, lineId )
-    .then( line => res.json( line ) )
-    .catch( err => res.status( 400 ).json( err ) )
-) )
+api.get( '/source/:sourceId/page/:pageId', withRes( ( { params: { sourceId, pageId } } ) => getLinesOnPage( sourceId, pageId ) ) )
 
-api.get( '/line/:lineId', ( { params: { lineId } }, res ) => (
-  getLine( lineId )
-    .then( line => res.json( line ) )
-    .catch( err => res.status( 400 ).json( err ) )
-) )
+api.get( '/source/:sourceId/page/:pageId/line/:lineId', withRes( ( { params: { sourceId, pageId, lineId } } ) => getLineOnPage( sourceId, pageId, lineId ) ) )
 
-api.get( '/version', async ( _, res ) => res.json( await getDbVersion() ) )
+api.get( '/line/:lineId', withRes( ( { params: { lineId } } ) => getLine( lineId ) ) )
+
+api.get( '/version', withRes( getDbVersion ) )
 
 export default api

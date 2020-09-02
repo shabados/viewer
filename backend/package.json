@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@google-cloud/translate": "^6.0.2",
-    "@shabados/database": "^4.0.16",
+    "@shabados/database": "^4.7.0",
     "compression": "^1.7.4",
     "esm": "^3.2.25",
     "express": "^4.17.1",

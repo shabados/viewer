@@ -11,10 +11,10 @@
     "install-deps:frontend": "cd frontend && npm install",
     "install-deps:backend": "cd backend && npm install",
     "postinstall": "npm run install-deps",
-    "test": "cypress open",
-    "test:headless": "cypress run",
-    "ci": "start-server-and-test start :3000 test:headless",
-    "ci:dev": "start-server-and-test start :3000 test"
+    "test:e2e": "cypress open",
+    "test:e2e:headless": "cypress run",
+    "test": "start-server-and-test start :3000 test:e2e:headless",
+    "test:dev": "start-server-and-test start :3000 test:e2e"
   },
   "repository": {
     "type": "git",

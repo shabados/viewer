@@ -1,5 +1,5 @@
 {
-  "name": "@shabados/database-viewer--backend",
+  "name": "@shabados/viewer--backend",
   "version": "0.0.1",
   "description": "Shabad OS Database Viewer",
   "main": "server.js",
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ShabadOS/database-viewer.git"
+    "url": "git+https://github.com/ShabadOS/viewer.git"
   },
   "author": "Shabad OS Team <team@shabados.com>",
   "license": "GPL-3.0-or-later",
   "bugs": {
-    "url": "https://github.com/ShabadOS/database-viewer/issues"
+    "url": "https://github.com/ShabadOS/viewer/issues"
   },
-  "homepage": "https://github.com/ShabadOS/database-viewer#readme",
+  "homepage": "https://github.com/ShabadOS/viewer#readme",
   "devDependencies": {
     "babel-eslint": "^10.0.2",
     "eslint": "^5.16.0",

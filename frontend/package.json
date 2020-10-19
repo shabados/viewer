@@ -1,5 +1,5 @@
 {
-  "name": "@shabados/database-viewer--frontend",
+  "name": "@shabados/viewer--frontend",
   "version": "0.1.0",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
@@ -31,12 +31,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ShabadOS/database-viewer.git"
+    "url": "git+https://github.com/ShabadOS/viewer.git"
   },
   "author": "Shabad OS Team <team@shabados.com>",
   "license": "GPL-3.0-or-later",
   "bugs": {
-    "url": "https://github.com/ShabadOS/database-viewer/issues"
+    "url": "https://github.com/ShabadOS/viewer/issues"
   },
   "homepage": "/",
   "devDependencies": {

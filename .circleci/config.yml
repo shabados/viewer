@@ -12,9 +12,9 @@ jobs:
       # Log in to Docker Hub
       - run: docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
       # Build the image, tagging it as latest
-      - run: docker build -t shabados/database-viewer-frontend:${CIRCLE_SHA1} frontend
+      - run: docker build -t shabados/viewer-frontend:${CIRCLE_SHA1} frontend
       # Push the image to Docker Hub
-      - run: docker push shabados/database-viewer-frontend:${CIRCLE_SHA1}
+      - run: docker push shabados/viewer-frontend:${CIRCLE_SHA1}
 
   build:backend:
     docker:
@@ -27,9 +27,9 @@ jobs:
       # Log in to Docker Hub
       - run: docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
       # Build the image, tagging it as latest
-      - run: docker build -t shabados/database-viewer-backend:${CIRCLE_SHA1} backend
+      - run: docker build -t shabados/viewer-backend:${CIRCLE_SHA1} backend
       # Push the image to Docker Hub
-      - run: docker push shabados/database-viewer-backend:${CIRCLE_SHA1}
+      - run: docker push shabados/viewer-backend:${CIRCLE_SHA1}
 
 workflows:
   version: 2

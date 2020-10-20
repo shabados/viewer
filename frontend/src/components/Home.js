@@ -14,13 +14,11 @@ const Home = ( { err, sources, positions, dbVersion } ) => (
   <div className="home">
     <section className="introduction">
       <img className="logo" src={logo} alt="Shabad OS Logo" />
-      <h1>Database Viewer</h1>
+      <h1>Viewer</h1>
       <h4>{ !dbVersion ? 'Database Version loading...' : `Database Version ${dbVersion}`}</h4>
       <div className="links">
-        <a href="https://github.com/ShabadOS/database-viewer#getting-started" className="button">Getting Started</a>
-        <a href="https://github.com/ShabadOS/database-viewer/blob/master/CONTRIBUTING.md" className="button">Contributing</a>
-        <a href="https://github.com/ShabadOS/database-viewer#proofs-for-bani" className="button">List of Proofs</a>
         <a href="https://youtu.be/YLtOxh5k7aw" className="button">Tutorial Video</a>
+        <a href="https://tutorials.shabados.com/tutorials/1.0.0/database-viewer/proofreading.html" className="button">Learn to Proofread</a>
       </div>
     </section>
     <section className="sources">

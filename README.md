@@ -1,121 +1,100 @@
+<img src="https://raw.githubusercontent.com/ShabadOS/presenter/dev/resources/icon.png" width="128">
 
-# Shabad OS Database Viewer
+# Shabad OS Viewer
 
-<div align="center">
-  <img src="./repologo.png">
-</div>
-<br/>
-<div align="center">
+An online viewer of the Shabad OS Database
 
-Work in-progress: An online viewer of the bani database. Authenticated by GitHub for suggesting changes. Shown as pull requests to our [Database](https://github.com/ShabadOS/database) repo.
+## Table of Contents
 
-[![Email](https://img.shields.io/badge/Email-team%40shabados.com-blue.svg)](mailto:team@shabados.com) [![WhatsApp](https://img.shields.io/badge/WhatsApp-%2B1--516--619--6059-brightgreen.svg)](https://wa.me/15166196059) [![Slack](https://img.shields.io/badge/Slack-join%20the%20conversation-B649AB.svg)](https://slack.shabados.com)
-</div>
-
-# Table of Contents
-
-- [Shabad OS Database Viewer](#shabad-os-database-viewer)
-- [Table of Contents](#table-of-contents)
-- [Getting Started](#getting-started)
+- [Introduction](#introduction)
+  - [Features](#features)
+  - [Screenshots](#screenshots)
+  - [Community](#community)
 - [Contributing](#contributing)
-  - [Proofs for Bani](#proofs-for-bani)
-    - [Sri Guru Granth Sahib Ji](#sri-guru-granth-sahib-ji)
-    - [Sri Dasam Granth](#sri-dasam-granth)
-    - [Vaaran Bhai Gurdaas Ji](#vaaran-bhai-gurdaas-ji)
-    - [Kabit Savaiye Bhai Gurdaas Ji](#kabit-savaiye-bhai-gurdaas-ji)
-    - [Bhai Nand Lal Ji](#bhai-nand-lal-ji)
-    - [Sarabloh Granth](#sarabloh-granth)
-  - [Origin of Proofs](#origin-of-proofs)
-- [Running](#running)
+- [Related Projects](#related-projects)
+- [Code of Conduct](#code-of-conduct)
+- [License](#license)
 
-# Getting Started
+## Introduction
 
-Tutorial pending.
+The Shabad OS Viewer quickly shows what is available in the Shabad OS Database. It can be used for research. It can be used for proofreading. It can be used for auditing. [See it online in your browser](https://viewer.shabados.com).
 
-# Contributing
+### Features
 
-Anyone with a GitHub account can help contribute content and accuracy to the database. If you wish to contribute to the source-code of the Database Viewer itself, please follow the [contributing guidelines set out](CONTRIBUTING.md).
+- Read in long form or click on lines for research purposes
+- Submit issue tickets for any line while proofreading (Related: [tutorial guide](https://tutorials.shabados.com/tutorials/1.0.0/database-viewer/proofreading.html); [issue tracker](https://github.com/ShabadOS/database/issues))
+- Automatically sync with the latest Database release
+- Use left and right keyboard hotkeys for iterating
+- Lookup dictionary results of individual lines
 
-## Proofs for Bani
+### Screenshots
 
-The below table lists various files used in correcting the bani portion of the database. The term *proof* does not indicate a 100% hard-truth. Over the many years in Sikh history, there have been multiple variations of the same text, even by the same publisher (e.g. SGPC), from mistakes in transpiling, incorrect printer set-ups, and human error. Therefore, documenting these multiplicities for the sake of transparency, reproducibility, and research purposes is encouraged.
+<img src="./docs/homepage.png" width="640">
 
-If one would like to proofread the database, they may click on the corresponding link for a PDF. The compare the proof against the source (Shabad OS Database) using the online viewer.
+<img src="./docs/longform.png" width="640">
 
-### Sri Guru Granth Sahib Ji
+<img src="./docs/lineview.png" width="640">
 
-Proof | Edition | Author | Publisher 
----|---|---|---
-[Shabadaarth (Vol. 1)](https://drive.google.com/open?id=1zKiUavBdWe_FCr0xbNh2bk2Dc2NZ8qnh)<br> [Shabadaarth (Vol. 2)](https://drive.google.com/open?id=1YnIKl9qbNczwzMzAYxA7Cl5YnYqi4UeZ)<br> [Shabadaarth (Vol. 3)](https://drive.google.com/open?id=1mjmW4GzVOxlskZiv6zaWs8fpggSMDLIN)<br> [Shabadaarth (Vol. 4)](https://drive.google.com/open?id=1yQwR57RXenYQ1uX5eCqYG4XhhD7GbB3X) | Vol. 1: October 2009<br> Vol. 2: August 2012<br> Vol. 3: July 2010<br> Vol. 4: September 2010 | - | SGPC, Sri Amritsar 
-[Sri Guru Granth Sahib (Unicode)](https://drive.google.com/open?id=1_ozxV6_rmZ8kG1AQ9iZx2s49ZtnlU82E) | - | - | SGPC.net 
+### Community
 
-### Sri Dasam Granth
+Get updates on Shabad OS and chat with the project maintainers and community members.
 
-Proof | Edition | Author | Publisher 
----|---|---|---
-[Das Granthi](https://drive.google.com/open?id=16KaLDgZUNzTwghdYatRL3dGq9vnXLRP6) | March 2006 | - | SGPC, Sri Amritsar 
-[Nitnem Gutka](https://drive.google.com/open?id=1AyQLCQgrNznDxI9Vby3knE4Piyrdsnxs) | May 2017 | - | SGPC, Sri Amritsar 
-[Akal Ustat](https://drive.google.com/open?id=1QumuyIUC1oLRoODz3gaaEEnYwbqj1d5t) | 5th Ed., December 1995 | - | SGPC, Sri Amritsar 
-[Bachittar Natak](https://drive.google.com/open?id=1z3Waum_FUoUzb1Faj7l5ZGzJYHG2THe1) | 7th Ed., July 2000 | - | SGPC, Sri Amritsar 
-[Zafarnama](https://drive.google.com/open?id=1hR-CeTH1YTiCtUn79c2TwROa_ZvbPdwE) | 6th Ed., September 2013 | Piara Singh Padam | Singh Brothers, Sri Amritsar 
-[Sri Dasam Granth Shiromani Steek (Vol. 1)](https://drive.google.com/open?id=10V2Ah4i5s1m_sxpMvFp_uxwVAzHEPwcl)<br> [Sri Dasam Granth Shiromani Steek (Vol. 2)](https://drive.google.com/open?id=1dK3b13mznXq2c88dywk4A5VP2PzBpmhU)<br> [Sri Dasam Granth Shiromani Steek (Vol. 3)](https://drive.google.com/open?id=1w9dvC0M2G1_hRmEDoxZj3aNakK1zv-9W)<br> [Sri Dasam Granth Shiromani Steek (Vol. 4)](https://drive.google.com/open?id=1mxqCLhrCuazeCsstYZUGc2UmW8-TButx)<br> [Sri Dasam Granth Shiromani Steek (Vol. 5)](https://drive.google.com/open?id=1ipiQa7gSQtt5zrRKK-sT0X1kHaStr7kU)<br> [Sri Dasam Granth Shiromani Steek (Vol. 6)](https://drive.google.com/open?id=16R0IrpxnMFBJZ-wvnt0DQ_czrTIqxyXC) | Vol. 1-6: Vaisakhi 1999 | Eshar Singh Ramgharia Ropar | Gurdwara Rajdhani Bunga Nihung Singh, Mehron, Dist. Moga 
-[Sri Dasam Granth](https://drive.google.com/open?id=1EG6okisvuibNK-RgSlLBLS1Z_T5-81_p) | - | Dr. Ratan Singh Jaggi | Gobind Sadan, New Delhi 
+- [![Instagram][instagram-image]][instagram-url] Follow Shabad OS on Instagram
+- [![Twitter][twitter-image]][twitter-url] Follow Shabad OS on Twitter.
+- [![Chat][chat-image]][chat-url] Join the official Slack channel.
+- [![WhatsApp][whatsapp-image]][whatsapp-url] Direct message us on WhatsApp. Or chat with fellow Shabad OS community members in the WhatsApp group chat.
 
-### Vaaran Bhai Gurdaas Ji
+## Contributing
 
-Proof | Edition | Author | Publisher 
----|---|---|---
-[Vaaran Bhai Gurdaas Ji](https://drive.google.com/open?id=1_lw_qOndvQJnT5ClYBbLb63aX9-IslwZ) | November 2011 | Shamsher Singh Ashok | SGPC, Sri Amritsar 
+There are multiple ways to contribute whether you are a user or developer. For example:
 
-### Kabit Savaiye Bhai Gurdaas Ji
+- [Learn to proofread](https://tutorials.shabados.com/tutorials/1.0.0/database-viewer/proofreading.html) and improve the accuracy of the Shabad OS Database.
+- [Submit bugs and feature requests](https://github.com/ShabadOS/viewer/issues/new).
+- Review documentation and make pull requests for anything from typos to new content.
+- Give feedback on the onboarding process to make it easier for others to join the project.
 
-Proof | Edition | Author | Publisher 
----|---|---|---
-[Kabit Savaiye Bhai Gurdas Ji Steek](https://drive.google.com/open?id=1-imMygFPdXKj0DuydErsUrtg1IWiu_q7) | 7th Ed., December 2011 | Bhai Sewa Singh | Singh Brothers, Sri Amritsar 
+And "Thank you!" to [all the volunteers][contributor-url] who've already contributed to Shabad OS!
 
-### Bhai Nand Lal Ji
+## Feedback
 
-Proof | Edition | Author | Publisher 
----|---|---|---
-[Bhai Nand Lal Granthavali](https://drive.google.com/open?id=1bKjrbqUAn_7TDThLeHcH_GSZuM8iY268) | 4th Ed., 2009 | Dr. Ganda Singh | Punjabi University, Patiala 
-[Rehitname](https://drive.google.com/open?id=1-mJn4UdGMtwb8ELG4VREYU0EPHqXzpu8) | 8th Ed., June 2006 | Piara Singh Padam | Singh Brothers, Sri Amritsar 
+- Ask a question via [Slack][chat-url] or [WhatsApp][whatsapp-url]
+- [Upvote popular feature requests](https://github.com/ShabadOS/viewer/issues?q=is%3Aopen+is%3Aissue+label%3A%22Type%3A+Feature%2FEnhancement%22+sort%3Areactions-%2B1-desc) using the thumbs-up/+1 reaction on the first post of a feature request
+- Follow [@shabad_os on Instagram](instagram-url) and [@shabad_os on Twitter](twitter-url) and let us know what you think!
 
-### Sarabloh Granth
+## Related Projects
 
-Proof | Edition | Author | Publisher 
----|---|---|---
-[Amrit Keertan](https://drive.google.com/open?id=1QJdE1ZeutRhkT1FDh1S0b83Z-4rTQyNa) | 40th Ed., July 2011 | "ਕੂਕਰ ਰਾਮ ਕਉ" | Khalsa Brothers, Sri Amritsar 
-[Sanpuran Steek Sri Sarabloh Granth Ji](https://drive.google.com/open?id=1-C8E3YYeAFIqacfe8Xy7scDFpTyn62_U) | June 2000 | Santa Singh | Budha Dal, Sri Anandpur Sahib 
-[Sanpuran Steek Sri Sarabloh Granth Ji (Vol. 1)](https://drive.google.com/open?id=1-dbLAUCw2ME4gyBXS7QttId9WxDEkQnf)<br> [Sanpuran Steek Sri Sarabloh Granth Ji (Vol. 2)](https://drive.google.com/open?id=1ooERm2R6rwtedMTs1z21HakqtvHxMqjr) | Unknown | Santa Singh | Budha Dal, Sri Anandpur Sahib 
+Projects in the Shabad OS ecosystem of free and open source software which interact with or are used by the viewer repo include:
 
-## Origin of Proofs
+- [Database](https://github.com/ShabadOS/database)
+- [Gurmukhi Utils](https://github.com/ShabadOS/gurmukhi-utils)
 
-In academia it is customary to include the URL of citations. This is to prevent confusion in case one of the proofs above is not actually the same as the physical source.
+## Code of Conduct
 
-Proof | Origin
------ | ------
-[Shabadaarth (Vol. 1)](https://drive.google.com/open?id=1zKiUavBdWe_FCr0xbNh2bk2Dc2NZ8qnh)<br> [Shabadaarth (Vol. 2)](https://drive.google.com/open?id=1YnIKl9qbNczwzMzAYxA7Cl5YnYqi4UeZ)<br> [Shabadaarth (Vol. 3)](https://drive.google.com/open?id=1mjmW4GzVOxlskZiv6zaWs8fpggSMDLIN)<br> [Shabadaarth (Vol. 4)](https://drive.google.com/open?id=1yQwR57RXenYQ1uX5eCqYG4XhhD7GbB3X) | Vol. 1: [discoversikhism.com](http://www.discoversikhism.com/sikh_library/gurmukhi/shabdaarth_sri_guru_granth_sahib_ji_part_1.html)<br> Vol. 2: [discoversikhism.com](http://www.discoversikhism.com/sikh_library/gurmukhi/shabdaarth_sri_guru_granth_sahib_ji_part_2.html)<br> Vol. 3: [discoversikhism.com](http://www.discoversikhism.com/sikh_library/gurmukhi/shabdaarth_sri_guru_granth_sahib_ji_part_3.html)<br> Vol. 4: [discoversikhism.com](http://www.discoversikhism.com/sikh_library/gurmukhi/shabdaarth_sri_guru_granth_sahib_ji_part_4.html)
-[Sri Guru Granth Sahib (Unicode)](https://drive.google.com/open?id=1_ozxV6_rmZ8kG1AQ9iZx2s49ZtnlU82E) | [sgpc.net](http://old.sgpc.net/CDN/Siri%20Guru%20Granth%20Sahib%20without%20Index%20%28Uni%29.pdf)
-[Das Granthi](https://drive.google.com/open?id=16KaLDgZUNzTwghdYatRL3dGq9vnXLRP6) | [sikhbookclub.com](http://sikhbookclub.com/Book/Das-Granthi)
-[Nitnem Gutka](https://drive.google.com/open?id=1AyQLCQgrNznDxI9Vby3knE4Piyrdsnxs) | GurbaniNow.com / ShabadOS
-[Akal Ustat](https://drive.google.com/open?id=1QumuyIUC1oLRoODz3gaaEEnYwbqj1d5t) | [sikhbookclub.com](http://sikhbookclub.com/Book/Akaal-Ustat)
-[Bachittar Natak](https://drive.google.com/open?id=1z3Waum_FUoUzb1Faj7l5ZGzJYHG2THe1) | [sikhbookclub.com](http://sikhbookclub.com/Book/Bachitar-Natak)
-[Sri Dasam Granth](https://drive.google.com/open?id=1EG6okisvuibNK-RgSlLBLS1Z_T5-81_p) | [gobindsadan.org](https://www.gobindsadan.org/gobind-sadan-institute/#148-wpfd-siri-dasam-granth)
-[Zafarnama](https://drive.google.com/open?id=1hR-CeTH1YTiCtUn79c2TwROa_ZvbPdwE) | [sikhbookclub.com](http://sikhbookclub.com/Book/Zafarnama)
-[Vaaran Bhai Gurdaas Ji](https://drive.google.com/open?id=1_lw_qOndvQJnT5ClYBbLb63aX9-IslwZ) | [vidhia.com](http://vidhia.com/Bhai%20Gurdaas%20Ji/Vaaran%20Bhai%20Gurdaas%20Ji%20-%20SGPC.pdf)
-[Amrit Keertan](https://drive.google.com/open?id=1QJdE1ZeutRhkT1FDh1S0b83Z-4rTQyNa) | [sikhbookclub.com](http://sikhbookclub.com/Book/Amrit-Kirtan1)
-[Kabit Savaiye Bhai Gurdas Ji Steek](https://drive.google.com/open?id=1-imMygFPdXKj0DuydErsUrtg1IWiu_q7) | [sikhbookclub.com](http://sikhbookclub.com/Book/Kabit-Sawaiye-Bhai-Gurdas-Ji-Steek3)
-[Bhai Nand Lal Granthavali](https://drive.google.com/open?id=1bKjrbqUAn_7TDThLeHcH_GSZuM8iY268) | [sikhbookclub.com](http://sikhbookclub.com/Book/Bhai-Nand-Lal-Granthavali)
-[Rehitname](https://drive.google.com/open?id=1-mJn4UdGMtwb8ELG4VREYU0EPHqXzpu8) | GurbaniNow.com / ShabadOS
-[Amrit Keertan](https://drive.google.com/open?id=1QJdE1ZeutRhkT1FDh1S0b83Z-4rTQyNa) | [sikhbookclub.com](http://sikhbookclub.com/Book/Amrit-Kirtan1) 
-[Sri Dasam Granth Shiromani Steek (Vol. 1)](https://drive.google.com/open?id=10V2Ah4i5s1m_sxpMvFp_uxwVAzHEPwcl)<br> [Sri Dasam Granth Shiromani Steek (Vol. 2)](https://drive.google.com/open?id=1dK3b13mznXq2c88dywk4A5VP2PzBpmhU)<br> [Sri Dasam Granth Shiromani Steek (Vol. 3)](https://drive.google.com/open?id=1w9dvC0M2G1_hRmEDoxZj3aNakK1zv-9W)<br> [Sri Dasam Granth Shiromani Steek (Vol. 4)](https://drive.google.com/open?id=1mxqCLhrCuazeCsstYZUGc2UmW8-TButx)<br> [Sri Dasam Granth Shiromani Steek (Vol. 5)](https://drive.google.com/open?id=1ipiQa7gSQtt5zrRKK-sT0X1kHaStr7kU)<br> [Sri Dasam Granth Shiromani Steek (Vol. 6)](https://drive.google.com/open?id=16R0IrpxnMFBJZ-wvnt0DQ_czrTIqxyXC) | Vol. 1: [discoversikhism.com](http://www.discoversikhism.com/sikh_library/gurmukhi/dasam_sri_guru_granth_sahib_ji_shiromani_steek_1.html)<br> Vol. 2: [discoversikhism.com](http://www.discoversikhism.com/sikh_library/gurmukhi/dasam_sri_guru_granth_sahib_ji_shiromani_steek_2.html)<br> Vol. 3: [discoversikhism.com](http://www.discoversikhism.com/sikh_library/gurmukhi/dasam_sri_guru_granth_sahib_ji_shiromani_steek_3.html)<br> Vol. 4: [discoversikhism.com](http://www.discoversikhism.com/sikh_library/gurmukhi/dasam_sri_guru_granth_sahib_ji_shiromani_steek_4.html)<br> Vol. 5: [discoversikhism.com](http://www.discoversikhism.com/sikh_library/gurmukhi/dasam_sri_guru_granth_sahib_ji_shiromani_steek_5.html)<br> Vol. 6: [discoversikhism.com](http://www.discoversikhism.com/sikh_library/gurmukhi/dasam_sri_guru_granth_sahib_ji_shiromani_steek_6.html) 
-[Sanpuran Steek Sri Sarabloh Granth Ji](https://drive.google.com/open?id=1-C8E3YYeAFIqacfe8Xy7scDFpTyn62_U) | [adelaidesangat.com](http://www.adelaidesangat.com/index.php/downloads/Gurbani-PDF/Sri-Sarabloh-Granth-Sahib/Complete-Sri-Sarbloh-Granth-Sahib-Ji-Steek.pdf/)
-[Sanpuran Steek Sri Sarabloh Granth Ji (Vol. 1)](https://drive.google.com/open?id=1-dbLAUCw2ME4gyBXS7QttId9WxDEkQnf)<br> [Sanpuran Steek Sri Sarabloh Granth Ji (Vol. 2)](https://drive.google.com/open?id=1ooERm2R6rwtedMTs1z21HakqtvHxMqjr) | Vol. 1: [panjabdigilib.org](http://panjabdigilib.org/webuser/searches/displayPage.jsp?ID=9210&page=1&CategoryID=1&Searched=)<br> Vol. 2: [panjabdigilib.org](http://panjabdigilib.org/webuser/searches/displayPage.jsp?ID=9209&page=1&CategoryID=1&Searched=)
+Please note that this project is released under the Contributor Covenant. By participating in this project you agree to abide by its terms. Our intention is to signal a safe open-source community by welcoming all people to contribute, and pledging in return to value them as whole human beings and to foster an atmosphere of kindness, cooperation, and understanding.
 
-# Running
+> We as members, contributors, and leaders pledge to make participation in our community a harassment-free experience for everyone, regardless of age, body size, visible or invisible disability, ethnicity, sex characteristics, gender identity and expression, level of experience, education, socio-economic status, nationality, personal appearance, race, religion, or sexual identity and orientation.
 
-The viewer consists of two components: the backend, and the frontend. Each can be started independently, and are wrapped in their own containers.
+> We pledge to act and interact in ways that contribute to an open, welcoming, diverse, inclusive, and healthy community.
 
-To fire up both the frontend and backend, install Docker and run `docker-compose up`.
+> [The Contributor Covenant][code-of-conduct-url]
 
-You can also navigate to either folder individually, and run `npm start`.
+## License
+
+The viewer repo is under v3 of the [GPL](LICENSE.md). It is similar to the Golden Rule: do unto others as you would have them do unto you. In exchange for benefitting from the work completed in this repo, others must share their derivative work under v3 of the [GPL](LICENSE.md).
+
+> This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+> This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+> You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+[instagram-image]: https://img.shields.io/badge/Instagram-%40shabad__os-C13584.svg?logo=instagram&logoColor=white
+[instagram-url]: https://www.instagram.com/shabad_os/
+[twitter-image]: https://img.shields.io/badge/Twitter-%40shabad__os-1DA1F2.svg?logo=twitter&logoColor=white
+[twitter-url]: https://www.twitter.com/shabad_os/
+[chat-image]: https://img.shields.io/badge/Chat-Public%20Slack%20Channels-1264a3.svg?logo=slack
+[chat-url]: https://chat.shabados.com
+[whatsapp-image]: https://img.shields.io/badge/WhatsApp-%2B1%20516%20619%206059-128C7E.svg?logo=whatsapp&logoColor=white
+[whatsapp-url]: https://wa.me/15166196059
+[contributor-url]: https://github.com/shabados/viewer/graphs/contributors
+[code-of-conduct-url]: https://www.contributor-covenant.org/version/2/0/code_of_conduct/

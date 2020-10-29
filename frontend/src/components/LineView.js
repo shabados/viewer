@@ -45,7 +45,6 @@ const getNextLineUrl = ( {
 } ) => {
   if ( !source || page - 1 >= source.length - 1 || !lines ) return null
 
-
   return lineNumber < lines.length - 1
     ? `/sources/${sourceNumber}/page/${page}/line/${lineNumber + 1}/view`
     : `/sources/${sourceNumber}/page/${page + 1}/line/0/view`

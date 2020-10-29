@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { number, string, func, shape, bool } from 'prop-types'
 import classNames from 'classnames'
 
@@ -27,7 +27,7 @@ class Handle extends Component {
     const { mouseOver } = this.state
 
     return (
-      <Fragment>
+      <>
         {!disabled && ( mouseOver || tooltipActive ) && (
           <div
             style={{
@@ -53,12 +53,13 @@ class Handle extends Component {
         <div
           className={classNames( 'slider-handle', 'filled', { disabled } )}
           role="slider"
+          aria-label="slider"
           aria-valuemin={min}
           aria-valuemax={max}
           aria-valuenow={value}
           style={{ left: `${percent}%` }}
         />
-      </Fragment>
+      </>
     )
   }
 }

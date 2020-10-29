@@ -159,7 +159,6 @@ class SourceView extends Component {
     history.push( `${pathname}/view` )
   }
 
-
   belowLine = () => {
     const { line } = this.props
 
@@ -210,6 +209,7 @@ class SourceView extends Component {
     this.focusLine( index )
   }
 
+  // FIXME: @Harjot1Singh
   // eslint-disable-next-line react/sort-comp
   handlers = {
     previousLine: this.previousLine,

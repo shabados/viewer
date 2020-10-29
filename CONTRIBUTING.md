@@ -1,79 +1,109 @@
-# Contributing Guidelines
+# Contributing to Viewer
 
-## Setup
+Thank you for your interest in participating!
 
-Requires `node >= 12`.
+There are many ways to contribute, beyond writing code or programming, by: logging bugs, reporting issues, and creating suggestions. To do so, please [create a ticket](https://github.com/shabados/presenter/issues/new) in our issue tracker. (See other ways to [Contribute](README.md#Contributing) or give [Feedback](README.md#Feedback).
 
-You will need to create a Google Cloud Project with the Translate API enabled to try out translation translating.
+This document is for developers or programmers contributing to the source code of Viewer.
 
-Translations will be enabled if the `GOOGLE_APPLICATION_CREDENTIALS` environment variable is set to a path that contains the credentials for a Google Cloud Project's service account, which you must create. See the [following steps](https://www.npmjs.com/package/@google-cloud/translate#quickstart) for further guidance on setting up the Google Cloud Project.
+**Table of Contents**
 
-## Commit Message Format
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Notes](#notes)
+  - [Build](#build)
+  - [Start](#start)
+  - [Run](#run)
+- [Workflow](#workflow)
+  - [Coding Guidelines](#coding-guidelines)
+  - [Scope](#scope)
+- [Thank you](#thank-you)
 
-We follow [Angular's Commit Message Guidelines](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#commit)
+## Getting Started
 
-Each commit message consists of a **header**, a **body** and a **footer**. The header has a special format that includes a **type**, a **scope** and a **subject**:
+If you wish to better understand how Viewer works or want to debug an issue: get the source, build it, and run it locally.
 
+### Prerequisites
+
+In order to download necessary tools, clone the repository, and install dependencies, you'll need network access.
+
+You'll need the following:
+
+- [Git](https://git-scm.com/)
+- [Node.JS](https://nodejs.org) (If you need to manage multiple Node.JS versions, [use a node version manager](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) to install)
+
+Get the source code of `viewer` repo:
+
+```shell
+gh repo fork shabados/viewer --clone=true
 ```
-<type>(<scope>): <subject>
-<BLANK LINE>
-<body>
-<BLANK LINE>
-<footer>
+
+**PROTIP**: Use the [`gh` cli tool from GitHub](https://cli.github.com/) to fork the repo to your GitHub account (if not already), clone it to your local machine, and set the appropriate remotes for origin and upstream with the above command.
+
+### Notes
+
+You will need to create a Google Cloud Project with the Translate API enabled to try out punjabi to english translating.
+
+Translations will be enabled if the `GOOGLE_APPLICATION_CREDENTIALS` environment variable is set to a path that contains the credentials for a Google Cloud Project's service account, which you must create. [Learn more about setting up the Google Cloud Project](https://www.npmjs.com/package/@google-cloud/translate#quickstart).
+
+### Build
+
+Run `npm i` in the root directory.
+
+### Start
+
+```shell
+npm start
 ```
 
-The **header** is mandatory and the **scope** of the header is optional.
+### Run
 
-Any line of the commit message cannot be longer 100 characters! This allows the message to be easier to read on GitHub as well as in various git tools.
+Usage:
 
-The footer should contain a [closing reference to an issue](https://help.github.com/articles/closing-issues-via-commit-messages/) if any.
-
-Samples:
-
-```docs(changelog): update changelog to beta.5```
-
-```
-fix(release): need to depend on latest rxjs and zone.js
-
-The version in our package.json gets copied to the one we publish, and users need the latest of these.
+```shell
+npm run <command>
 ```
 
-### Revert
-If the commit reverts a previous commit, it should begin with revert: , followed by the header of the reverted commit. In the body it should say: This reverts commit <hash>., where the hash is the SHA of the commit being reverted.
+The commands are:
 
+```shell
+start:backend          # Start backend
+start:frontend         # Start frontend
+build                  # Build frontend
+install-deps           # Run npm install for entire project
+install-deps:backend   # Run npm install for backend
+install-deps:frontend  # Run npm install for frontend
+```
 
-### Type
-Must be one of the following:
+Run `npm run` or open the `package.json` file(s) for a full list of commands.
 
-- **build**: Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)
-- **ci**: Changes to our CI configuration files and scripts (example scopes: Circle, BrowserStack, SauceLabs)
-- **docs**: Documentation only changes
-- **feat**: A new feature
-- **fix**: A bug fix
-- **perf**: A code change that improves performance
-- **refactor**: A code change that neither fixes a bug nor adds a feature
-- **style**: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
-- **test**: Adding missing tests or correcting existing tests
+## Workflow
+
+The workflow of development (or Git Flow) is to [choose/create an issue](https://github.com/shabados/viewer/issues) to work on, [create a feature branch](https://github.com/shabados/.github/wiki/How-to-Contribute#branches), and [submit a pull request](https://github.com/shabados/.github/wiki/How-to-Contribute#pull-requests).
+
+**PROTIP**: Read more about our workflow (issue tracking, branching, and pull requests) in the [How To Contribute wiki article](https://github.com/shabados/.github/wiki/How-to-Contribute).
+
+### Coding Guidelines
+
+Please see the [wiki](https://github.com/shabados/.github/wiki/How-to-Contribute#coding-guidelines) for Coding Guidelines ([Names](https://github.com/shabados/.github/wiki/How-to-Contribute#41-names), [Comments](https://github.com/shabados/.github/wiki/How-to-Contribute#42-comments), [Style](https://github.com/shabados/.github/wiki/How-to-Contribute#43-style), [Linting](https://github.com/shabados/.github/wiki/How-to-Contribute#44-linting), and [Commit Messages](https://github.com/shabados/.github/wiki/How-to-Contribute#45-commit-messages)).
 
 ### Scope
 
-The scope should be one of the following, but may also be empty for repository-wide changes:
+To be used in [commit messages](https://github.com/shabados/.github/wiki/How-to-Contribute#45-commit-messages).
 
-- **frontend**
-- **backend**
+Usage:
 
+```shell
+<type>(<scope>): <subject>
+```
 
-### Subject
-The subject contains a succinct description of the change:
+The scopes are:
 
-use the imperative, present tense: "change" not "changed" nor "changes"
-don't capitalize the first letter
-no dot (.) at the end
+```shell
+backend
+frontend
+```
 
-### Body
-Just as in the **subject**, use the imperative, present tense: "change" not "changed" nor "changes". The body should include the motivation for the change and contrast this with previous behavior.
+## Thank you
 
-### Footer
-The footer should contain any information about **Breaking Changes** and is also the place to reference GitHub issues that this commit **Closes**.
-
-**Breaking Changes** should start with the word `BREAKING CHANGE:` with a space or two newlines. The rest of the commit message is then used for this.
+Your contributions to open source, large or small, make great projects like this possible. Thank you for taking the time to participate in this project.

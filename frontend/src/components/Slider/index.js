@@ -1,4 +1,3 @@
-import React from 'react'
 import { string, func, number, bool } from 'prop-types'
 import { Slider, Rail, Handles, Tracks } from 'react-compound-slider'
 

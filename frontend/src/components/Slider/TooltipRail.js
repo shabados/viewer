@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import { Component } from 'react'
 import { func, string, bool } from 'prop-types'
 import classNames from 'classnames'
 
@@ -33,7 +33,7 @@ class TooltipRail extends Component {
     const { label, getRailProps, disabled } = this.props
 
     return (
-      <Fragment>
+      <>
         {value && (
           <div
             style={{
@@ -54,7 +54,7 @@ class TooltipRail extends Component {
           } )}
         />
         <div className={classNames( 'slider-rail', 'filled', { disabled } )} />
-      </Fragment>
+      </>
     )
   }
 }

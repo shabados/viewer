@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { withRouter, Link } from 'react-router-dom'
 import { string, oneOfType, number } from 'prop-types'
 import { history, location } from 'react-router-prop-types'
@@ -159,7 +159,6 @@ class SourceView extends Component {
     history.push( `${pathname}/view` )
   }
 
-
   belowLine = () => {
     const { line } = this.props
 
@@ -210,6 +209,7 @@ class SourceView extends Component {
     this.focusLine( index )
   }
 
+  // FIXME: @Harjot1Singh
   // eslint-disable-next-line react/sort-comp
   handlers = {
     previousLine: this.previousLine,

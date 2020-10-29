@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { string, oneOfType, number, shape } from 'prop-types'
 import { withRouter, useLocation, useHistory } from 'react-router-dom'
 import Popover from 'react-tiny-popover'
@@ -44,7 +44,6 @@ const getNextLineUrl = ( {
   lineNumber,
 } ) => {
   if ( !source || page - 1 >= source.length - 1 || !lines ) return null
-
 
   return lineNumber < lines.length - 1
     ? `/sources/${sourceNumber}/page/${page}/line/${lineNumber + 1}/view`
@@ -118,7 +117,7 @@ const LineView = ( {
       <GlobalHotKeys keyMap={keyMap} handlers={handlers} allowChanges>
         <div className="header">
           <div className="left buttons">
-            <LinkButton className="button" icon="level-up-alt" to={sourceViewUrl} />
+            <LinkButton className="button" icon="level-up-alt" to={sourceViewUrl} data-cy="go-to-home-button" />
             <LinkButton className="button" icon="caret-left" disabled={!previousLineUrl} replace to={previousLineUrl} />
           </div>
 
@@ -144,7 +143,7 @@ const LineView = ( {
 
           <div className="right buttons">
 
-            <LinkButton className="button" icon="caret-right" replace to={nextLineUrl} />
+            <LinkButton className="button" icon="caret-right" replace to={nextLineUrl} data-cy="go-to-next-line-button" />
 
             <Popover
               isOpen={menuOpen}
@@ -161,7 +160,7 @@ const LineView = ( {
                 )}
               position="bottom"
             >
-              <IconButton icon="ellipsis-v" onClick={toggleMenu} />
+              <IconButton icon="ellipsis-v" onClick={toggleMenu} data-cy="menu-button-dots" />
             </Popover>
 
           </div>

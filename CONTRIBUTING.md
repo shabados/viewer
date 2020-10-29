@@ -69,10 +69,6 @@ The commands are:
 ```shell
 start:backend          # Start backend
 start:frontend         # Start frontend
-build                  # Build frontend
-install-deps           # Run npm install for entire project
-install-deps:backend   # Run npm install for backend
-install-deps:frontend  # Run npm install for frontend
 ```
 
 Run `npm run` or open the `package.json` file(s) for a full list of commands.

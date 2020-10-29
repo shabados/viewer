@@ -5,11 +5,11 @@ describe('Line Options', () => {
     cy.contains('<> siq nwmu krqw purKu inrBau inrvYru; Akwl mUriq AjUnI sYBM gur pRswid ]').click()
   })
 
-  it('Open Line Viewer', () => cy.GoToLineViewer( 'Prof. Sahib Singh' ))
+  it('Open Line Viewer', () => cy.goToLineViewer( 'Prof. Sahib Singh' ))
 
   it('3 Dots Menu', () => {
     cy.get( '[data-cy=menu-button-dots]' ).click()
-    cy.MatchValue( '.menu-item', 'Submit Correction' )
+    cy.matchValue( '.menu-item', 'Submit Correction' )
   })
 
 })

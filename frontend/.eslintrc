@@ -58,6 +58,9 @@
     // There's no point disabling prop spreading, it can be useful if not abused
     "react/jsx-props-no-spreading": 0,
     // FIXME: @Harjot1Singh
-    "react/state-in-constructor": 1
+    "react/state-in-constructor": 1,
+    // Not needed as of react v17
+    "react/jsx-uses-react": 0,
+    "react/react-in-jsx-scope": 0
   }
 }

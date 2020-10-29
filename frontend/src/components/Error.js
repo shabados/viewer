@@ -1,4 +1,3 @@
-import React from 'react'
 import { string, shape } from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 

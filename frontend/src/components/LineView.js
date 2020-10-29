@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { string, oneOfType, number, shape } from 'prop-types'
 import { withRouter, useLocation, useHistory } from 'react-router-dom'
 import Popover from 'react-tiny-popover'
@@ -44,7 +44,6 @@ const getNextLineUrl = ( {
   lineNumber,
 } ) => {
   if ( !source || page - 1 >= source.length - 1 || !lines ) return null
-
 
   return lineNumber < lines.length - 1
     ? `/sources/${sourceNumber}/page/${page}/line/${lineNumber + 1}/view`

@@ -2,7 +2,7 @@
 
 Thank you for your interest in participating!
 
-There are many ways to contribute, beyond writing code or programming, by: logging bugs, reporting issues, and creating suggestions. To do so, please [create a ticket](https://github.com/shabados/presenter/issues/new) in our issue tracker. (See other ways to [Contribute](README.md#Contributing) or give [Feedback](README.md#Feedback).
+There are many ways to contribute, beyond writing code or programming, by: logging bugs, reporting issues, and creating suggestions. To do so, please [create a ticket](https://github.com/shabados/presenter/issues/new) in our issue tracker. See other ways to [Contribute](README.md#Contributing) or give [Feedback](README.md#Feedback).
 
 This document is for developers or programmers contributing to the source code of Viewer.
 

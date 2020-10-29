@@ -55,7 +55,7 @@ There are multiple ways to contribute whether you are a user or developer. For e
 - Review documentation and make pull requests for anything from typos to new content.
 - Give feedback on the onboarding process to make it easier for others to join the project.
 
-If you're interested in contributing to the source code of Presenter, then please see [Contributing Guidelines](./CONTRIBUTING.md).
+If you're interested in contributing to the source code of Presenter, then please see [Contributing Guidelines](CONTRIBUTING.md).
 
 ## People
 

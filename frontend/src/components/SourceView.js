@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { withRouter, Link } from 'react-router-dom'
 import { string, oneOfType, number } from 'prop-types'
 import { history, location } from 'react-router-prop-types'

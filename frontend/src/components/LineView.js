@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { string, oneOfType, number, shape } from 'prop-types'
 import { withRouter, useLocation, useHistory } from 'react-router-dom'
 import Popover from 'react-tiny-popover'

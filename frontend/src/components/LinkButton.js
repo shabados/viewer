@@ -1,4 +1,3 @@
-import React from 'react'
 import { string, bool } from 'prop-types'
 import classNames from 'classnames'
 import { Link } from 'react-router-dom'

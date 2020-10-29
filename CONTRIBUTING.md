@@ -69,6 +69,7 @@ The commands are:
 ```shell
 start:backend          # Start backend
 start:frontend         # Start frontend
+build                  # Build frontend
 ```
 
 Run `npm run` or open the `package.json` file(s) for a full list of commands.

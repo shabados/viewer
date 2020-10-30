@@ -1,0 +1,31 @@
+# Since this only runs on push to master
+# It assumes that CI turned green before merging dev into master
+
+name: Release
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  github:
+    name: Build and Push (Github)
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Login to GitHub Package Registry
+      run: echo ${{ secrets.GH_BOT_TOKEN }} | docker login docker.pkg.github.com --username shabados-bot --password-stdin
+
+    - name: Build Docker Image Backend
+      run: docker build -t docker.pkg.github.com/shabados/viewer-backend:${GITHUB_SHA} .
+
+    - name: Build Docker Image Frontend
+      run: docker build -t docker.pkg.github.com/shabados/viewer-frontend:${GITHUB_SHA} .
+
+    - name: Publish to Github Container Registry
+      run: |
+        docker push docker.pkg.github.com/shabados/viewer-frontend:${GITHUB_SHA}
+        docker push docker.pkg.github.com/shabados/viewer-backend:${GITHUB_SHA}

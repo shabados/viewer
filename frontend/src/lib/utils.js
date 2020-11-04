@@ -3,7 +3,7 @@ import newGithubIssueUrl from 'new-github-issue-url'
 export const getIssueUrl = ( {
   id,
   gurmukhi,
-  page,
+  sourcePage: page,
   nameEnglish,
 } ) => newGithubIssueUrl( {
   user: 'ShabadOS',

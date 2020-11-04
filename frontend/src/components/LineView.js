@@ -82,7 +82,7 @@ const LineView = ( {
 
   const { translations, gurmukhi } = line || {}
 
-  const submitCorrection = () => window.open( getIssueUrl( { page, ...source, ...line } ), 'blank' )
+  const submitCorrection = () => window.open( getIssueUrl( { ...source, ...line } ), 'blank' )
 
   const { pathname } = useLocation()
   const history = useHistory()

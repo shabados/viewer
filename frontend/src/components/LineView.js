@@ -154,7 +154,7 @@ const LineView = ( {
                   <MenuItem
                     onClick={closeMenuAfter( submitCorrection )}
                   >
-                    Submit Correction
+                    Report an issue
                   </MenuItem>
                 </Menu>
                 )}

@@ -158,7 +158,7 @@ const LineView = ( {
                   </MenuItem>
                 </Menu>
                 )}
-              position="bottom"
+              position="left"
             >
               <IconButton icon="ellipsis-v" onClick={toggleMenu} data-cy="menu-button-dots" />
             </Popover>

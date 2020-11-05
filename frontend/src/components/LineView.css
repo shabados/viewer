@@ -63,6 +63,7 @@
 
 .line-view .header h1 span.syllable-count {
   top: 1.43em;
+  margin-bottom: 3em;
   position: relative;
   background: #d0cbce;
   border-radius: .5em;

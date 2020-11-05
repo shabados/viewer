@@ -142,6 +142,7 @@ const LineView = ( {
                 ) )
                 .reduce( ( prev, curr ) => [ prev, ' ', curr ] )
               : <Loader size="1em" />}
+
             {gurmukhi && ( <span className="syllable-count">{countSyllables( gurmukhi )}</span> )}
           </h1>
 

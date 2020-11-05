@@ -32,7 +32,7 @@
 .line-view .header h1 div {
   display: flex;
   flex-direction: column;
-  margin-right: .35em;
+  margin-right: 0.35em;
   margin-top: .3em;
   margin-bottom: .3em;
 }

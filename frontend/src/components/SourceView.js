@@ -98,6 +98,8 @@ class SourceView extends Component {
     const { source, page, history } = this.props
 
     history.replace( `/sources/${source}/page/${page}/line/${line}` )
+
+    this.lineRefs[ line ].scrollIntoView( { block: 'center' } )
   }
 
   goToPage = page => {

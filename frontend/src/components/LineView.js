@@ -82,7 +82,7 @@ const LineView = ( {
 
   const { translations, gurmukhi } = line || {}
 
-  const submitCorrection = () => window.open( getIssueUrl( { page, ...source, ...line } ), 'blank' )
+  const submitCorrection = () => window.open( getIssueUrl( { ...source, ...line } ), 'blank' )
 
   const { pathname } = useLocation()
   const history = useHistory()
@@ -159,11 +159,11 @@ const LineView = ( {
                   <MenuItem
                     onClick={closeMenuAfter( submitCorrection )}
                   >
-                    Submit Correction
+                    Report an issue
                   </MenuItem>
                 </Menu>
                 )}
-              position="bottom"
+              position="left"
             >
               <IconButton icon="ellipsis-v" onClick={toggleMenu} data-cy="menu-button-dots" />
             </Popover>

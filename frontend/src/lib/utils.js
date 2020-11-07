@@ -1,26 +1,24 @@
 import newGithubIssueUrl from 'new-github-issue-url'
+import { toUnicode, stripVishraams, stripEndings } from 'gurmukhi-utils'
 
 export const getIssueUrl = ( {
   id,
+  shabadId,
   gurmukhi,
-  page,
+  sourcePage: page,
   nameEnglish,
 } ) => newGithubIssueUrl( {
   user: 'ShabadOS',
   repo: 'Database',
   labels: [ 'correction', nameEnglish ],
   title: `${id}`,
-  body: `
-<!-- Instructions are hidden. Use the preview tab. Tutorial: https://database.shabados.com -->
+  body: `<!-- Do not edit this section. Check out the preview tab. Learn more about proofreading: https://viewer.shabados.com -->
+---
+Database was \`${gurmukhi}\` on ${new Date().toISOString()}. See line in [Shabad OS Viewer](https://viewer.shabados.com/line/${id}) or [GurbaniNow](https://gurbaninow.com/shabad/${shabadId}/${id}).
 
-| Key | Value |
-| --- | ----- |
-View | https://database.shabados.com/line/${id}
-Source | ${nameEnglish}
-Page | ${page}
-ID | ${id}
-Line | ${gurmukhi}
-
+> ${stripEndings( stripVishraams( toUnicode( gurmukhi ) ) )}
+> ${nameEnglish}, ${page}
+---
 <!-- Add details & attach image(s) below. Provide context & indication. Example: https://github.com/ShabadOS/database/issues/812 -->
 
 `,

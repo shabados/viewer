@@ -10,7 +10,6 @@
   box-sizing: border-box;
   justify-content: space-between;
   background: #F0EDE9;
-  padding: 1em;
   margin-bottom: 2em;
   position: sticky;
   top: 0;
@@ -18,13 +17,24 @@
 }
 
 .line-view .header h1 {
-  font-family: 'Open Gurbani Akhar Bold';
   font-weight: normal;
   transition: 0.125s all ease-in-out;
   text-align: center;
   font-size: 1.325em;
   line-height: 1.756em;
   color: #2D2026;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.line-view .header h1 div {
+  display: flex;
+  flex-direction: column;
+  margin-right: 0.35em;
+  margin-top: .3em;
+  margin-bottom: .3em;
 }
 
 .line-view .header h1 a {
@@ -38,6 +48,30 @@
   outline: none;
   background: #A2CED8;
   border-bottom: 2px solid rgba(0,0,0,.1);
+}
+
+.line-view .header h1 span {
+  font-size: 0.5em;
+  color: #888;
+  line-height: 1.6em;
+}
+
+.line-view .header h1 div span {
+  letter-spacing: 0.55em;
+  padding-left: 0.55em;
+}
+
+.line-view .header h1 span.syllable-count {
+  top: 1.43em;
+  margin-bottom: 3em;
+  position: relative;
+  background: #d0cbce;
+  border-radius: .5em;
+  padding: .2em;
+  height: 1.4em;
+  line-height: 1.4em;
+  min-width: 1.4em;
+  color: #2d2026;
 }
 
 .line-view .header .buttons {

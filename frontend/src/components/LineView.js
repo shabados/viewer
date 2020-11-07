@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { string, oneOfType, number, shape } from 'prop-types'
 import { withRouter, useLocation, useHistory } from 'react-router-dom'
 import Popover from 'react-tiny-popover'
-import { stripVishraams, toUnicode } from 'gurmukhi-utils'
+import { countSyllables, stripVishraams, toSyllabicSymbols, toUnicode } from 'gurmukhi-utils'
 import { GlobalHotKeys } from 'react-hotkeys'
 import { useDebounce } from 'use-debounce'
 import useSWR from 'swr'
@@ -122,23 +122,28 @@ const LineView = ( {
           </div>
 
           <h1>
-
             {gurmukhi
               ? gurmukhi
                 .split( ' ' )
                 .map( ( word, index ) => (
-                  <a
-                    // eslint-disable-next-line react/no-array-index-key
-                    key={index}
-                    href={getDictionaryLink( stripVishraams( toUnicode( word ) ) )}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {word}
-                  </a>
+                  <div>
+                    <a
+                      // eslint-disable-next-line react/no-array-index-key
+                      key={index}
+                      className="gurmukhi"
+                      href={getDictionaryLink( stripVishraams( toUnicode( word ) ) )}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {word}
+                    </a>
+                    <span>{toSyllabicSymbols( word )}</span>
+                  </div>
                 ) )
                 .reduce( ( prev, curr ) => [ prev, ' ', curr ] )
               : <Loader size="1em" />}
+
+            {gurmukhi && ( <span className="syllable-count">{countSyllables( gurmukhi )}</span> )}
           </h1>
 
           <div className="right buttons">

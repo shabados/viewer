@@ -1,17 +1,25 @@
-# Since this only runs on push to master
-# It assumes that CI turned green before merging dev into master
-
 name: Release
 
 on: workflow_dispatch
 
 jobs:
-  github:
+  publish:
     name: Build and Push (Github)
     runs-on: ubuntu-latest
     steps:
+    - name: Setup ShabadOS Bot
+      uses: shabados/actions/setup-git-identity@release/v1
+      with:
+        user: Shabad OS Bot
+        email: team@shabados.com
+
     - name: Checkout
       uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    
+    - name: Bump version
+      uses: shabados/actions/bump-version@release/v1
 
     - name: Login to GitHub Package Registry
       run: echo ${{ secrets.GH_BOT_TOKEN }} | docker login docker.pkg.github.com --username shabados-bot --password-stdin
@@ -25,4 +33,13 @@ jobs:
     - name: Publish to Github Container Registry
       run: |
         docker push docker.pkg.github.com/shabados/viewer-frontend:${GITHUB_SHA}
+        docker tag docker.pkg.github.com/shabados/viewer-frontend:${GITHUB_SHA} docker.pkg.github.com/shabados/viewer-frontend:latest
+        docker push docker.pkg.github.com/shabados/viewer-frontend:latest
         docker push docker.pkg.github.com/shabados/viewer-backend:${GITHUB_SHA}
+        docker tag docker.pkg.github.com/shabados/viewer-backend:${GITHUB_SHA} docker.pkg.github.com/shabados/viewer-backend:latest
+        docker push docker.pkg.github.com/shabados/viewer-backend:latest
+
+    - name: Publish on GitHub
+      uses: shabados/actions/publish-github@release/v1
+      with:
+        github_token: ${{ secrets.GH_BOT_TOKEN }}

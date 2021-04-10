@@ -98,8 +98,8 @@ This project is under v3 of the [GPL](LICENSE.md). It is similar to the Golden R
 >
 > You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-[release-image]: https://img.shields.io/circleci/build/github/shabados/viewer/master.svg?label=release
-[release-url]: https://app.circleci.com/pipelines/github/shabados/viewer?branch=master
+[release-image]: https://github.com/shabados/viewer/actions/workflows/release.yml/badge.svg?branch=main
+[release-url]: https://github.com/shabados/viewer/actions/workflows/release.yml
 [instagram-image]: https://img.shields.io/badge/Instagram-%40shabad__os-C13584.svg?logo=instagram&logoColor=white
 [instagram-url]: https://www.instagram.com/shabad_os/
 [twitter-image]: https://img.shields.io/badge/Twitter-%40shabad__os-1DA1F2.svg?logo=twitter&logoColor=white

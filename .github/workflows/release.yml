@@ -7,39 +7,21 @@ jobs:
     name: Build and Push (Github)
     runs-on: ubuntu-latest
     steps:
-    - name: Setup ShabadOS Bot
-      uses: shabados/actions/setup-git-identity@release/v1
-      with:
-        user: Shabad OS Bot
-        email: team@shabados.com
-
     - name: Checkout
       uses: actions/checkout@v2
       with:
         fetch-depth: 0
-    
-    - name: Bump version
-      uses: shabados/actions/bump-version@release/v1
 
-    - name: Login to GitHub Package Registry
-      run: echo ${{ secrets.GH_BOT_TOKEN }} | docker login docker.pkg.github.com --username shabados-bot --password-stdin
+    - name: Login to Docker Hub 
+      run: echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login --username shabados --password-stdin
 
     - name: Build Docker Image Backend
-      run: docker build -f ./backend/Dockerfile -t docker.pkg.github.com/shabados/viewer-backend:${GITHUB_SHA} .
+      run: docker build -f ./backend/Dockerfile -t shabados/database-viewer-backend:${GITHUB_SHA} .
 
     - name: Build Docker Image Frontend
-      run: docker build -f ./frontend/Dockerfile -t docker.pkg.github.com/shabados/viewer-frontend:${GITHUB_SHA} .
+      run: docker build -f ./frontend/Dockerfile -t shabados/database-viewer-frontend:${GITHUB_SHA} .
 
-    - name: Publish to Github Container Registry
+    - name: Publish to Docker Hub
       run: |
-        docker push docker.pkg.github.com/shabados/viewer-frontend:${GITHUB_SHA}
-        docker tag docker.pkg.github.com/shabados/viewer-frontend:${GITHUB_SHA} docker.pkg.github.com/shabados/viewer-frontend:latest
-        docker push docker.pkg.github.com/shabados/viewer-frontend:latest
-        docker push docker.pkg.github.com/shabados/viewer-backend:${GITHUB_SHA}
-        docker tag docker.pkg.github.com/shabados/viewer-backend:${GITHUB_SHA} docker.pkg.github.com/shabados/viewer-backend:latest
-        docker push docker.pkg.github.com/shabados/viewer-backend:latest
-
-    - name: Publish on GitHub
-      uses: shabados/actions/publish-github@release/v1
-      with:
-        github_token: ${{ secrets.GH_BOT_TOKEN }}
+        docker push shabados/database-viewer-frontend:${GITHUB_SHA}
+        docker push shabados/database-viewer-backend:${GITHUB_SHA}

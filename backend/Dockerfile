@@ -5,7 +5,7 @@ ENV NODE_ENV=production
 WORKDIR /usr/app
 
 COPY package*.json ./
-RUN npm ci
+RUN npm install
 
 COPY . .
 

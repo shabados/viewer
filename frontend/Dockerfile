@@ -1,6 +1,8 @@
 # Stage 0, "build-stage", based on Node.js, to build and compile the frontend
 FROM node:10 as build-stage
 
+LABEL org.opencontainers.image.source=https://github.com/shabados/viewer
+
 WORKDIR /usr/app
 
 COPY package*.json /usr/app/

@@ -1,4 +1,6 @@
-FROM node:10-alpine
+FROM node:10 as build-stage
+
+LABEL org.opencontainers.image.source=https://github.com/shabados/viewer
 
 ENV NODE_ENV=production
 

@@ -68,15 +68,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: frontend
-          tags: database-viewer-frontend
-          outputs: type=docker,dest=/tmp/database-viewer-frontend.tar
-      
-      - name: Upload Docker image
-        uses: actions/upload-artifact@v2
-        with:
-          name: database-viewer-frontend
-          path: /tmp/database-viewer-frontend.tar
-
 
   build-backend:
     runs-on: ubuntu-20.04
@@ -90,11 +81,3 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: backend
-          tags: database-viewer-backend
-          outputs: type=docker,dest=/tmp/database-viewer-backend.tar
-      
-      - name: Upload Docker image
-        uses: actions/upload-artifact@v2
-        with:
-          name: database-viewer-backend
-          path: /tmp/database-viewer-backend.tar

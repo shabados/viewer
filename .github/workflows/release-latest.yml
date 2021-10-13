@@ -9,7 +9,7 @@ jobs:
   prepare:
     runs-on: ubuntu-20.04
     steps:
-      - uses: shabados/actions/setup-git-identity@release/next
+      - uses: shabados/actions/setup-git-identity@release/v1
         with:
           user: Shabad OS Bot
           email: team@shabados.com
@@ -19,12 +19,10 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GH_BOT_TOKEN }}
 
-      - uses: shabados/actions/bump-version@release/next
+      - uses: shabados/actions/bump-version@release/v1
         id: bump-version
-        with:
-          prerelease: ${{ inputs.prerelease }}
 
-      - uses: shabados/actions/generate-changelog@release/next
+      - uses: shabados/actions/generate-changelog@release/v1
 
       - name: Upload workspace
         uses: actions/upload-artifact@v2
@@ -80,7 +78,7 @@ jobs:
     runs-on: ubuntu-20.04
     needs: [build-backend, build-frontend]
     steps:
-      - uses: shabados/actions/setup-git-identity@release/next
+      - uses: shabados/actions/setup-git-identity@release/v1
         with:
           user: Shabad OS Bot
           email: team@shabados.com
@@ -93,11 +91,11 @@ jobs:
 
       - run: cat package.json
 
-      # - uses: shabados/actions/integrate-commits@release/next
+      # - uses: shabados/actions/integrate-commits@release/v1
       #   with:
       #     github_token: ${{ secrets.GH_BOT_TOKEN }}
 
-      # - uses: shabados/actions/publish-github@release/next
+      # - uses: shabados/actions/publish-github@release/v1
       #   with:
       #     github_token: ${{ secrets.GH_BOT_TOKEN }}
       #     release_version: ${{ steps.bump-version.outputs.next }}

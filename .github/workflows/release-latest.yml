@@ -8,6 +8,8 @@ on:
 jobs:
   prepare:
     runs-on: ubuntu-20.04
+    outputs:
+      release-version: ${{ steps.bump-version.outputs.next }}
     steps:
       - uses: shabados/actions/setup-git-identity@release/v1
         with:
@@ -32,7 +34,7 @@ jobs:
 
   build-frontend:
     runs-on: ubuntu-20.04
-    needs: [prepare]
+    needs: prepare
     steps:
       - uses: actions/checkout@v2
 
@@ -54,7 +56,7 @@ jobs:
 
   build-backend:
     runs-on: ubuntu-20.04
-    needs: [prepare]
+    needs: prepare
     steps:
       - uses: actions/checkout@v2
 
@@ -91,18 +93,32 @@ jobs:
 
       - run: cat package.json
 
-      # - uses: shabados/actions/integrate-commits@release/v1
-      #   with:
-      #     github_token: ${{ secrets.GH_BOT_TOKEN }}
+      - uses: shabados/actions/integrate-commits@release/v1
+        with:
+          github_token: ${{ secrets.GH_BOT_TOKEN }}
 
-      # - uses: shabados/actions/publish-github@release/v1
-      #   with:
-      #     github_token: ${{ secrets.GH_BOT_TOKEN }}
-      #     release_version: ${{ steps.bump-version.outputs.next }}
+  publish-github:
+    runs-on: ubuntu-20.04
+    needs: integrate
+    steps:
+      - uses: shabados/actions/setup-git-identity@release/v1
+        with:
+          user: Shabad OS Bot
+          email: team@shabados.com
+
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GH_BOT_TOKEN }}
+
+      - uses: shabados/actions/publish-github@release/v1
+        with:
+          github_token: ${{ secrets.GH_BOT_TOKEN }}
+          release_version: ${{ needs.integrate.outputs.release-version }}
 
   publish-backend:
     runs-on: ubuntu-20.04
-    needs: [integrate]
+    needs: integrate
     steps:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1

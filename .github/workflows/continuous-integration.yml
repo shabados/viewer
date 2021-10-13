@@ -1,0 +1,100 @@
+name: Continuous Integration
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - main
+      - integration
+
+jobs:
+  lint:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run lint
+
+  e2e:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: shabados/actions/setup-git-identity@release/next
+        with:
+          user: Shabad OS Bot
+          email: team@shabados.com
+
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run test
+
+      - name: Upload Screenshots
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+
+      - name: Upload Video
+        uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: cypress-videos
+          path: cypress/videos
+
+  build-frontend:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Build and export
+        uses: docker/build-push-action@v2
+        with:
+          context: frontend
+          tags: database-viewer-frontend
+          outputs: type=docker,dest=/tmp/database-viewer-frontend.tar
+      
+      - name: Upload Docker image
+        uses: actions/upload-artifact@v2
+        with:
+          name: database-viewer-frontend
+          path: /tmp/database-viewer-frontend.tar
+
+
+  build-backend:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Build and export
+        uses: docker/build-push-action@v2
+        with:
+          context: backend
+          tags: database-viewer-backend
+          outputs: type=docker,dest=/tmp/database-viewer-backend.tar
+      
+      - name: Upload Docker image
+        uses: actions/upload-artifact@v2
+        with:
+          name: database-viewer-backend
+          path: /tmp/database-viewer-backend.tar

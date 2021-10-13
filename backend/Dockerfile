@@ -1,4 +1,4 @@
-FROM node:14-alpine
+FROM node:10 as build-stage
 
 LABEL org.opencontainers.image.source=https://github.com/shabados/viewer
 

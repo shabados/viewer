@@ -1,5 +1,5 @@
 # Stage 0, "build-stage", based on Node.js, to build and compile the frontend
-FROM node:14-alpine
+FROM node:10 as build-stage
 
 LABEL org.opencontainers.image.source=https://github.com/shabados/viewer
 

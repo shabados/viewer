@@ -17,7 +17,7 @@ describe('Source: Sri Dasam Granth', () => {
 
   it('Open Source Page', () => {
     cy.visit('/sources/2/page/1/line/0')
-    cy.contains('ck® ichn Aru brn; jwiq Aru pwiq nihn ijh ]').click()
+    cy.contains('jwiq Aru pwiq nihn ijh ]').click()
   })
 
   it('Open Line Viewer', () => cy.goToLineViewer( 'Dr. Rattan Singh Jaggi' ))

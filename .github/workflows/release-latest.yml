@@ -83,7 +83,7 @@ jobs:
 
   publish-github:
     runs-on: ubuntu-20.04
-    needs: integrate
+    needs: [prepare, integrate]
     steps:
       - uses: shabados/actions/setup-git-identity@release/v1
         with:
@@ -98,7 +98,7 @@ jobs:
       - uses: shabados/actions/publish-github@release/v1
         with:
           github_token: ${{ secrets.GH_BOT_TOKEN }}
-          release_version: ${{ needs.integrate.outputs.release-version }}
+          release_version: ${{ needs.prepare.outputs.release-version }}
 
   publish:
     runs-on: ubuntu-20.04

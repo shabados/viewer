@@ -10,8 +10,6 @@ on:
   push:
     branches:
       - main
-    - main    
-      - main
 
 jobs:
   prepare:
@@ -65,8 +63,8 @@ jobs:
           context: ${{ matrix.context }}
           tags: |
             # Todo: to be converted into semver prerelease format via shabados/actions#83
-            shabados/database-viewer-${{ matrix.context }}:next-${{ github.sha }}
-            ghcr.io/shabados/database-viewer-${{ matrix.context }}:next-${{ github.sha }}
+            shabados/database-viewer-${{ matrix.context }}:v${{ needs.prepare.outputs.release-version }}
+            ghcr.io/shabados/database-viewer-${{ matrix.context }}:v${{ needs.prepare.outputs.release-version }}
           outputs: type=docker,dest=/tmp/database-viewer-${{ matrix.context }}.tar
 
       - name: Upload Docker image

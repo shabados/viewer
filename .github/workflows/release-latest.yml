@@ -52,6 +52,8 @@ jobs:
           tags: |
             shabados/database-viewer-${{ matrix.context }}:v${{ needs.prepare.outputs.release-version }}
             ghcr.io/shabados/database-viewer-${{ matrix.context }}:v${{ needs.prepare.outputs.release-version }}
+          build-args: |
+            version=${{ needs.prepare.outputs.release-version }}
           outputs: type=docker,dest=/tmp/database-viewer-${{ matrix.context }}.tar
 
       - name: Upload Docker image

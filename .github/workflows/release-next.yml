@@ -50,7 +50,7 @@ jobs:
       fail-fast: false
       matrix:
         context: [backend, frontend]
-    needs: prepare
+    needs: [prepare, build]
     steps:
       - uses: actions/checkout@v2
 
@@ -75,7 +75,7 @@ jobs:
 
   publish-github:
     runs-on: ubuntu-20.04
-    needs: [prepare, integrate]
+    needs: [prepare, build]
     steps:
       - uses: shabados/actions/setup-git-identity@release/v1
         with:
@@ -94,7 +94,6 @@ jobs:
 
   publish:
     runs-on: ubuntu-20.04
-    needs: integrate
     strategy:
       fail-fast: false
       matrix:

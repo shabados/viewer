@@ -61,8 +61,8 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ${{ matrix.context }}
+          # Todo: to be converted into semver prerelease format via shabados/actions#83
           tags: |
-            # Todo: to be converted into semver prerelease format via shabados/actions#83
             shabados/database-viewer-${{ matrix.context }}:v${{ needs.prepare.outputs.release-version }}
             ghcr.io/shabados/database-viewer-${{ matrix.context }}:v${{ needs.prepare.outputs.release-version }}
           outputs: type=docker,dest=/tmp/database-viewer-${{ matrix.context }}.tar

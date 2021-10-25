@@ -16,4 +16,7 @@ RUN npm run build
 
 # Stage 1, based on Nginx, production-ready
 FROM zalari/nginx-html5
+
+LABEL org.opencontainers.image.source=https://github.com/shabados/viewer
+
 COPY --from=build-stage /usr/app/build/ /usr/share/nginx/html

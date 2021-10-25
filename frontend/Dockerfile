@@ -5,12 +5,13 @@ LABEL org.opencontainers.image.source=https://github.com/shabados/viewer
 
 WORKDIR /usr/app
 
-COPY package*.json /usr/app/
+ARG version
+ENV REACT_APP_VERSION=version
 
+COPY package*.json ./
 RUN npm install
 
-COPY ./ /usr/app/
-
+COPY . .
 RUN npm run build
 
 # Stage 1, based on Nginx, production-ready

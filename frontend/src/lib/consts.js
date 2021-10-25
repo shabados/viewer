@@ -7,3 +7,7 @@ export const TRANSLATION_SOURCES_API = `${API_ROOT}/translationSources`
 export const PAGE_API = `${API_ROOT}/source`
 export const LINE_API = `${API_ROOT}/line`
 export const DB_VERSION_API = `${API_ROOT}/version`
+
+export const {
+  REACT_APP_VERSION: version,
+} = process.env

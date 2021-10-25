@@ -31,6 +31,12 @@
 .home .introduction h1 {
   font-size: 1.75em;
   font-weight: 100;
+  margin-bottom: 0;
+}
+
+.home .introduction h3 {
+  margin-top: 0;
+  font-size: 1em;
 }
 
 .home .introduction h4 {

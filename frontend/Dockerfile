@@ -6,7 +6,7 @@ LABEL org.opencontainers.image.source=https://github.com/shabados/viewer
 WORKDIR /usr/app
 
 ARG version
-ENV REACT_APP_VERSION=version
+ENV REACT_APP_VERSION=$version
 
 COPY package*.json ./
 RUN npm install

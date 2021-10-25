@@ -50,7 +50,7 @@ jobs:
       fail-fast: false
       matrix:
         context: [backend, frontend]
-    needs: [prepare, build]
+    needs: prepare
     steps:
       - uses: actions/checkout@v2
 
@@ -94,6 +94,7 @@ jobs:
 
   publish:
     runs-on: ubuntu-20.04
+    needs: build
     strategy:
       fail-fast: false
       matrix:

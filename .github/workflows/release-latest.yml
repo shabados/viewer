@@ -21,6 +21,12 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GH_BOT_TOKEN }}
 
+      # Todo: will be replaced in #shabados/action#84
+      - name: Sync package.json version with git tag
+        run: |
+          npm version $(git tag --sort=-version:refname | head -n1) --no-git-tag-version --allow-same-version
+          git commit -a --allow-empty -m "build: synchronise package.json version with latest git tag"
+
       - uses: shabados/actions/bump-version@release/v1
         id: bump-version
 

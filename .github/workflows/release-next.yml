@@ -1,4 +1,5 @@
 name: Release Next
+
 # Same as release-latest, but has no integration step and does not push back to `main`.
 # To be refactored into a common once we have support for pushing semver docker images in shabados/actions#83
 # and support for reading the version from tags in actions tracked in shabados/actions#84.

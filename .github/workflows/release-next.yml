@@ -31,7 +31,7 @@ jobs:
       # Todo: will be replaced in #shabados/action#84
       - name: Sync package.json version with git tag
         run: |
-          npm version $(git tag --sort=-version:refname | head -n1) --no-git-tag-version --allow-same-version
+          npm version $(git tag --sort=-taggerdate | head -n1) --no-git-tag-version --allow-same-version
           git commit -a --allow-empty -m "build: synchronise package.json version with latest git tag"
 
       - uses: shabados/actions/bump-version@release/v1

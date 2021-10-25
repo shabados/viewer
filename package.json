@@ -1,6 +1,6 @@
 {
   "name": "@shabados/viewer",
-  "version": "1.5.0-next.1",
+  "version": "1.5.0",
   "description": "Viewer for the Shabad OS Database",
   "scripts": {
     "start": "npm-run-all -l -p start:*",

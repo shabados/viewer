@@ -128,7 +128,8 @@ jobs:
         with:
           registry: ghcr.io
           username: shabados-bot
-          password: ${{ secrets.GH_BOT_TOKEN }}
+          # Use github actions token so that container visibility is that of the repo
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Push ${{ matrix.context }} images
         run: |

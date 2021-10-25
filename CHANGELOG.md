@@ -1,4 +1,29 @@
-# Unreleased (2021-10-18)
+# Unreleased (2021-10-25)
+
+
+
+# [1.5.0](https://github.com/ShabadOS/viewer/compare/v1.5.0-next.1...v1.5.0) (2021-10-25)
+
+
+
+# [1.5.0-next.1](https://github.com/ShabadOS/viewer/compare/v1.5.0-next.0...v1.5.0-next.1) (2021-10-25)
+
+
+
+# [1.5.0-next.0](https://github.com/ShabadOS/viewer/compare/v1.4.3-next.2...v1.5.0-next.0) (2021-10-25)
+
+
+### Features
+
+* **frontend:** render the version via build environment variable ([78a13c9](https://github.com/ShabadOS/viewer/commit/78a13c90ccee54abfff5cb19aafa1d90b72d976d))
+
+
+
+## [1.4.3-next.2](https://github.com/ShabadOS/viewer/compare/v1.4.3-next.1...v1.4.3-next.2) (2021-10-25)
+
+
+
+## [1.4.3-next.1](https://github.com/ShabadOS/viewer/compare/v1.4.3-next.0...v1.4.3-next.1) (2021-10-25)
 
 
 

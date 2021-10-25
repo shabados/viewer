@@ -35,6 +35,8 @@ jobs:
 
       - uses: shabados/actions/bump-version@release/v1
         id: bump-version
+        with:
+          prerelease: true
 
       - uses: shabados/actions/generate-changelog@release/v1
 

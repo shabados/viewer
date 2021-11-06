@@ -11,7 +11,7 @@ jobs:
     outputs:
       release-version: ${{ steps.bump-version.outputs.next }}
     steps:
-      - uses: shabados/actions/setup-git-identity@release/v1
+      - uses: shabados/actions/setup-git-identity@release/v2
         with:
           user: Shabad OS Bot
           email: team@shabados.com
@@ -21,16 +21,10 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GH_BOT_TOKEN }}
 
-      # Todo: will be replaced in #shabados/action#84
-      - name: Sync package.json version with git tag
-        run: |
-          npm version $(git tag --sort=-taggerdate | head -n1) --no-git-tag-version --allow-same-version
-          git commit -a --allow-empty -m "build: synchronise package.json version with latest git tag"
-
-      - uses: shabados/actions/bump-version@release/v1
+      - uses: shabados/actions/bump-version@release/v2
         id: bump-version
 
-      - uses: shabados/actions/generate-changelog@release/v1
+      - uses: shabados/actions/generate-changelog@release/v2
 
       - name: Upload workspace
         uses: actions/upload-artifact@v2
@@ -72,7 +66,7 @@ jobs:
     runs-on: ubuntu-20.04
     needs: build
     steps:
-      - uses: shabados/actions/setup-git-identity@release/v1
+      - uses: shabados/actions/setup-git-identity@release/v2
         with:
           user: Shabad OS Bot
           email: team@shabados.com
@@ -85,7 +79,7 @@ jobs:
 
       - run: cat package.json
 
-      - uses: shabados/actions/integrate-commits@release/v1
+      - uses: shabados/actions/integrate-commits@release/v2
         with:
           github_token: ${{ secrets.GH_BOT_TOKEN }}
 
@@ -93,7 +87,7 @@ jobs:
     runs-on: ubuntu-20.04
     needs: [prepare, integrate]
     steps:
-      - uses: shabados/actions/setup-git-identity@release/v1
+      - uses: shabados/actions/setup-git-identity@release/v2
         with:
           user: Shabad OS Bot
           email: team@shabados.com
@@ -103,7 +97,7 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GH_BOT_TOKEN }}
 
-      - uses: shabados/actions/publish-github@release/v1
+      - uses: shabados/actions/publish-github@release/v2
         with:
           github_token: ${{ secrets.GH_BOT_TOKEN }}
           release_version: ${{ needs.prepare.outputs.release-version }}

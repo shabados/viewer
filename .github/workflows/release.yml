@@ -1,0 +1,149 @@
+name: Release
+
+on:
+  workflow_call:
+    inputs:
+      prerelease:
+        required: false
+        default: false
+        type: boolean
+    secrets:
+      GH_BOT_TOKEN:
+        required: true
+
+jobs:
+  prepare:
+    runs-on: ubuntu-20.04
+    outputs:
+      release-version: ${{ steps.bump-version.outputs.next }}
+    steps:
+      - uses: shabados/actions/setup-git-identity@release/v2
+        with:
+          user: Shabad OS Bot
+          email: team@shabados.com
+
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GH_BOT_TOKEN }}
+
+      - uses: shabados/actions/bump-version@release/v2
+        id: bump-version
+        with:
+          prerelease: ${{ inputs.prerelease }}
+
+      - uses: shabados/actions/generate-changelog@release/v2
+
+      - name: Upload workspace
+        uses: actions/upload-artifact@v2
+        with:
+          name: release-workspace
+          path: ${{ github.workspace }}
+
+  build:
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      matrix:
+        context: [backend, frontend]
+    needs: prepare
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Build and export
+        uses: docker/build-push-action@v2
+        with:
+          context: ${{ matrix.context }}
+          tags: |
+            shabados/database-viewer-${{ matrix.context }}:v${{ needs.prepare.outputs.release-version }}
+            ghcr.io/shabados/database-viewer-${{ matrix.context }}:v${{ needs.prepare.outputs.release-version }}
+          build-args: |
+            version=${{ needs.prepare.outputs.release-version }}
+          outputs: type=docker,dest=/tmp/database-viewer-${{ matrix.context }}.tar
+
+      - name: Upload Docker image
+        uses: actions/upload-artifact@v2
+        with:
+          name: database-viewer-${{ matrix.context }}
+          path: /tmp/database-viewer-${{ matrix.context }}.tar
+
+  integrate:
+    runs-on: ubuntu-20.04
+    needs: build
+    steps:
+      - uses: shabados/actions/setup-git-identity@release/v2
+        with:
+          user: Shabad OS Bot
+          email: team@shabados.com
+
+      - name: Download workspace
+        uses: actions/download-artifact@v2
+        with:
+          name: release-workspace
+          path: ${{ github.workspace }}
+
+      - uses: shabados/actions/integrate-commits@release/v2
+        if: inputs.prerelease != true
+        with:
+          github_token: ${{ secrets.GH_BOT_TOKEN }}
+
+  publish-github:
+    runs-on: ubuntu-20.04
+    needs: [prepare, integrate]
+    steps:
+      - uses: shabados/actions/setup-git-identity@release/v2
+        with:
+          user: Shabad OS Bot
+          email: team@shabados.com
+
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GH_BOT_TOKEN }}
+
+      - uses: shabados/actions/publish-github@release/v2
+        with:
+          github_token: ${{ secrets.GH_BOT_TOKEN }}
+          release_version: ${{ needs.prepare.outputs.release-version }}
+
+  publish:
+    runs-on: ubuntu-20.04
+    needs: integrate
+    strategy:
+      fail-fast: false
+      matrix:
+        context: [backend, frontend]
+    steps:
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      
+      - name: Download ${{ matrix.context }} Docker image
+        uses: actions/download-artifact@v2
+        with:
+          name: database-viewer-${{ matrix.context }}
+          path: /tmp
+      
+      - name: Load image
+        run: docker load --input /tmp/database-viewer-${{ matrix.context }}.tar
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: shabados
+          password: ${{ secrets.DOCKERHUB_BOT_TOKEN }}
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1 
+        with:
+          registry: ghcr.io
+          username: shabados-bot
+          # Use github actions token so that container visibility is that of the repo
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push ${{ matrix.context }} images
+        run: |
+          docker push -a shabados/database-viewer-${{ matrix.context }}
+          docker push -a ghcr.io/shabados/database-viewer-${{ matrix.context }}

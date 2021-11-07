@@ -1,4 +1,20 @@
-# Unreleased (2021-10-25)
+# Unreleased (2021-11-07)
+
+
+
+## [1.5.1](https://github.com/ShabadOS/viewer/compare/v1.5.1-next.4...v1.5.1) (2021-11-07)
+
+
+
+## [1.5.1-next.4](https://github.com/ShabadOS/viewer/compare/v1.5.1-next.3...v1.5.1-next.4) (2021-11-06)
+
+
+
+## [1.5.1-next.0](https://github.com/ShabadOS/viewer/compare/v1.5.0-next.2...v1.5.1-next.0) (2021-10-25)
+
+
+
+# [1.5.0-next.2](https://github.com/ShabadOS/viewer/compare/v1.5.0...v1.5.0-next.2) (2021-10-25)
 
 
 

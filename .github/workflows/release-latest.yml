@@ -7,6 +7,6 @@ concurrency: release
 
 jobs:
   release:
-    uses: shabados/actions/.github/workflows/release.yml@main
+    uses: shabados/viewer/.github/workflows/release.yml@main
     secrets:
       GH_BOT_TOKEN: ${{ secrets.GH_BOT_TOKEN }}

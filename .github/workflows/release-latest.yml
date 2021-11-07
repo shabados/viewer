@@ -10,3 +10,5 @@ jobs:
     uses: shabados/viewer/.github/workflows/release.yml@main
     secrets:
       GH_BOT_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      DOCKERHUB_BOT_TOKEN: ${{ secrets.DOCKERHUB_BOT_TOKEN }}

@@ -15,3 +15,5 @@ jobs:
       prerelease: true
     secrets:
       GH_BOT_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      DOCKERHUB_BOT_TOKEN: ${{ secrets.DOCKERHUB_BOT_TOKEN }}

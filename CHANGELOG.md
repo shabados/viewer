@@ -2,6 +2,22 @@
 
 
 
+## [1.5.2](https://github.com/ShabadOS/viewer/compare/v1.5.2-next.2...v1.5.2) (2021-11-07)
+
+
+
+## [1.5.2-next.2](https://github.com/ShabadOS/viewer/compare/v1.5.2-next.1...v1.5.2-next.2) (2021-11-07)
+
+
+
+## [1.5.2-next.1](https://github.com/ShabadOS/viewer/compare/v1.5.2-next.0...v1.5.2-next.1) (2021-11-07)
+
+
+
+## [1.5.2-next.0](https://github.com/ShabadOS/viewer/compare/v1.5.1...v1.5.2-next.0) (2021-11-07)
+
+
+
 ## [1.5.1](https://github.com/ShabadOS/viewer/compare/v1.5.1-next.4...v1.5.1) (2021-11-07)
 
 

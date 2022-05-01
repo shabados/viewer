@@ -13,7 +13,10 @@ jobs:
     uses: shabados/viewer/.github/workflows/release.yml@main
     with:
       prerelease: true
+      environment: next
     secrets:
+      PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
       GH_BOT_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       DOCKERHUB_BOT_TOKEN: ${{ secrets.DOCKERHUB_BOT_TOKEN }}
+      KUBECONFIG: ${{ secrets.NEXT__KUBECONFIG }}

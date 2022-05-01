@@ -170,6 +170,11 @@ jobs:
           node-version: 16
           cache: npm
 
+      - uses: azure/k8s-set-context@v2
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.KUBECONFIG }}
+
       - run: npm ci
 
       - uses: pulumi/actions@v3
@@ -179,6 +184,5 @@ jobs:
           work-dir: infrastructure
         env:
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
-          KUBECONFIG: ${{ secrets.KUBECONFIG }}
           FRONTEND_IMAGE: ghcr.io/shabados/viewer-frontend:v${{ needs.prepare.outputs.release-version }}
           BACKEND_IMAGE: ghcr.io/shabados/viewer-backend:v${{ needs.prepare.outputs.release-version }}

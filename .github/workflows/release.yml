@@ -62,17 +62,17 @@ jobs:
         with:
           context: ${{ matrix.context }}
           tags: |
-            shabados/database-viewer-${{ matrix.context }}:v${{ needs.prepare.outputs.release-version }}
-            ghcr.io/shabados/database-viewer-${{ matrix.context }}:v${{ needs.prepare.outputs.release-version }}
+            shabados/viewer-${{ matrix.context }}:v${{ needs.prepare.outputs.release-version }}
+            ghcr.io/shabados/viewer-${{ matrix.context }}:v${{ needs.prepare.outputs.release-version }}
           build-args: |
             version=${{ needs.prepare.outputs.release-version }}
-          outputs: type=docker,dest=/tmp/database-viewer-${{ matrix.context }}.tar
+          outputs: type=docker,dest=/tmp/viewer-${{ matrix.context }}.tar
 
       - name: Upload Docker image
         uses: actions/upload-artifact@v2
         with:
-          name: database-viewer-${{ matrix.context }}
-          path: /tmp/database-viewer-${{ matrix.context }}.tar
+          name: viewer-${{ matrix.context }}
+          path: /tmp/viewer-${{ matrix.context }}.tar
 
   integrate:
     runs-on: ubuntu-20.04
@@ -123,15 +123,15 @@ jobs:
     steps:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
-      
+
       - name: Download ${{ matrix.context }} Docker image
         uses: actions/download-artifact@v2
         with:
-          name: database-viewer-${{ matrix.context }}
+          name: viewer-${{ matrix.context }}
           path: /tmp
-      
+
       - name: Load image
-        run: docker load --input /tmp/database-viewer-${{ matrix.context }}.tar
+        run: docker load --input /tmp/viewer-${{ matrix.context }}.tar
 
       - name: Login to DockerHub
         uses: docker/login-action@v1
@@ -140,7 +140,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_BOT_TOKEN }}
 
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v1 
+        uses: docker/login-action@v1
         with:
           registry: ghcr.io
           username: shabados-bot
@@ -149,5 +149,6 @@ jobs:
 
       - name: Push ${{ matrix.context }} images
         run: |
-          docker push -a shabados/database-viewer-${{ matrix.context }}
-          docker push -a ghcr.io/shabados/database-viewer-${{ matrix.context }}
+          docker push -a shabados/viewer-${{ matrix.context }}
+          docker push -a ghcr.io/shabados/viewer-${{ matrix.context }}
+

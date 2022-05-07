@@ -84,7 +84,8 @@
 }
 
 .home .sources .source {
-  font-family: 'Open Gurbani Akhar Bold';
+  font-family: 'Open Gurbani Akhar';
+  font-weight: 700;
   font-size: 1.05em;
   width: auto;
   text-decoration: none;

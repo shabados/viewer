@@ -21,6 +21,7 @@ a {
 
 .source-view .lines .line {
   font-family: 'Open Gurbani Akhar';
+  font-weight: 700;
   font-size: 1.325em;
   line-height: 1.756em;
   transition: 0.125s all ease-in-out;

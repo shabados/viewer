@@ -4,8 +4,8 @@ import { string } from 'prop-types'
 
 import { LINE_API } from '../lib/consts'
 
-import Loader from './Loader'
-import ErrorDialog from './Error'
+import Loader from '../components/Loader'
+import ErrorDialog from '../components/Error'
 
 const LineRedirect = ( { id } ) => {
   const [ line, setLine ] = useState()

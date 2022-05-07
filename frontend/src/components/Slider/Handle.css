@@ -1,12 +1,11 @@
-
-.slider-handle { 
+.slider-handle {
   position: absolute;
   transform: translate(-50%, -50%);
 }
 
 .slider-handle.filled {
   z-index: 300;
-  background-color: #BA3F6A;
+  background-color: #ba3f6a;
   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.4);
   border-radius: 50%;
   width: 24px;

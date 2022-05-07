@@ -6,7 +6,7 @@ a {
 .source-view {
   display: flex;
   flex-direction: column;
-  background-color: #F0EDE9;
+  background-color: #f0ede9;
   min-height: 100vh;
   user-select: none;
   justify-content: center;
@@ -35,38 +35,38 @@ a {
 }
 
 .source-view .lines .line:focus {
-  outline: none;    
+  outline: none;
 }
 
 .source-view .lines .line:hover {
-  background: #DCCDA2;
+  background: #dccda2;
   border-bottom: 2px solid rgba(0, 0, 0, 0.1);
 }
 
 .source-view .lines .line.focused {
-  background: #F5CD3D;
+  background: #f5cd3d;
   border-bottom: 2px solid rgba(0, 0, 0, 0.1);
 }
 
 .source-view .controls {
-  background-image: linear-gradient(#E1DFDDCC, #E1DFDDFF);
+  background-image: linear-gradient(#e1dfddcc, #e1dfddff);
   display: flex;
   position: fixed;
   bottom: 0;
   padding-bottom: 0.163em;
-  border-top: 1px solid #D4D1CD;
+  border-top: 1px solid #d4d1cd;
   width: 100%;
 }
 
 .source-view .controls .button {
-  color: #BA3F6A;
+  color: #ba3f6a;
   font-size: 2.326em;
   transition: 0.125s all ease-in-out;
   padding: 0 0.5em;
 }
 
 .source-view .controls .button:hover {
-  color: #693E4B;
+  color: #693e4b;
 }
 
 .source-view .controls .right.button {

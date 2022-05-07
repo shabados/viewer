@@ -1,5 +1,5 @@
 .icon-button {
-  color: #BA3F6A;
+  color: #ba3f6a;
   font-size: 1.25rem;
   transition: 0.125s all ease-in-out;
   padding: 0 0.5em;
@@ -10,5 +10,5 @@
 }
 
 .icon-button:hover {
-  color: #693E4B;
+  color: #693e4b;
 }

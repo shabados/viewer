@@ -11,10 +11,10 @@ import { CSSTransition } from 'react-transition-group'
 import { PAGE_API } from '../lib/consts'
 import { savePosition } from '../lib/utils'
 
-import Loader from './Loader'
-import LinkButton from './LinkButton'
-import Error from './Error'
-import Slider from './Slider'
+import Loader from '../components/Loader'
+import LinkButton from '../components/LinkButton'
+import Error from '../components/Error'
+import Slider from '../components/Slider'
 
 import './SourceView.css'
 

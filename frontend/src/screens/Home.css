@@ -109,9 +109,7 @@
   }
 
   .home .introduction {
-    width: 100%;
     position: static;
-    order: 2;
     height: auto;
   }
 

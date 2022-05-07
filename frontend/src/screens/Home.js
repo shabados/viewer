@@ -1,24 +1,28 @@
 import { Link } from 'react-router-dom'
 import { arrayOf, string, number, shape } from 'prop-types'
 
-import Loader from './Loader'
-import Error from './Error'
+import Loader from '../components/Loader'
+import Error from '../components/Error'
 import logo from '../media/logo.svg'
 import { version } from '../lib/consts'
 
 import './Home.css'
+import Nav from '../components/Nav'
 
 const getPosition = ( source, positions ) => positions[ source ] || { line: 0, page: 1 }
 
 const Home = ( { err, sources, positions, dbVersion } ) => (
   <div className="home">
+    <Nav />
     <section className="introduction">
       <img className="logo" src={logo} alt="Shabad OS Logo" />
 
       <h1>Viewer</h1>
-      <h3>{`v${version}`}</h3>
-
-      <h4>{ !dbVersion ? 'Database Version loading...' : `Database Version v${dbVersion}`}</h4>
+      <p>
+        {!dbVersion
+          ? 'Database Version loading...'
+          : `Viewer ${version} & Database ${dbVersion}`}
+      </p>
 
       <div className="links">
         <a href="https://youtu.be/YLtOxh5k7aw" className="button">Tutorial Video</a>

@@ -9,6 +9,31 @@ body {
   background-color: #f0ede9;
 }
 
+h1 {
+  font-size: 2rem;
+  font-weight: 500;
+  margin: 2rem 0 0;
+}
+
+p {
+  margin: 0;
+}
+
+* + p {
+  margin-top: 1rem;
+}
+
+h1 + p,
+h2 + p,
+h3 + p,
+h4 + p {
+  margin-top: 0.5rem;
+}
+
+.link {
+  color: rgb(0% 50.81% 67.85%);
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

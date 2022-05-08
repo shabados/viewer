@@ -1,62 +1,69 @@
+import { arrayOf, number, shape, string } from 'prop-types'
+import { createUseStyles } from 'react-jss'
 import { Link } from 'react-router-dom'
-import { arrayOf, string, number, shape } from 'prop-types'
-
-import Loader from '../components/Loader'
+import Content from '../components/Content'
 import Error from '../components/Error'
-import logo from '../media/logo.svg'
-import { version } from '../lib/consts'
+import Layout from '../components/Layout'
+import Loader from '../components/Loader'
+import Theme from '../components/Theme'
 
-import './Home.css'
-import Nav from '../components/Nav'
+const jss = createUseStyles( {
+  sources: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: `calc(2 * ${Theme.Gap})`,
+  },
+  source: {
+    padding: `${Theme.Gap} calc(2 * ${Theme.Gap})`,
+    borderRadius: Theme.Gap,
+    fontFamily: 'Open Gurbani Akhar',
+    fontWeight: 700,
+    fontSize: '1.05em',
+    color: '#000000',
+    backgroundColor: 'rgba(255, 255, 255, 0.4)',
+    border: '1px solid rgba(0, 0, 0, 0.1)',
+    transition: Theme.Normally,
+    '&:hover': {
+      background: 'rgba( 255, 255, 255, 0.9 )',
+    },
+  },
+} )
 
 const getPosition = ( source, positions ) => positions[ source ] || { line: 0, page: 1 }
 
-const Home = ( { err, sources, positions, dbVersion } ) => (
-  <div className="home">
-    <Nav />
-    <section className="introduction">
-      <img className="logo" src={logo} alt="Shabad OS Logo" />
-
-      <h1>Viewer</h1>
-      <p>
-        {!dbVersion
-          ? 'Database Version loading...'
-          : `Viewer ${version} & Database ${dbVersion}`}
-      </p>
-
-      <div className="links">
-        <a href="https://youtu.be/YLtOxh5k7aw" className="button">Tutorial Video</a>
-        <a href="https://tutorials.shabados.com/tutorials/1.0.0/database-viewer/proofreading.html" className="button">Learn to Proofread</a>
-      </div>
-    </section>
-
-    <section className="sources">
-      {err && <Error err={err} />}
-      {!( sources || err ) && <Loader />}
-      {sources.map( ( { nameGurmukhi, id } ) => (
-        <Link
-          key={id}
-          className="gurmukhi source"
-          to={`/sources/${id}/page/${getPosition( id, positions ).page}/line/${getPosition( id, positions ).line}`}
-        >
-          {nameGurmukhi}
-        </Link>
-      ) )}
-    </section>
-  </div>
-)
+const Home = ( { err, sources, positions } ) => {
+  const css = jss()
+  return (
+    <Layout>
+      <Content>
+        <div className={css.sources}>
+          {err && <Error err={err} />}
+          {!( sources || err ) && <Loader />}
+          {sources.map( ( { nameGurmukhi, id } ) => (
+            <Link
+              key={id}
+              className={css.source}
+              to={`/sources/${id}/page/${getPosition( id, positions ).page}/line/${getPosition( id, positions ).line}`}
+            >
+              {nameGurmukhi}
+            </Link>
+          ) )}
+        </div>
+      </Content>
+    </Layout>
+  )
+}
 
 Home.propTypes = {
   sources: arrayOf( string ),
   positions: shape( { page: number } ).isRequired,
   err: shape( { message: string } ),
-  dbVersion: string,
 }
 
 Home.defaultProps = {
   sources: null,
   err: null,
-  dbVersion: null,
 }
 
 export default Home

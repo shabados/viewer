@@ -11,6 +11,7 @@ import LineView from './screens/LineView'
 import LineRedirect from './helpers/LineRedirect'
 
 import './App.css'
+import About from './screens/About'
 
 const API_DATA = [
   [ SOURCES_API, 'sources' ],
@@ -58,6 +59,8 @@ class App extends Component {
           <Switch>
 
             <Route exact path="/" render={() => <Home err={err} sources={sources} dbVersion={dbVersion} positions={positions} />} />
+
+            <Route exact path="/about" render={() => <About dbVersion={dbVersion} />} />
 
             <Route
               path="/sources/:source/page/:page/line/:line/view"

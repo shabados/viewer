@@ -14,6 +14,7 @@ const jss = createUseStyles( {
     alignItems: 'center',
     justifyContent: 'space-between',
     height: '3rem',
+    fontSize: '0.75rem',
   },
 } )
 

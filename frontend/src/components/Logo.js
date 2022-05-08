@@ -19,7 +19,7 @@ const Logo = ( { size, iconOnly } ) => {
   return (
     <span className={css.logo}>
       <img height={size} width={size} src={logo} alt="Shabad OS Logo" />
-      {!iconOnly && <span className={css.text}>Viewer</span>}
+      {!iconOnly && <span className={css.text} style={{ fontSize: size * 0.666 }}>Viewer</span>}
     </span>
   )
 }

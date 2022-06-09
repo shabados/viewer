@@ -6,15 +6,14 @@
     "start": "npm-run-all -l -p start:*",
     "start:backend": "cd backend && npm start",
     "start:frontend": "cd frontend && npm start",
-    "build": "cd frontend && npm run build",
     "install-deps": "npm-run-all -l -p install-deps:*",
     "install-deps:frontend": "cd frontend && npm install",
     "install-deps:backend": "cd backend && npm install",
     "postinstall": "npm run install-deps",
     "test:e2e": "cypress open",
     "test:e2e:headless": "cypress run",
-    "test": "start-server-and-test start :3000 test:e2e:headless",
-    "test:dev": "start-server-and-test start :3000 test:e2e",
+    "test": "start-server-and-test start 52525 test:e2e:headless",
+    "test:dev": "start-server-and-test start 52525 test:e2e",
     "lint:frontend": "cd frontend && npm run lint",
     "lint:backend": "cd backend && npm run lint",
     "lint": "npm-run-all -l -p lint:*"
@@ -30,10 +29,14 @@
   },
   "homepage": "https://github.com/ShabadOS/viewer#readme",
   "devDependencies": {
-    "@pulumi/kubernetes": "^3.18.3",
-    "@pulumi/pulumi": "^3.31.0",
-    "cypress": "^5.1.0",
+    "@pulumi/kubernetes": "^3.19.0",
+    "@pulumi/pulumi": "^3.32.1",
+    "@shabados/eslint-config": "^0.5.0",
+    "@types/jest": "^27.5.1",
+    "cypress": "^9.6.1",
+    "jest": "^28.1.0",
     "npm-run-all": "^4.1.5",
-    "start-server-and-test": "^1.11.3"
+    "start-server-and-test": "^1.14.0",
+    "typescript": "^4.6.4"
   }
 }

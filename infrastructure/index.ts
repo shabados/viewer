@@ -1,5 +1,5 @@
+import { apiextensions, apps, core } from '@pulumi/kubernetes'
 import { Config, getStack } from '@pulumi/pulumi'
-import { apps, core, apiextensions } from '@pulumi/kubernetes'
 import { join } from 'path'
 
 const { FRONTEND_IMAGE, BACKEND_IMAGE } = process.env
@@ -19,15 +19,15 @@ const GOOGLE_APPLICATION_CREDENTIALS_PATH = join(
 )
 const GOOGLE_APPLICATION_CREDENTIALS_VOLUME = 'google-application-credentials'
 
-const googleApplicationCredentialsSecret = new core.v1.Secret('google-application-credentials', {
+const googleApplicationCredentialsSecret = new core.v1.Secret( 'google-application-credentials', {
   stringData: {
-    [GOOGLE_APPLICATION_CREDENTIALS_FILENAME]: config.requireSecret('googleApplicationCredentials'),
+    [ GOOGLE_APPLICATION_CREDENTIALS_FILENAME ]: config.requireSecret( 'googleApplicationCredentials' ),
   },
-})
+} )
 
 const appLabels = { app: APP_NAME }
 
-const deployment = new apps.v1.Deployment(APP_NAME, {
+const deployment = new apps.v1.Deployment( APP_NAME, {
   spec: {
     selector: { matchLabels: appLabels },
     replicas: 1,
@@ -44,13 +44,13 @@ const deployment = new apps.v1.Deployment(APP_NAME, {
           {
             name: `${APP_NAME}-frontend`,
             image: FRONTEND_IMAGE,
-            ports: [{ containerPort: FRONTEND_PORT }],
+            ports: [ { containerPort: FRONTEND_PORT } ],
           },
           {
             name: `${APP_NAME}-backend`,
             image: BACKEND_IMAGE,
-            ports: [{ containerPort: BACKEND_PORT }],
-            command: ['npm', 'run', 'start:production'],
+            ports: [ { containerPort: BACKEND_PORT } ],
+            command: [ 'npm', 'run', 'start:production' ],
             volumeMounts: [
               {
                 name: GOOGLE_APPLICATION_CREDENTIALS_VOLUME,
@@ -69,9 +69,9 @@ const deployment = new apps.v1.Deployment(APP_NAME, {
       },
     },
   },
-})
+} )
 
-const service = new core.v1.Service(APP_NAME, {
+const service = new core.v1.Service( APP_NAME, {
   metadata: { name: APP_NAME, labels: deployment.metadata.labels },
   spec: {
     selector: deployment.spec.template.metadata.labels,
@@ -80,23 +80,23 @@ const service = new core.v1.Service(APP_NAME, {
       { name: 'frontend', port: FRONTEND_PORT, targetPort: FRONTEND_PORT },
     ],
   },
-})
+} )
 
-const stripPrefixMiddleware = new apiextensions.CustomResource(`${APP_NAME}-strip-prefix-middleware`, {
+const stripPrefixMiddleware = new apiextensions.CustomResource( `${APP_NAME}-strip-prefix-middleware`, {
   apiVersion: 'traefik.containo.us/v1alpha1',
   kind: 'Middleware',
   metadata: { name: `${APP_NAME}-strip-prefix-middleware` },
   spec: {
     stripPrefix: {
-      prefixes: [API_PREFIX],
+      prefixes: [ API_PREFIX ],
     },
   },
-})
+} )
 
 const stack = getStack()
 const host = stack === 'production' ? 'viewer.shabados.com' : `viewer.${stack}.shabados.com`
 
-new apiextensions.CustomResource(`${APP_NAME}-ingress-route`, {
+new apiextensions.CustomResource( `${APP_NAME}-ingress-route`, {
   apiVersion: 'traefik.containo.us/v1alpha1',
   kind: 'IngressRoute',
   spec: {
@@ -104,14 +104,14 @@ new apiextensions.CustomResource(`${APP_NAME}-ingress-route`, {
       {
         match: `Host(\`${host}\`) && PathPrefix(\`${API_PREFIX}\`)`,
         kind: 'Rule',
-        middlewares: [{ name: stripPrefixMiddleware.metadata.name }],
-        services: [{ name: service.metadata.name, port: BACKEND_PORT }],
+        middlewares: [ { name: stripPrefixMiddleware.metadata.name } ],
+        services: [ { name: service.metadata.name, port: BACKEND_PORT } ],
       },
       {
         match: `Host(\`${host}\`)`,
         kind: 'Rule',
-        services: [{ name: service.metadata.name, port: FRONTEND_PORT }],
+        services: [ { name: service.metadata.name, port: FRONTEND_PORT } ],
       },
     ],
   },
-})
+} )

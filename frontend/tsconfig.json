@@ -1,0 +1,9 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "jsx": "react-jsx"
+  },
+  "include": ["**/*", "../vite-env.d.ts", "src/types/custom.d.ts"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}

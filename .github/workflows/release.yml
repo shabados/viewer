@@ -65,7 +65,7 @@ jobs:
       - name: Build and export
         uses: docker/build-push-action@v2
         with:
-          context: ${{ matrix.context }}
+          file: dockerfile.${{ matrix.context }}
           tags: |
             shabados/viewer-${{ matrix.context }}:v${{ needs.prepare.outputs.release-version }}
             ghcr.io/shabados/viewer-${{ matrix.context }}:v${{ needs.prepare.outputs.release-version }}

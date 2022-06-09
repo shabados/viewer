@@ -1,25 +1,22 @@
-version: "3.7"
+version: '3.7'
 
 services:
   frontend:
     build:
-      context: ./frontend
-      target: build-stage
+      context: .
+      dockerfile: ./dockerfile.frontend
+      target: build
     command: npm start
     ports:
-      - 52525:3000
-    volumes:
-      - ./frontend:/usr/app
+      - 52525:52525
     environment:
       - DEV_BACKEND_URL=http://backend:52526
-      - CHOKIDAR_USEPOLLING=true
 
   backend:
-    build: ./backend
-    volumes:
-      - ./backend:/usr/app
-      - /usr/app/node_modules/sqlite3
+    build:
+      context: .
+      dockerfile: ./dockerfile.backend
     ports:
-        - 52526:52526
+      - 52526:52526
     environment:
       - PORT=52526

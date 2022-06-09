@@ -1,6 +1,6 @@
+import compression from 'compression'
 import express from 'express'
 import helmet from 'helmet'
-import compression from 'compression'
 
 import api from './api'
 import { updateLoop } from './db'
@@ -16,8 +16,8 @@ app.use( api )
 
 // Start the server
 const { PORT } = process.env
-const port = PORT || 52525
+const port = PORT || 52526
 app.listen( port, () => console.log( `Server running on port ${port}` ) )
 
 // Start the database update loop
-updateLoop()
+void updateLoop()

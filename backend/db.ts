@@ -1,8 +1,17 @@
-
-import { readJSON, remove, move } from 'fs-extra'
-import { manifest, extract } from 'pacote'
+import {
+  knex,
+  Lines,
+  LinesQueryBuilder,
+  LinesResult,
+  Shabads,
+  ShabadsResult,
+  TranslationResult,
+  TranslationSources,
+  TranslationSourcesResult,
+} from '@shabados/database'
+import { move, readJSON, remove } from 'fs-extra'
 import importFresh from 'import-fresh'
-import { Lines, Shabads, knex, TranslationSources } from '@shabados/database'
+import { extract, manifest } from 'pacote'
 
 import { dependencies } from './package.json'
 import translate, { LANGUAGE_CODES } from './translate'
@@ -30,9 +39,9 @@ export const getSources = () => Shabads
 /**
  * Gets all the DB translation sources.
  */
-export const getTranslationSources = () => TranslationSources.query().eager( 'language' )
+export const getTranslationSources = () => TranslationSources.query().eager( 'language' ).castTo<TranslationSourcesResult[]>()
 
-const getLinesOnPageBase = ( sourceId, page ) => Lines
+const getLinesOnPageBase = ( sourceId: number, page: number ) => Lines
   .query()
   .join( 'shabads', 'shabads.id', 'lines.shabad_id' )
   .where( 'source_page', page )
@@ -44,7 +53,7 @@ const getLinesOnPageBase = ( sourceId, page ) => Lines
  * @param {number} sourceId The ID of the source to use.
  * @param {number} page The page in the source to retrieve all lines from.
  */
-export const getLinesOnPage = ( sourceId, page ) => getLinesOnPageBase( sourceId, page ).eager( 'shabad.[section, subsection]' )
+export const getLinesOnPage = ( sourceId: number, page: number ) => getLinesOnPageBase( sourceId, page ).eager( 'shabad.[section, subsection]' )
 
 /**
  * Gets a line for the source page.
@@ -53,13 +62,18 @@ export const getLinesOnPage = ( sourceId, page ) => getLinesOnPageBase( sourceId
  * @param {string} lineIndex The index of the line on the source's page.
  */
 export const getLineOnPage = async (
-  sourceId,
-  page,
-  lineIndex,
+  sourceId: number,
+  page: number,
+  lineIndex: number,
 ) => getLinesOnPageBase( sourceId, page )
   .offset( lineIndex )
   .first()
-  .then( ( { id } ) => Lines.query().where( 'id', id ).withTranslations( query => query.joinEager( 'translationSource' ) ) )
+  .castTo<LinesResult>()
+  .then( ( { id } ) => ( Lines
+    .query()
+    .where( 'id', id ) as LinesQueryBuilder )
+    .withTranslations( ( query ) => query.joinEager( 'translationSource' ) )
+    .castTo<[( LinesResult & { translations: TranslationResult[] } )]>() )
   .then( async ( [ { translations, ...line } ] ) => ( {
     ...line,
     translations: await Promise.all( translations.map( async ( {
@@ -71,16 +85,16 @@ export const getLineOnPage = async (
       ...rest,
       translation,
       ...( languageId === languages.punjabi && {
-        english: await translate( translation, LANGUAGE_CODES.punjabi ),
+        english: await translate( translation, LANGUAGE_CODES.punjabi ) ?? '',
       } ),
       additionalInformation: await Promise.all( Object
-        .entries( JSON.parse( additionalInformation ) )
+        .entries( JSON.parse( additionalInformation ) as { [key: string]: string } )
         .filter( ( [ , v ] ) => v )
         .map( async ( [ name, information ] ) => ( {
           name,
           information,
           ...( languageId === languages.punjabi && {
-            english: await translate( information, LANGUAGE_CODES.punjabi ),
+            english: await translate( information, LANGUAGE_CODES.punjabi ) ?? '',
           } ),
         } ) ) ),
     } ) ) ),
@@ -91,18 +105,24 @@ export const getLineOnPage = async (
  * Todo: Performance can be increased by not querying getLinesOnPage().
  * @param {string} id The id of the line.
  */
-export const getLine = async id => {
+export const getLine = async ( id: string ) => {
   const line = await Lines
     .query()
     .eager( 'shabad' )
     .where( 'lines.id', id )
     .first()
+    .castTo<LinesResult & { shabad: ShabadsResult }>()
 
   const pageLines = await getLinesOnPage( line.shabad.sourceId, line.sourcePage )
+    .castTo<LinesResult[]>()
 
   const index = pageLines.findIndex( ( { id } ) => id === line.id )
 
   return { ...line, index }
+}
+
+type Package = {
+  version: string,
 }
 
 /**
@@ -115,7 +135,7 @@ export const isLatestDatabase = async () => {
   const [ remotePackage, localPackage ] = await Promise.all( [
     manifest( databasePackage ),
     readJSON( 'node_modules/@shabados/database/package.json', 'utf-8' ),
-  ] )
+  ] ) as Package[]
 
   console.log( 'Local Database Version:', localPackage.version )
   console.log( 'Remote Database Version:', remotePackage.version )
@@ -130,7 +150,7 @@ export const isLatestDatabase = async () => {
  */
 export const getDbVersion = async () => {
   // Read package.json database semver and database package file
-  const { version } = await readJSON( 'node_modules/@shabados/database/package.json', 'utf-8' )
+  const { version } = await readJSON( 'node_modules/@shabados/database/package.json', 'utf-8' ) as Package
 
   return version
 }
@@ -178,6 +198,6 @@ export const checkUpdates = async () => {
  * Provides a recursive update checking function.
  * Checks for updates at constant interval.
  */
-export const updateLoop = async () => checkUpdates()
-  .catch( err => console.error( 'Unable to check for updates', err ) )
-  .finally( () => setTimeout( updateLoop, UPDATE_CHECK_INTERVAL ) )
+export const updateLoop = (): Promise<void> => checkUpdates()
+  .catch( ( err ) => console.error( 'Unable to check for updates', err ) )
+  .finally( () => setTimeout( () => void updateLoop(), UPDATE_CHECK_INTERVAL ) )

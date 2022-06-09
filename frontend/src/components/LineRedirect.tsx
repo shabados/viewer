@@ -26,9 +26,7 @@ const LineRedirect = () => {
 
   if ( !line.id ) return <ErrorDialog err={new Error( `Line ID ${id!} does not exist` )} />
 
-  return line
-    ? <Navigate to={`/sources/${line.shabad.sourceId}/page/${line.sourcePage}/line/${line.index}`} />
-    : <Loader />
+  return <Navigate to={`/sources/${line.shabad.sourceId}/page/${line.sourcePage}/line/${line.index}`} />
 }
 
 export default LineRedirect

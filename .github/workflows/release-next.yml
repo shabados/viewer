@@ -10,7 +10,7 @@ concurrency: release
 
 jobs:
   release:
-    uses: shabados/viewer/.github/workflows/release.yml@build/373-add-pulumi-deployment
+    uses: shabados/viewer/.github/workflows/release.yml
     with:
       prerelease: true
       environment: next

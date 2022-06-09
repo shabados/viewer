@@ -1,0 +1,21 @@
+FROM node:18
+
+LABEL org.opencontainers.image.source=https://github.com/shabados/viewer
+
+
+WORKDIR /usr/app
+
+COPY tsconfig.json .
+
+WORKDIR /usr/app/backend
+
+COPY backend/package*.json .
+RUN npm ci
+
+COPY backend .
+
+ENV NODE_ENV=production
+
+RUN npm run build
+
+CMD ["npm", "run", "start:production"]

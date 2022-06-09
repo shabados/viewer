@@ -1,0 +1,24 @@
+# Stage 0, "build-stage", based on Node.js, to build and compile the frontend
+FROM node:18 as build
+
+WORKDIR /usr/app
+
+ARG version
+ENV VITE_APP_VERSION=$version
+
+COPY tsconfig.json .
+
+WORKDIR /usr/app/frontend
+
+COPY frontend/package*.json .
+RUN npm ci
+
+COPY frontend .
+RUN npm run build
+
+# Stage 1, based on Nginx, production-ready
+FROM zalari/nginx-html5
+
+LABEL org.opencontainers.image.source=https://github.com/shabados/viewer
+
+COPY --from=build /usr/app/frontend/dist/ /usr/share/nginx/html

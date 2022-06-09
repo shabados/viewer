@@ -10,13 +10,13 @@ const translator = new Translate()
 export const LANGUAGE_CODES = {
   punjabi: 'pa',
   english: 'en',
-}
+} as const
 
 const translate = memoizee(
-  ( text, from, to = LANGUAGE_CODES.english ) => translator
+  ( text: string, from: string, to: string = LANGUAGE_CODES.english ) => translator
     .translate( text, { from, to } )
     .catch( console.error )
-    .then( ( [ translation ] ) => translation ),
+    .then( ( [ translation ]: any ) => translation as string ),
   { promise: true, primitive: true },
 )
 

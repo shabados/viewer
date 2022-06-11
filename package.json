@@ -12,8 +12,8 @@
     "postinstall": "npm run install-deps",
     "test:e2e": "cypress open",
     "test:e2e:headless": "cypress run",
-    "test": "start-server-and-test start 52525 test:e2e:headless",
-    "test:dev": "start-server-and-test start 52525 test:e2e",
+    "test": "start-server-and-test start http-get://localhost:52525 test:e2e:headless",
+    "test:dev": "start-server-and-test start http-get://localhost:52525 test:e2e",
     "lint:frontend": "cd frontend && npm run lint",
     "lint:backend": "cd backend && npm run lint",
     "lint": "npm-run-all -l -p lint:*"

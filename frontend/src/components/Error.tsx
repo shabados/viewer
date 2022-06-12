@@ -1,6 +1,6 @@
 import './Error.css'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { AlertCircle } from 'lucide-react'
 
 type ErrProps = {
   err: {
@@ -10,9 +10,8 @@ type ErrProps = {
 
 const Err = ( { err: { message } }: ErrProps ) => (
   <div className="error">
-    <FontAwesomeIcon icon="exclamation-circle" />
+    <AlertCircle />
     <p className="text">Oh no! Looks like something went wrong.</p>
-    <p className="shrug text">¯\_(ツ)_/¯</p>
     <details>{message}</details>
   </div>
 )

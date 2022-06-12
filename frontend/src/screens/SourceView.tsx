@@ -3,6 +3,7 @@ import './SourceView.css'
 
 import classNames from 'classnames'
 import { mapValues } from 'lodash'
+import { SkipBack, SkipForward } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { GlobalHotKeys } from 'react-hotkeys'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
@@ -10,8 +11,8 @@ import { CSSTransition } from 'react-transition-group'
 import useSWR from 'swr'
 import { useDebounce } from 'use-debounce'
 
+import Button from '../components/Button'
 import Error from '../components/Error'
-import LinkButton from '../components/LinkButton'
 import Loader from '../components/Loader'
 import Slider from '../components/Slider'
 import { PAGE_API } from '../lib/consts'
@@ -222,12 +223,11 @@ const SourceView = ( { sources }: SourceViewProps ) => {
         </CSSTransition>
 
         <section className="controls">
-          <LinkButton
-            className="left button"
-            icon="caret-left"
-            to={`/sources/${source}/page/${page - 1}/line/0`}
-            disabled={page <= 1}
-          />
+          <Link to={page > 1 ? `/sources/${source}/page/${page - 1}/line/0` : '#'} className="left button">
+            <Button disabled={page <= 1}>
+              <SkipBack />
+            </Button>
+          </Link>
 
           <Slider
             min={1}
@@ -239,12 +239,11 @@ const SourceView = ( { sources }: SourceViewProps ) => {
             disabled={length === 1}
           />
 
-          <LinkButton
-            className="right button"
-            icon="caret-right"
-            to={`/sources/${source}/page/${page + 1}/line/0`}
-            disabled={page >= length!}
-          />
+          <Link to={page < length! ? `/sources/${source}/page/${page + 1}/line/0` : ''} className="right button">
+            <Button disabled={page >= length!}>
+              <SkipForward />
+            </Button>
+          </Link>
         </section>
       </GlobalHotKeys>
     </div>

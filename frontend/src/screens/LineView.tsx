@@ -3,14 +3,14 @@ import './LineView.css'
 import { Popover } from '@harjot1singh/react-tiny-popover'
 import { countSyllables, stripVishraams, toSyllabicSymbols, toUnicode } from 'gurmukhi-utils'
 import { mapValues } from 'lodash'
+import { Menu as More, SkipBack, SkipForward, X } from 'lucide-react'
 import { ReactNode, useDeferredValue, useEffect, useState } from 'react'
 import { GlobalHotKeys } from 'react-hotkeys'
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import useSWR from 'swr'
 
+import Button from '../components/Button'
 import Error from '../components/Error'
-import IconButton from '../components/IconButton'
-import LinkButton from '../components/LinkButton'
 import Loader from '../components/Loader'
 import Menu from '../components/Menu'
 import MenuItem from '../components/MenuItem'
@@ -140,8 +140,16 @@ const LineView = ( { sources }: LineViewProps ) => {
       <GlobalHotKeys keyMap={keyMap} handlers={handlers} allowChanges>
         <div className="header">
           <div className="left buttons">
-            <LinkButton className="button" icon="level-up-alt" to={sourceViewUrl} data-cy="go-to-home-button" />
-            <LinkButton className="button" icon="caret-left" disabled={!previousLineUrl} replace to={previousLineUrl} />
+            <Link to={sourceViewUrl} className="link-button" data-cy="go-to-home-button">
+              <Button>
+                <X />
+              </Button>
+            </Link>
+            <Link replace to={previousLineUrl || ''} className="link-button">
+              <Button disabled={!previousLineUrl}>
+                <SkipBack />
+              </Button>
+            </Link>
           </div>
 
           <h1>
@@ -169,7 +177,11 @@ const LineView = ( { sources }: LineViewProps ) => {
           </h1>
 
           <div className="right buttons">
-            <LinkButton className="button" icon="caret-right" replace to={nextLineUrl} data-cy="go-to-next-line-button" />
+            <Link replace to={nextLineUrl || ''} className="link-button" data-cy="go-to-next-line-button">
+              <Button disabled={!nextLineUrl}>
+                <SkipForward />
+              </Button>
+            </Link>
 
             <Popover
               isOpen={menuOpen}
@@ -184,7 +196,11 @@ const LineView = ( { sources }: LineViewProps ) => {
                 </Menu>
                 )}
             >
-              <IconButton icon="ellipsis-v" onClick={toggleMenu} data-cy="menu-button-dots" />
+              <div onClick={toggleMenu} data-cy="menu-button-dots">
+                <Button>
+                  <More />
+                </Button>
+              </div>
             </Popover>
           </div>
         </div>

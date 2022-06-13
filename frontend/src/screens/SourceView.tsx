@@ -9,6 +9,7 @@ import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import useSWR from 'swr'
 import { useDebounce } from 'use-debounce'
 
+import AsciiGurmukhi from '../components/AsciiGurmukhi'
 import Button from '../components/Button'
 import Content from '../components/Content'
 import Error from '../components/Error'
@@ -41,9 +42,6 @@ const useStyles = createUseStyles( {
   },
 
   line: {
-    fontFamily: 'Open Gurbani Akhar',
-    fontWeight: '700',
-    fontSize: '1.325em',
     marginLeft: `calc(${theme.BlankSpace} * 2)`,
     transition: theme.Normally,
     color: 'rgb(16.87% 14.48% 8.69%)',
@@ -251,7 +249,7 @@ const SourceView = ( { sources }: SourceViewProps ) => {
                       tabIndex={0}
                       role="button"
                     >
-                      {gurmukhi}
+                      <AsciiGurmukhi>{gurmukhi}</AsciiGurmukhi>
                     </span>
                   </Link>
                 ) )}
@@ -269,14 +267,14 @@ const SourceView = ( { sources }: SourceViewProps ) => {
                 </Button>
               </Link>
 
-              <span className="gurmukhi">
+              <AsciiGurmukhi>
                 {pageNameGurmukhi ? `${pageNameGurmukhi} ` : ''}
                 {rawPage}
                 {' '}
                 /
                 {' '}
                 {length}
-              </span>
+              </AsciiGurmukhi>
 
               <Link to={page < length! ? `/sources/${source}/page/${page + 1}/line/0` : ''}>
                 <Button disabled={page >= length!}>

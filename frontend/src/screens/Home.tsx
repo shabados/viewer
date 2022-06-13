@@ -1,6 +1,7 @@
 import { createUseStyles } from 'react-jss'
 import { Link } from 'react-router-dom'
 
+import AsciiGurmukhi from '../components/AsciiGurmukhi'
 import Content from '../components/Content'
 import Error from '../components/Error'
 import Layout from '../components/Layout'
@@ -20,10 +21,6 @@ const useStyles = createUseStyles( {
   source: {
     padding: `${theme.Gap} calc(2 * ${theme.Gap})`,
     borderRadius: theme.Gap,
-    fontFamily: 'Open Gurbani Akhar',
-    fontWeight: 700,
-    fontSize: '1.05em',
-    color: '#000000',
     backgroundColor: 'rgba(255, 255, 255, 0.4)',
     border: '1px solid rgba(0, 0, 0, 0.1)',
     transition: theme.Normally,
@@ -62,7 +59,7 @@ const Home = ( { err, sources, positions }: HomeProps ) => {
                 className={classes.source}
                 to={`/sources/${id}/page/${getPosition( id, positions ).page}/line/${getPosition( id, positions ).line}`}
               >
-                {nameGurmukhi}
+                <AsciiGurmukhi>{nameGurmukhi}</AsciiGurmukhi>
               </Link>
             ) )}
           </div>

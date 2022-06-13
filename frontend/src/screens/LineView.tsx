@@ -7,6 +7,7 @@ import { createUseStyles } from 'react-jss'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import useSWR from 'swr'
 
+import AsciiGurmukhi from '../components/AsciiGurmukhi'
 import Button from '../components/Button'
 import Content from '../components/Content'
 import Error from '../components/Error'
@@ -230,12 +231,12 @@ const LineView = ( { sources }: LineViewProps ) => {
                     // eslint-disable-next-line react/no-array-index-key
                       <div key={index} className={classes.headerDiv}>
                         <a
-                          className={`gurmukhi ${classes.headerLink}`}
+                          className={classes.headerLink}
                           href={getDictionaryLink( stripVishraams( toUnicode( word ) ) )}
                           target="_blank"
                           rel="noreferrer"
                         >
-                          {word}
+                          <AsciiGurmukhi>{word}</AsciiGurmukhi>
                         </a>
                         <span className={`${classes.headerDivSpan} ${classes.headerSpan}`}>{toSyllabicSymbols( word )}</span>
                       </div>

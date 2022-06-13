@@ -24,6 +24,16 @@ const useStyles = createUseStyles( {
       backgroundColor: 'rgba(120,120,120,0.05)',
     },
   },
+  '@media (pointer: coarse)': {
+    button: {
+      '&:hover': {
+        backgroundColor: 'transparent',
+      },
+      '&:active': {
+        backgroundColor: 'rgba(255,255,255,0.4)',
+      },
+    },
+  },
 } )
 
 type ButtonProps = {

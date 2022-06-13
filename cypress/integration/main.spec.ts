@@ -1,7 +1,7 @@
 describe( 'Source: SGGS', () => {
   it( 'Open Source Page', () => {
     cy.visit( '/sources/1/page/1/line/0' )
-    cy.contains( '<> siq nwmu krqw purKu inrBau inrvYru; Akwl mUriq AjUnI sYBM gur pRswid ]' ).click()
+    cy.contains( '<> siq nwmu krqw purKu inrBau inrvYru Akwl mUriq AjUnI sYBM gur pRswid ]' ).click()
   } )
 
   it( 'Open Line Viewer', () => cy.goToLineViewer( 'Prof. Sahib Singh' ) )
@@ -19,22 +19,22 @@ describe( 'Source: Sri Dasam Granth', () => {
 
   it( 'Open Line Viewer', () => cy.goToLineViewer( 'Dr. Rattan Singh Jaggi' ) )
 
-  it( 'Go to Next Line', () => cy.goToNextLine( 'ByK;' ) )
+  it( 'Go to Next Line', () => cy.goToNextLine( 'ByK' ) )
 
-  it( 'Go back home', () => cy.goToSourceView( 'iqRBvx mhIp, sur, nr, Asur; nyq nyq bn iqRx khq ]' ) )
+  it( 'Go back home', () => cy.goToSourceView( 'iqRBvx mhIp sur nr Asur nyq nyq bn iqRx khq ]' ) )
 } )
 
 describe( 'Source: Vaaran', () => {
   it( 'Open Source Page', () => {
     cy.visit( '/sources/3/page/1/line/0' )
-    cy.contains( 'ipRQmY swis n mws sin; AMD DuMD kCu Kbir n pweI [' ).click()
+    cy.contains( 'ipRQmY swis n mws sin AMD DuMD kCu Kbir n pweI [' ).click()
   } )
 
   it( 'Open Line Viewer', () => cy.goToLineViewer( 'Bhai Vir Singh' ) )
 
   it( 'Go to Next Line', () => cy.goToNextLine( 'ibMd' ) )
 
-  it( 'Go back home', () => cy.goToSourceView( 'rkiq ibMd kI dyih ric; pMic qq kI jiVq jVweI [' ) )
+  it( 'Go back home', () => cy.goToSourceView( 'rkiq ibMd kI dyih ric pMic qq kI jiVq jVweI [' ) )
 } )
 
 describe( 'Source: Kabit Swaiye', () => {
@@ -108,7 +108,7 @@ describe( 'Source: Ardaas', () => {
 
   it( 'Open Line Viewer', () => cy.goToLineViewer( 'SGPC' ) )
 
-  it( 'Go back home', () => cy.goToSourceView( 'is`KW dw mn nIvW, mq au~cI, mq dw rwKw Awip vwihgurU [' ) )
+  it( 'Go back home', () => cy.goToSourceView( 'is`KW dw mn nIvW mq au~cI mq dw rwKw Awip vwihgurU [' ) )
 } )
 
 describe( 'Source: Sarabloh Granth', () => {

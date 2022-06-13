@@ -1,19 +1,20 @@
-import { Popover } from '@harjot1singh/react-tiny-popover'
 import { countSyllables, stripVishraams, toSyllabicSymbols, toUnicode } from 'gurmukhi-utils'
 import { mapValues } from 'lodash'
-import { Menu as More, SkipBack, SkipForward, X } from 'lucide-react'
-import { ReactNode, useDeferredValue, useEffect, useState } from 'react'
+import { Flag, SkipBack, SkipForward, X } from 'lucide-react'
+import { ReactNode, useDeferredValue, useEffect } from 'react'
 import { GlobalHotKeys } from 'react-hotkeys'
 import { createUseStyles } from 'react-jss'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import useSWR from 'swr'
 
+import AsciiGurmukhi from '../components/AsciiGurmukhi'
 import Button from '../components/Button'
+import Content from '../components/Content'
 import Error from '../components/Error'
 import Loader from '../components/Loader'
-import Menu from '../components/Menu'
-import MenuItem from '../components/MenuItem'
+import Section from '../components/Section'
 import TranslationBlock from '../components/TranslationBlock'
+import theme from '../helpers/theme'
 import { PAGE_API } from '../lib/consts'
 import { getDictionaryLink, getIssueUrl, GetIssueUrlOptions } from '../lib/utils'
 import { SourcePageLineResponse, SourcePageResponse, SourcesResponse } from '../types/api'
@@ -26,25 +27,22 @@ const useStyles = createUseStyles( {
   },
 
   header: {
-    display: 'flex',
-    width: '100%',
     boxSizing: 'border-box',
-    justifyContent: 'space-between',
     background: '#f0ede9',
-    marginBottom: '2em',
     position: 'sticky',
     top: '0',
-    zIndex: '1',
   },
 
-  header1: {
+  headerWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+
+  sourceLine: {
     fontWeight: 'normal',
     transition: '0.125s all ease-in-out',
     textAlign: 'center',
-    fontSize: '1.325em',
-    lineHeight: '1.756em',
-    color: '#2d2026',
-    margin: '0',
+    fontSize: '1em',
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'center',
@@ -54,21 +52,12 @@ const useStyles = createUseStyles( {
     display: 'flex',
     flexDirection: 'column',
     marginRight: '0.35em',
-    marginTop: '0.3em',
-    marginBottom: '0.3em',
   },
 
   headerLink: {
-    color: 'inherit',
-    textDecoration: 'none',
-    transition: 'all 0.125s ease-in-out',
-    borderRadius: '0.136em',
-    borderBottom: '2px solid rgba(0, 136, 191, 0.4)',
+    transition: theme.Normally,
     '&:hover': {
-      cursor: 'pointer',
-      outline: 'none',
-      background: '#a2ced8',
-      borderBottom: '2px solid rgba(0, 0, 0, 0.1)',
+      color: theme.Blue,
     },
   },
 
@@ -84,7 +73,7 @@ const useStyles = createUseStyles( {
   },
 
   syllableCount: {
-    top: '1.43em',
+    top: '1.6em',
     marginBottom: '3em',
     position: 'relative',
     background: '#d0cbce',
@@ -93,23 +82,22 @@ const useStyles = createUseStyles( {
     height: '1.4em',
     lineHeight: '1.4em',
     minWidth: '1.4em',
-    color: '#2d2026',
+    color: '#000',
   },
 
   buttons: {
     display: 'flex',
+    cursor: 'pointer',
   },
 
-  content: {
-    width: '100%',
-    boxSizing: 'border-box',
-    padding: '0 2em',
-    height: '100%',
-    position: 'relative',
-  },
-
-  popoverMenu: {
-    zIndex: '10',
+  '@media (max-width: 600px)': {
+    headerWrapper: {
+      flexWrap: 'wrap',
+    },
+    sourceLine: {
+      flexGrow: 1,
+      order: 3,
+    },
   },
 
 } )
@@ -173,15 +161,6 @@ const LineView = ( { sources }: LineViewProps ) => {
 
   const source = sources.find( ( { id } ) => sourceNumber === id )
 
-  // 3 dot menu
-  const [ menuOpen, setMenuOpen ] = useState( false )
-  const toggleMenu = () => setMenuOpen( !menuOpen )
-
-  const closeMenuAfter = ( fn: () => void ) => () => {
-    fn()
-    setMenuOpen( false )
-  }
-
   // Line data
   const debouncedLineNumber = useDeferredValue( lineNumber )
 
@@ -236,80 +215,72 @@ const LineView = ( { sources }: LineViewProps ) => {
 
       <GlobalHotKeys keyMap={keyMap} handlers={handlers} allowChanges>
         <div className={classes.header}>
-          <div className={classes.buttons}>
-            <Link to={sourceViewUrl} data-cy="go-to-home-button">
-              <Button>
-                <X />
-              </Button>
-            </Link>
-            <Link replace to={previousLineUrl || ''}>
-              <Button disabled={!previousLineUrl}>
-                <SkipBack />
-              </Button>
-            </Link>
-          </div>
-
-          <h1 className={classes.header1}>
-            {gurmukhi
-              ? gurmukhi
-                .split( ' ' )
-                .map( ( word: string, index: number ) => (
-                // eslint-disable-next-line react/no-array-index-key
-                  <div key={index} className={classes.headerDiv}>
-                    <a
-                      className={`gurmukhi ${classes.headerLink}`}
-                      href={getDictionaryLink( stripVishraams( toUnicode( word ) ) )}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      {word}
-                    </a>
-                    <span className={`${classes.headerDivSpan} ${classes.headerSpan}`}>{toSyllabicSymbols( word )}</span>
-                  </div>
-                ) as ReactNode )
-                .reduce( ( prev, curr ) => [ prev, ' ', curr ] )
-              : <Loader size="1em" />}
-
-            {gurmukhi && <span className={`${classes.syllableCount} ${classes.headerSpan}`}>{countSyllables( gurmukhi )}</span>}
-          </h1>
-
-          <div className={classes.buttons}>
-            <Link replace to={nextLineUrl || ''} className="link-button" data-cy="go-to-next-line-button">
-              <Button disabled={!nextLineUrl}>
-                <SkipForward />
-              </Button>
-            </Link>
-
-            <Popover
-              isOpen={menuOpen}
-              onClickOutside={() => setMenuOpen( false )}
-              containerClassName="popover-menu"
-              positions={[ 'left' ]}
-              content={(
-                <Menu>
-                  <MenuItem onClick={closeMenuAfter( submitCorrection )}>
-                    Report an issue
-                  </MenuItem>
-                </Menu>
-                )}
-            >
-              <div onClick={toggleMenu} data-cy="menu-button-dots">
-                <Button>
-                  <More />
-                </Button>
+          <Content>
+            <div className={classes.headerWrapper}>
+              <div className={classes.buttons}>
+                <Link to={sourceViewUrl} data-cy="go-to-home-button">
+                  <Button>
+                    <X />
+                  </Button>
+                </Link>
+                <Link replace to={previousLineUrl || ''}>
+                  <Button disabled={!previousLineUrl}>
+                    <SkipBack />
+                  </Button>
+                </Link>
               </div>
-            </Popover>
-          </div>
+
+              <div data-cy="source-line" className={classes.sourceLine}>
+                {gurmukhi
+                  ? stripVishraams( gurmukhi )
+                    .split( ' ' )
+                    .map( ( word: string, index: number ) => (
+                    // eslint-disable-next-line react/no-array-index-key
+                      <div key={index} className={classes.headerDiv}>
+                        <a
+                          className={classes.headerLink}
+                          href={getDictionaryLink( stripVishraams( toUnicode( word ) ) )}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <AsciiGurmukhi>{word}</AsciiGurmukhi>
+                        </a>
+                        <span className={`${classes.headerDivSpan} ${classes.headerSpan}`}>{toSyllabicSymbols( word )}</span>
+                      </div>
+                    ) as ReactNode )
+                    .reduce( ( prev, curr ) => [ prev, ' ', curr ] )
+                  : <Loader size="1em" />}
+
+                {gurmukhi && <span className={`${classes.syllableCount} ${classes.headerSpan}`}>{countSyllables( gurmukhi )}</span>}
+              </div>
+
+              <div className={classes.buttons}>
+                <Link replace to={nextLineUrl || ''} data-cy="go-to-next-line-button">
+                  <Button disabled={!nextLineUrl}>
+                    <SkipForward />
+                  </Button>
+                </Link>
+                <div onClick={submitCorrection}>
+                  <Button>
+                    <Flag />
+                  </Button>
+                </div>
+              </div>
+
+            </div>
+          </Content>
         </div>
 
-        <div className={classes.content}>
-          {translations
-            ?.map( ( translation ) => (
-              <TranslationBlock key={translation.translationSourceId} {...translation} />
-            ) )
-            .filter( ( x ) => x )
-            .reverse()}
-        </div>
+        <Content>
+          <Section>
+            {translations
+              ?.map( ( translation ) => (
+                <TranslationBlock key={translation.translationSourceId} {...translation} />
+              ) )
+              .filter( ( x ) => x )
+              .reverse()}
+          </Section>
+        </Content>
       </GlobalHotKeys>
     </div>
   )

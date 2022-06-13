@@ -13,6 +13,7 @@ import { useDebounce } from 'use-debounce'
 import Button from '../components/Button'
 import Error from '../components/Error'
 import Loader from '../components/Loader'
+import Nav from '../components/Nav'
 import Slider from '../components/Slider'
 import { PAGE_API } from '../lib/consts'
 import { savePosition } from '../lib/utils'
@@ -255,57 +256,60 @@ const SourceView = ( { sources }: SourceViewProps ) => {
   const classes = useStyles()
 
   return (
-    <div className="source-view">
-      {err && <Error err={err} />}
-      {!( lines || err ) && <Loader />}
+    <>
+      <Nav />
+      <div className={classes.sourceView}>
+        {err && <Error err={err} />}
+        {!( lines || err ) && <Loader />}
 
-      <GlobalHotKeys keyMap={KEY_MAP} handlers={handlers} allowChanges>
-        <CSSTransition
-          in={!loading}
-          timeout={200}
-          classNames="fade"
-        >
-          <section className={classes.lines}>
-            {lines?.map( ( { id, gurmukhi }, index: number ) => (
-              <Link key={id} to={`/sources/${source}/page/${page}/line/${index}/view`} className={classes.aTag}>
-                <span
-                  ref={( ref ) => { lineRefs.current[ index ] = ref! }}
-                  className={`cy-line ${classes.line} ${rawLine === index ? classes.focused : ''}`}
-                  tabIndex={0}
-                  role="button"
-                >
-                  {gurmukhi}
-                </span>
-              </Link>
-            ) )}
+        <GlobalHotKeys keyMap={KEY_MAP} handlers={handlers} allowChanges>
+          <CSSTransition
+            in={!loading}
+            timeout={200}
+            classNames="fade"
+          >
+            <section className={classes.lines}>
+              {lines?.map( ( { id, gurmukhi }, index: number ) => (
+                <Link key={id} to={`/sources/${source}/page/${page}/line/${index}/view`} className={classes.aTag}>
+                  <span
+                    ref={( ref ) => { lineRefs.current[ index ] = ref! }}
+                    className={`cy-line ${classes.line} ${rawLine === index ? classes.focused : ''}`}
+                    tabIndex={0}
+                    role="button"
+                  >
+                    {gurmukhi}
+                  </span>
+                </Link>
+              ) )}
+            </section>
+          </CSSTransition>
+
+          <section className={classes.controls}>
+            <Link to={page > 1 ? `/sources/${source}/page/${page - 1}/line/0` : '#'}>
+              <Button disabled={page <= 1}>
+                <SkipBack />
+              </Button>
+            </Link>
+
+            <Slider
+              min={1}
+              max={length ?? 1}
+              value={rawPage}
+              label={pageNameGurmukhi ?? ''}
+              onChange={( [ page ] ) => goToPage( page )}
+              tooltipActive={navigating}
+              disabled={length === 1}
+            />
+
+            <Link to={page < length! ? `/sources/${source}/page/${page + 1}/line/0` : ''}>
+              <Button disabled={page >= length!}>
+                <SkipForward />
+              </Button>
+            </Link>
           </section>
-        </CSSTransition>
-
-        <section className={classes.controls}>
-          <Link to={page > 1 ? `/sources/${source}/page/${page - 1}/line/0` : '#'}>
-            <Button disabled={page <= 1}>
-              <SkipBack />
-            </Button>
-          </Link>
-
-          <Slider
-            min={1}
-            max={length ?? 1}
-            value={rawPage}
-            label={pageNameGurmukhi ?? ''}
-            onChange={( [ page ] ) => goToPage( page )}
-            tooltipActive={navigating}
-            disabled={length === 1}
-          />
-
-          <Link to={page < length! ? `/sources/${source}/page/${page + 1}/line/0` : ''}>
-            <Button disabled={page >= length!}>
-              <SkipForward />
-            </Button>
-          </Link>
-        </section>
-      </GlobalHotKeys>
-    </div>
+        </GlobalHotKeys>
+      </div>
+    </>
   )
 }
 

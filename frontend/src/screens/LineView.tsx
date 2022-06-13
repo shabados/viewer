@@ -1,8 +1,7 @@
-import { Popover } from '@harjot1singh/react-tiny-popover'
 import { countSyllables, stripVishraams, toSyllabicSymbols, toUnicode } from 'gurmukhi-utils'
 import { mapValues } from 'lodash'
-import { Menu as More, SkipBack, SkipForward, X } from 'lucide-react'
-import { ReactNode, useDeferredValue, useEffect, useState } from 'react'
+import { Flag, SkipBack, SkipForward, X } from 'lucide-react'
+import { ReactNode, useDeferredValue, useEffect } from 'react'
 import { GlobalHotKeys } from 'react-hotkeys'
 import { createUseStyles } from 'react-jss'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
@@ -11,8 +10,6 @@ import useSWR from 'swr'
 import Button from '../components/Button'
 import Error from '../components/Error'
 import Loader from '../components/Loader'
-import Menu from '../components/Menu'
-import MenuItem from '../components/MenuItem'
 import TranslationBlock from '../components/TranslationBlock'
 import { PAGE_API } from '../lib/consts'
 import { getDictionaryLink, getIssueUrl, GetIssueUrlOptions } from '../lib/utils'
@@ -108,10 +105,6 @@ const useStyles = createUseStyles( {
     position: 'relative',
   },
 
-  popoverMenu: {
-    zIndex: '10',
-  },
-
 } )
 
 const OVERFLOW_LINE = 10000000
@@ -172,15 +165,6 @@ const LineView = ( { sources }: LineViewProps ) => {
   } = mapValues( useParams<LineViewParams>(), Number )
 
   const source = sources.find( ( { id } ) => sourceNumber === id )
-
-  // 3 dot menu
-  const [ menuOpen, setMenuOpen ] = useState( false )
-  const toggleMenu = () => setMenuOpen( !menuOpen )
-
-  const closeMenuAfter = ( fn: () => void ) => () => {
-    fn()
-    setMenuOpen( false )
-  }
 
   // Line data
   const debouncedLineNumber = useDeferredValue( lineNumber )
@@ -279,26 +263,11 @@ const LineView = ( { sources }: LineViewProps ) => {
                 <SkipForward />
               </Button>
             </Link>
-
-            <Popover
-              isOpen={menuOpen}
-              onClickOutside={() => setMenuOpen( false )}
-              containerClassName="popover-menu"
-              positions={[ 'left' ]}
-              content={(
-                <Menu>
-                  <MenuItem onClick={closeMenuAfter( submitCorrection )}>
-                    Report an issue
-                  </MenuItem>
-                </Menu>
-                )}
-            >
-              <div onClick={toggleMenu} data-cy="menu-button-dots">
-                <Button>
-                  <More />
-                </Button>
-              </div>
-            </Popover>
+            <div onClick={submitCorrection}>
+              <Button>
+                <Flag />
+              </Button>
+            </div>
           </div>
         </div>
 

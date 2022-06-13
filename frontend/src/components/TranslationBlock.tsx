@@ -3,7 +3,6 @@
   jsx-a11y/no-noninteractive-element-interactions
 */
 
-import classNames from 'classnames'
 import { useContext, useState } from 'react'
 import { createUseStyles } from 'react-jss'
 
@@ -77,12 +76,12 @@ const TranslationBlock = ( {
       <h2 className={`cy-source-name ${classes.sourceName}`} onClick={toggleExpanded}>{`[${source.language.nameEnglish}] ${source.nameEnglish}`}</h2>
 
       {expanded && (
-      <div className={classNames( { expanded }, 'blocks' )}>
+      <div className={`${expanded ? 'expanded' : ''} blocks`}>
         <div className={classes.block}>
-          <p className={classNames( languageFonts[ source.languageId ], 'translation' )}>{translation}</p>
+          <p className={`${languageFonts[ source.languageId ]} translation`}>{translation}</p>
 
           {additionalInformation.map( ( { name, information } ) => (
-            <p key={name} className={classNames( languageFonts[ source.languageId ], 'translation' )}>
+            <p key={name} className={`${languageFonts[ source.languageId ]} translation`}>
               {[ name, information ].join( '. ' )}
             </p>
           ) )}

@@ -43,7 +43,6 @@ const useStyles = createUseStyles( {
     transition: '0.125s all ease-in-out',
     textAlign: 'center',
     fontSize: '1.325em',
-    lineHeight: 2,
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'center',

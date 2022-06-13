@@ -46,3 +46,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@media (pointer: coarse) {
+  *,
+  *:hover,
+  *:active,
+  *:focus,
+  *:active:focus {
+    outline: none;
+    box-shadow: none;
+    -webkit-tap-highlight-color: transparent;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+  }
+}

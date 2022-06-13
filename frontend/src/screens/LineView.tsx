@@ -92,6 +92,16 @@ const useStyles = createUseStyles( {
     cursor: 'pointer',
   },
 
+  '@media (max-width: 600px)': {
+    headerWrapper: {
+      flexWrap: 'wrap',
+    },
+    sourceLine: {
+      flexGrow: 1,
+      order: 3,
+    },
+  },
+
 } )
 
 const OVERFLOW_LINE = 10000000

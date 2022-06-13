@@ -274,7 +274,7 @@ const LineView = ( { sources }: LineViewProps ) => {
           </h1>
 
           <div className={classes.buttons}>
-            <Link replace to={nextLineUrl || ''} className="link-button" data-cy="go-to-next-line-button">
+            <Link replace to={nextLineUrl || ''} data-cy="go-to-next-line-button">
               <Button disabled={!nextLineUrl}>
                 <SkipForward />
               </Button>

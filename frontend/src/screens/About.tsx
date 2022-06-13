@@ -1,8 +1,16 @@
 import { useEffect, useState } from 'react'
+import { createUseStyles } from 'react-jss'
 
 import Content from '../components/Content'
 import Layout from '../components/Layout'
+import theme from '../helpers/theme'
 import { DB_VERSION_API, version } from '../lib/consts'
+
+const useStyles = createUseStyles( {
+  link: {
+    color: theme.Blue,
+  },
+} )
 
 const About = () => {
   const [ dbVersion, setDbVersion ] = useState<string>()
@@ -13,6 +21,8 @@ const About = () => {
       .then( setDbVersion )
       .catch( ( err: Error ) => console.error( 'Error fetching DB Version', err ) )
   }, [] )
+
+  const classes = useStyles()
 
   return (
     <Layout>
@@ -43,14 +53,14 @@ const About = () => {
             : (
               <>
                 <p>
-                  <a href="https://github.com/shabados/viewer/releases" className="link">
+                  <a href="https://github.com/shabados/viewer/releases" className={classes.link}>
                     Viewer
                     {' '}
                     {version}
                   </a>
                 </p>
                 <p>
-                  <a href="https://github.com/shabados/database/releases" className="link">
+                  <a href="https://github.com/shabados/database/releases" className={classes.link}>
                     Database
                     {' '}
                     {dbVersion}
@@ -60,9 +70,9 @@ const About = () => {
             )}
         </p>
         <h1>Related</h1>
-        <p><a href="https://docs.shabados.com/viewer/" className="link">Viewer Docs</a></p>
-        <p><a href="https://docs.shabados.com/database/" className="link">Database Docs</a></p>
-        <p><a href="https://github.com/shabados" className="link">Shabad OS GitHub</a></p>
+        <p><a href="https://docs.shabados.com/viewer/" className={classes.link}>Viewer Docs</a></p>
+        <p><a href="https://docs.shabados.com/database/" className={classes.link}>Database Docs</a></p>
+        <p><a href="https://github.com/shabados" className={classes.link}>Shabad OS GitHub</a></p>
       </Content>
     </Layout>
   )

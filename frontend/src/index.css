@@ -30,8 +30,9 @@ h4 + p {
   margin-top: 0.5rem;
 }
 
-.link {
-  color: rgb(0% 50.81% 67.85%);
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
 code {

@@ -14,10 +14,10 @@ Cypress.Commands.add( 'goToNextLine', ( matchValue ) => {
 
 Cypress.Commands.add( 'goToSourceView', ( matchValue ) => {
   cy.get( '[data-cy=go-to-home-button]' ).click()
-  cy.matchValue( '.line', matchValue )
+  cy.matchValue( '.cy-line', matchValue )
 } )
 
 Cypress.Commands.add( 'goToLineViewer', ( matchValue ) => {
   cy.url().should( 'include', '/view' )
-  cy.matchValue( ':nth-child(1) > .source-name', matchValue )
+  cy.matchValue( ':nth-child(1) > .cy-source-name', matchValue )
 } )

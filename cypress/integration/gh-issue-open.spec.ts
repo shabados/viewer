@@ -8,6 +8,6 @@ describe( 'Line Options', () => {
 
   it( '3 Dots Menu', () => {
     cy.get( '[data-cy=menu-button-dots]' ).click()
-    cy.matchValue( '.menu-item', 'Report an issue' )
+    cy.matchValue( '.cy-menu-item', 'Report an issue' )
   } )
 } )

@@ -25,6 +25,7 @@ const theme = {
   NavBg: 'rgb(15.99% 8.5% 11.42%)', // lch(10% 11 355)
   Blue: 'rgb(0% 48.81% 81.83%)', // lch(50% 66 265)
   BlueBrightMuted: 'rgb(58.43% 73.73% 96.07%)', // lch(75% 33 265)
+  YellowBrightMuted: 'rgb(97.75% 93.92% 86.07%)', // lch(90% 33 85)
 }
 
 export default theme

@@ -2,78 +2,68 @@
 
 import { mapValues } from 'lodash'
 import { SkipBack, SkipForward } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { GlobalHotKeys } from 'react-hotkeys'
 import { createUseStyles } from 'react-jss'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
-import { CSSTransition } from 'react-transition-group'
 import useSWR from 'swr'
 import { useDebounce } from 'use-debounce'
 
 import Button from '../components/Button'
+import Content from '../components/Content'
 import Error from '../components/Error'
 import Loader from '../components/Loader'
 import Nav from '../components/Nav'
-import Slider from '../components/Slider'
+import theme from '../helpers/theme'
 import { PAGE_API } from '../lib/consts'
 import { savePosition } from '../lib/utils'
 import { SourcePageResponse, SourcesResponse } from '../types/api'
 
 const useStyles = createUseStyles( {
-  aTag: {
-    textDecoration: 'none',
-    color: 'inherit',
-  },
-
   sourceView: {
+    height: `calc(100vh - ${theme.Gutter})`,
+    marginTop: theme.Gutter,
     display: 'flex',
     flexDirection: 'column',
-    backgroundColor: '#f0ede9',
-    minHeight: '100vh',
-    userSelect: 'none',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 
-  lines: {
-    padding: '1em',
-    textAlign: 'justify',
-    marginBottom: '3.245em',
+  sourceContent: {
+    flexGrow: 1,
+    paddingTop: `calc(${theme.Gutter} / 2)`,
+    paddingBottom: `calc(${theme.Gutter} / 2)`,
+    overflow: 'scroll',
+    overscrollBehavior: 'contain',
+  },
+
+  sourceControls: {
+    flexGrow: 0,
+    borderTop: '1px solid rgba(0,0,0,0.1)',
+    background: 'rgba(0, 0, 0, 0.05)',
+    width: '100%',
   },
 
   line: {
     fontFamily: 'Open Gurbani Akhar',
     fontWeight: '700',
     fontSize: '1.325em',
-    lineHeight: '1.756em',
-    transition: '0.125s all ease-in-out',
-    padding: '0.18em 0.238em',
-    borderRadius: '0.136em',
+    marginLeft: `calc(${theme.BlankSpace} * 2)`,
+    transition: theme.Normally,
+    color: 'rgb(16.87% 14.48% 8.69%)',
+    outline: 'none',
     '&:hover': {
-      cursor: 'pointer',
-      outline: 'none',
-      background: '#dccda2',
-      borderBottom: '2px solid rgba(0, 0, 0, 0.1)',
-    },
-    '&:focus': {
-      outline: 'none',
+      color: theme.Blue,
     },
   },
 
   focused: {
-    background: '#f5cd3d',
-    borderBottom: '2px solid rgba(0, 0, 0, 0.1)',
+    color: 'rgb(0% 52.14% 55.32%)',
   },
 
-  controls: {
-    backgroundImage: 'linear-gradient(#e1dfddcc, #e1dfddff)',
+  controlsContent: {
     display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     gap: '1rem',
-    position: 'fixed',
-    bottom: '0',
-    paddingBottom: '0.163em',
-    borderTop: '1px solid #d4d1cd',
-    width: '100%',
   },
 } )
 
@@ -113,10 +103,6 @@ const SourceView = ( { sources }: SourceViewProps ) => {
   const [ line ] = useDebounce( rawLine, 100 )
 
   const lineRefs = useRef<{ [key: number]: HTMLElement }>( {} )
-
-  const navigatingTimeout = useRef<number>()
-
-  const [ navigating, setNavigating ] = useState( false )
 
   const {
     data: lines,
@@ -159,11 +145,6 @@ const SourceView = ( { sources }: SourceViewProps ) => {
   }
 
   const goToPage = ( nextPage: number ) => {
-    // Display current page number
-    setNavigating( true )
-    clearTimeout( navigatingTimeout.current )
-    navigatingTimeout.current = setTimeout( () => setNavigating( false ), 600 ) as unknown as number
-
     if ( nextPage && nextPage !== rawPage ) navigate( `/sources/${source}/page/${nextPage}/line/0`, { replace: true } )
   }
 
@@ -259,18 +240,14 @@ const SourceView = ( { sources }: SourceViewProps ) => {
     <>
       <Nav />
       <div className={classes.sourceView}>
-        {err && <Error err={err} />}
-        {!( lines || err ) && <Loader />}
+        <div className={classes.sourceContent}>
+          <Content>
+            {err && <Error err={err} />}
+            {!( lines || err ) && <Loader />}
 
-        <GlobalHotKeys keyMap={KEY_MAP} handlers={handlers} allowChanges>
-          <CSSTransition
-            in={!loading}
-            timeout={200}
-            classNames="fade"
-          >
-            <section className={classes.lines}>
+            <GlobalHotKeys keyMap={KEY_MAP} handlers={handlers} allowChanges>
               {lines?.map( ( { id, gurmukhi }, index: number ) => (
-                <Link key={id} to={`/sources/${source}/page/${page}/line/${index}/view`} className={classes.aTag}>
+                <Link key={id} to={`/sources/${source}/page/${page}/line/${index}/view`}>
                   <span
                     ref={( ref ) => { lineRefs.current[ index ] = ref! }}
                     className={`cy-line ${classes.line} ${rawLine === index ? classes.focused : ''}`}
@@ -281,34 +258,39 @@ const SourceView = ( { sources }: SourceViewProps ) => {
                   </span>
                 </Link>
               ) )}
-            </section>
-          </CSSTransition>
+            </GlobalHotKeys>
+          </Content>
+        </div>
+        {length! > 1 && (
+        <div className={classes.sourceControls}>
+          <Content>
+            <div className={classes.controlsContent}>
+              <Link to={page > 1 ? `/sources/${source}/page/${page - 1}/line/0` : '#'}>
+                <Button disabled={page <= 1}>
+                  <SkipBack />
+                </Button>
+              </Link>
 
-          <section className={classes.controls}>
-            <Link to={page > 1 ? `/sources/${source}/page/${page - 1}/line/0` : '#'}>
-              <Button disabled={page <= 1}>
-                <SkipBack />
-              </Button>
-            </Link>
+              <span className="gurmukhi">
+                {pageNameGurmukhi ? `${pageNameGurmukhi} ` : ''}
+                {rawPage}
+                {' '}
+                /
+                {' '}
+                {length}
+              </span>
 
-            <Slider
-              min={1}
-              max={length ?? 1}
-              value={rawPage}
-              label={pageNameGurmukhi ?? ''}
-              onChange={( [ page ] ) => goToPage( page )}
-              tooltipActive={navigating}
-              disabled={length === 1}
-            />
-
-            <Link to={page < length! ? `/sources/${source}/page/${page + 1}/line/0` : ''}>
-              <Button disabled={page >= length!}>
-                <SkipForward />
-              </Button>
-            </Link>
-          </section>
-        </GlobalHotKeys>
+              <Link to={page < length! ? `/sources/${source}/page/${page + 1}/line/0` : ''}>
+                <Button disabled={page >= length!}>
+                  <SkipForward />
+                </Button>
+              </Link>
+            </div>
+          </Content>
+        </div>
+        )}
       </div>
+
     </>
   )
 }

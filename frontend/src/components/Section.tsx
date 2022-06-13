@@ -7,6 +7,9 @@ const useStyles = createUseStyles( {
   section: {
     paddingTop: theme.Gutter,
     paddingBottom: theme.Gutter,
+    '& > *:first-child': {
+      marginTop: 0,
+    },
   },
 } )
 

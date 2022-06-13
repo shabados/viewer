@@ -42,7 +42,7 @@ const useStyles = createUseStyles( {
     fontWeight: 'normal',
     transition: '0.125s all ease-in-out',
     textAlign: 'center',
-    fontSize: '1.325em',
+    fontSize: '1em',
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'center',
@@ -52,8 +52,6 @@ const useStyles = createUseStyles( {
     display: 'flex',
     flexDirection: 'column',
     marginRight: '0.35em',
-    marginTop: '0.3em',
-    marginBottom: '0.3em',
   },
 
   headerLink: {

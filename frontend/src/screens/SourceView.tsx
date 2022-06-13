@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 
+import { stripVishraams } from 'gurmukhi-utils'
 import { mapValues } from 'lodash'
 import { SkipBack, SkipForward } from 'lucide-react'
 import { useEffect, useRef } from 'react'
@@ -242,7 +243,7 @@ const SourceView = ( { sources }: SourceViewProps ) => {
                       tabIndex={0}
                       role="button"
                     >
-                      <AsciiGurmukhi>{gurmukhi}</AsciiGurmukhi>
+                      <AsciiGurmukhi>{stripVishraams( gurmukhi )}</AsciiGurmukhi>
                     </span>
                   </Link>
                 ) )}

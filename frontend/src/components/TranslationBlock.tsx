@@ -2,13 +2,42 @@
   jsx-a11y/click-events-have-key-events,
   jsx-a11y/no-noninteractive-element-interactions
 */
-import './TranslationBlock.css'
 
 import classNames from 'classnames'
 import { useContext, useState } from 'react'
+import { createUseStyles } from 'react-jss'
 
 import { TranslationSourcesContext } from '../lib/contexts'
 import { Translation } from '../types/api'
+
+const useStyles = createUseStyles( {
+  translationBlock: {
+    borderBottom: '1px solid #c4c4c4',
+    fontFamily: 'Mukta Mahee',
+    fontWeight: 300,
+    '&:first-child': {
+      borderTop: '1px solid #c4c4c4',
+    },
+  },
+  sourceName: {
+    fontSize: '1em',
+    fontWeight: '500',
+    cursor: 'pointer',
+    userSelect: 'none',
+    margin: '0',
+    padding: '1em 0',
+    '&:hover': {
+      background: '#dccda280',
+    },
+  },
+  blocks: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  block: {
+    width: '47%',
+  },
+} )
 
 const languages = {
   english: 1,
@@ -35,6 +64,8 @@ const TranslationBlock = ( {
   const translationSources = useContext( TranslationSourcesContext )
   const source = translationSources.find( ( { id } ) => translationSourceId === id )
 
+  const classes = useStyles()
+
   if (
     !source
     || !Object.values( languages ).includes( source.languageId )
@@ -42,11 +73,12 @@ const TranslationBlock = ( {
   ) return null
 
   return (
-    <div className="translation-block">
-      <h2 className="source-name" onClick={toggleExpanded}>{`[${source.language.nameEnglish}] ${source.nameEnglish}`}</h2>
+    <div className={classes.translationBlock}>
+      <h2 className={`cy-source-name ${classes.sourceName}`} onClick={toggleExpanded}>{`[${source.language.nameEnglish}] ${source.nameEnglish}`}</h2>
 
+      {expanded && (
       <div className={classNames( { expanded }, 'blocks' )}>
-        <div className="block">
+        <div className={classes.block}>
           <p className={classNames( languageFonts[ source.languageId ], 'translation' )}>{translation}</p>
 
           {additionalInformation.map( ( { name, information } ) => (
@@ -56,19 +88,20 @@ const TranslationBlock = ( {
           ) )}
         </div>
 
-        <div className="block">
-          <p className="english translation">{english}</p>
+        <div className={classes.block}>
+          <p>{english}</p>
 
           {additionalInformation
             .filter( ( { english } ) => english )
             .map( ( { name, english } ) => (
-              <p key={name} className="english translation">
+              <p key={name}>
                 {[ name, english ].join( '. ' )}
               </p>
             ) )}
 
         </div>
       </div>
+      )}
     </div>
   )
 }

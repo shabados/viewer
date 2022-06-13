@@ -1,11 +1,10 @@
-import './LineView.css'
-
 import { Popover } from '@harjot1singh/react-tiny-popover'
 import { countSyllables, stripVishraams, toSyllabicSymbols, toUnicode } from 'gurmukhi-utils'
 import { mapValues } from 'lodash'
 import { Menu as More, SkipBack, SkipForward, X } from 'lucide-react'
 import { ReactNode, useDeferredValue, useEffect, useState } from 'react'
 import { GlobalHotKeys } from 'react-hotkeys'
+import { createUseStyles } from 'react-jss'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import useSWR from 'swr'
 
@@ -18,6 +17,102 @@ import TranslationBlock from '../components/TranslationBlock'
 import { PAGE_API } from '../lib/consts'
 import { getDictionaryLink, getIssueUrl, GetIssueUrlOptions } from '../lib/utils'
 import { SourcePageLineResponse, SourcePageResponse, SourcesResponse } from '../types/api'
+
+const useStyles = createUseStyles( {
+  lineView: {
+    height: '100%',
+    minHeight: '100vh',
+    background: 'white',
+  },
+
+  header: {
+    display: 'flex',
+    width: '100%',
+    boxSizing: 'border-box',
+    justifyContent: 'space-between',
+    background: '#f0ede9',
+    marginBottom: '2em',
+    position: 'sticky',
+    top: '0',
+    zIndex: '1',
+  },
+
+  header1: {
+    fontWeight: 'normal',
+    transition: '0.125s all ease-in-out',
+    textAlign: 'center',
+    fontSize: '1.325em',
+    lineHeight: '1.756em',
+    color: '#2d2026',
+    margin: '0',
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  },
+
+  headerDiv: {
+    display: 'flex',
+    flexDirection: 'column',
+    marginRight: '0.35em',
+    marginTop: '0.3em',
+    marginBottom: '0.3em',
+  },
+
+  headerLink: {
+    color: 'inherit',
+    textDecoration: 'none',
+    transition: 'all 0.125s ease-in-out',
+    borderRadius: '0.136em',
+    borderBottom: '2px solid rgba(0, 136, 191, 0.4)',
+    '&:hover': {
+      cursor: 'pointer',
+      outline: 'none',
+      background: '#a2ced8',
+      borderBottom: '2px solid rgba(0, 0, 0, 0.1)',
+    },
+  },
+
+  headerSpan: {
+    fontSize: '0.5em',
+    color: '#888',
+    lineHeight: '1.6em',
+  },
+
+  headerDivSpan: {
+    letterSpacing: '0.55em',
+    paddingLeft: '0.55em',
+  },
+
+  syllableCount: {
+    top: '1.43em',
+    marginBottom: '3em',
+    position: 'relative',
+    background: '#d0cbce',
+    borderRadius: '0.5em',
+    padding: '0.2em',
+    height: '1.4em',
+    lineHeight: '1.4em',
+    minWidth: '1.4em',
+    color: '#2d2026',
+  },
+
+  buttons: {
+    display: 'flex',
+  },
+
+  content: {
+    width: '100%',
+    boxSizing: 'border-box',
+    padding: '0 2em',
+    height: '100%',
+    position: 'relative',
+  },
+
+  popoverMenu: {
+    zIndex: '10',
+  },
+
+} )
 
 const OVERFLOW_LINE = 10000000
 
@@ -132,51 +227,53 @@ const LineView = ( { sources }: LineViewProps ) => {
 
   const err = linesError || lineError
 
+  const classes = useStyles()
+
   return (
-    <div className="line-view">
+    <div className={classes.lineView}>
 
       {err && <Error err={err} />}
 
       <GlobalHotKeys keyMap={keyMap} handlers={handlers} allowChanges>
-        <div className="header">
-          <div className="left buttons">
-            <Link to={sourceViewUrl} className="link-button" data-cy="go-to-home-button">
+        <div className={classes.header}>
+          <div className={classes.buttons}>
+            <Link to={sourceViewUrl} data-cy="go-to-home-button">
               <Button>
                 <X />
               </Button>
             </Link>
-            <Link replace to={previousLineUrl || ''} className="link-button">
+            <Link replace to={previousLineUrl || ''}>
               <Button disabled={!previousLineUrl}>
                 <SkipBack />
               </Button>
             </Link>
           </div>
 
-          <h1>
+          <h1 className={classes.header1}>
             {gurmukhi
               ? gurmukhi
                 .split( ' ' )
                 .map( ( word: string, index: number ) => (
                 // eslint-disable-next-line react/no-array-index-key
-                  <div key={index}>
+                  <div key={index} className={classes.headerDiv}>
                     <a
-                      className="gurmukhi"
+                      className={`gurmukhi ${classes.headerLink}`}
                       href={getDictionaryLink( stripVishraams( toUnicode( word ) ) )}
                       target="_blank"
                       rel="noreferrer"
                     >
                       {word}
                     </a>
-                    <span>{toSyllabicSymbols( word )}</span>
+                    <span className={`${classes.headerDivSpan} ${classes.headerSpan}`}>{toSyllabicSymbols( word )}</span>
                   </div>
                 ) as ReactNode )
                 .reduce( ( prev, curr ) => [ prev, ' ', curr ] )
               : <Loader size="1em" />}
 
-            {gurmukhi && <span className="syllable-count">{countSyllables( gurmukhi )}</span>}
+            {gurmukhi && <span className={`${classes.syllableCount} ${classes.headerSpan}`}>{countSyllables( gurmukhi )}</span>}
           </h1>
 
-          <div className="right buttons">
+          <div className={classes.buttons}>
             <Link replace to={nextLineUrl || ''} className="link-button" data-cy="go-to-next-line-button">
               <Button disabled={!nextLineUrl}>
                 <SkipForward />
@@ -205,7 +302,7 @@ const LineView = ( { sources }: LineViewProps ) => {
           </div>
         </div>
 
-        <div className="content">
+        <div className={classes.content}>
           {translations
             ?.map( ( translation ) => (
               <TranslationBlock key={translation.translationSourceId} {...translation} />

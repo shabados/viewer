@@ -4,7 +4,7 @@ import { createUseStyles } from 'react-jss'
 const useStyles = createUseStyles( {
   button: {
     textDecoration: 'none',
-    color: 'rgb(0% 50.81% 67.85%)',
+    color: 'rgb(0% 49.83% 75.18%)', // lch(50% 66 255)
     boxSizing: 'border-box',
     minWidth: '3rem',
     minHeight: '3rem',

@@ -1,11 +1,10 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import './SourceView.css'
 
-import classNames from 'classnames'
 import { mapValues } from 'lodash'
 import { SkipBack, SkipForward } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { GlobalHotKeys } from 'react-hotkeys'
+import { createUseStyles } from 'react-jss'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { CSSTransition } from 'react-transition-group'
 import useSWR from 'swr'
@@ -18,6 +17,64 @@ import Slider from '../components/Slider'
 import { PAGE_API } from '../lib/consts'
 import { savePosition } from '../lib/utils'
 import { SourcePageResponse, SourcesResponse } from '../types/api'
+
+const useStyles = createUseStyles( {
+  aTag: {
+    textDecoration: 'none',
+    color: 'inherit',
+  },
+
+  sourceView: {
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: '#f0ede9',
+    minHeight: '100vh',
+    userSelect: 'none',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  lines: {
+    padding: '1em',
+    textAlign: 'justify',
+    marginBottom: '3.245em',
+  },
+
+  line: {
+    fontFamily: 'Open Gurbani Akhar',
+    fontWeight: '700',
+    fontSize: '1.325em',
+    lineHeight: '1.756em',
+    transition: '0.125s all ease-in-out',
+    padding: '0.18em 0.238em',
+    borderRadius: '0.136em',
+    '&:hover': {
+      cursor: 'pointer',
+      outline: 'none',
+      background: '#dccda2',
+      borderBottom: '2px solid rgba(0, 0, 0, 0.1)',
+    },
+    '&:focus': {
+      outline: 'none',
+    },
+  },
+
+  focused: {
+    background: '#f5cd3d',
+    borderBottom: '2px solid rgba(0, 0, 0, 0.1)',
+  },
+
+  controls: {
+    backgroundImage: 'linear-gradient(#e1dfddcc, #e1dfddff)',
+    display: 'flex',
+    gap: '1rem',
+    position: 'fixed',
+    bottom: '0',
+    paddingBottom: '0.163em',
+    borderTop: '1px solid #d4d1cd',
+    width: '100%',
+  },
+} )
 
 type SourceViewParams = 'page' | 'source' | 'line'
 
@@ -195,6 +252,8 @@ const SourceView = ( { sources }: SourceViewProps ) => {
     openLine: onLineEnter,
   }
 
+  const classes = useStyles()
+
   return (
     <div className="source-view">
       {err && <Error err={err} />}
@@ -206,12 +265,12 @@ const SourceView = ( { sources }: SourceViewProps ) => {
           timeout={200}
           classNames="fade"
         >
-          <section className="lines">
+          <section className={classes.lines}>
             {lines?.map( ( { id, gurmukhi }, index: number ) => (
-              <Link key={id} to={`/sources/${source}/page/${page}/line/${index}/view`}>
+              <Link key={id} to={`/sources/${source}/page/${page}/line/${index}/view`} className={classes.aTag}>
                 <span
                   ref={( ref ) => { lineRefs.current[ index ] = ref! }}
-                  className={classNames( 'line', { focused: rawLine === index && !loading } )}
+                  className={`cy-line ${classes.line} ${rawLine === index ? classes.focused : ''}`}
                   tabIndex={0}
                   role="button"
                 >
@@ -222,8 +281,8 @@ const SourceView = ( { sources }: SourceViewProps ) => {
           </section>
         </CSSTransition>
 
-        <section className="controls">
-          <Link to={page > 1 ? `/sources/${source}/page/${page - 1}/line/0` : '#'} className="left button">
+        <section className={classes.controls}>
+          <Link to={page > 1 ? `/sources/${source}/page/${page - 1}/line/0` : '#'}>
             <Button disabled={page <= 1}>
               <SkipBack />
             </Button>
@@ -239,7 +298,7 @@ const SourceView = ( { sources }: SourceViewProps ) => {
             disabled={length === 1}
           />
 
-          <Link to={page < length! ? `/sources/${source}/page/${page + 1}/line/0` : ''} className="right button">
+          <Link to={page < length! ? `/sources/${source}/page/${page + 1}/line/0` : ''}>
             <Button disabled={page >= length!}>
               <SkipForward />
             </Button>

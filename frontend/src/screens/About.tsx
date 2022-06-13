@@ -11,6 +11,13 @@ const useStyles = createUseStyles( {
   link: {
     color: theme.Blue,
   },
+  hotkey: {
+    fontSize: '0.8rem',
+    padding: theme.Gap,
+    borderRadius: theme.Gap,
+    background: 'rgba(0, 0, 0, 0.05)',
+    marginLeft: theme.Gap,
+  },
 } )
 
 const About = () => {
@@ -47,6 +54,36 @@ const About = () => {
             iterating lines with left and right keyboard hotkeys,
             {' '}
             and looking up words in a dictionary.
+          </p>
+          <h1>Hotkeys</h1>
+          <p>
+            Select Line
+            <code className={classes.hotkey}>enter</code>
+          </p>
+          <p>
+            Exit Line
+            <code className={classes.hotkey}>esc</code>
+            <code className={classes.hotkey}>backspace</code>
+          </p>
+          <p>
+            Next Line
+            <code className={classes.hotkey}>right</code>
+            <code className={classes.hotkey}>tab</code>
+          </p>
+          <p>
+            Previous Line
+            <code className={classes.hotkey}>left</code>
+            <code className={classes.hotkey}>shift+tab</code>
+          </p>
+          <p>
+            Next Page
+            <code className={classes.hotkey}>shift+right</code>
+            <code className={classes.hotkey}>page down</code>
+          </p>
+          <p>
+            Previous Page
+            <code className={classes.hotkey}>shift+left</code>
+            <code className={classes.hotkey}>page up</code>
           </p>
           <h1>Version</h1>
           <p>

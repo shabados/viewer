@@ -72,10 +72,8 @@ const KEY_MAP = {
   // belowLine: [ 'down' ],
   // aboveLine: [ 'up' ],
   openLine: [ 'enter' ],
-  previousPage: [ 'ctrl+left', 'pageup' ],
-  nextPage: [ 'ctrl+right', 'pagedown' ],
-  firstPage: [ 'ctrl+home' ],
-  lastPage: [ 'ctrl+end' ],
+  previousPage: [ 'shift+left', 'pageup' ],
+  nextPage: [ 'shift+right', 'pagedown' ],
 }
 
 const BLOCKED_KEYS = [ 'Tab', 'PageUp', 'PageDown' ]
@@ -151,9 +149,6 @@ const SourceView = ( { sources }: SourceViewProps ) => {
     if ( rawPage > 1 ) goToPage( rawPage - 1 )
   }
 
-  const firstPage = () => goToPage( 1 )
-  const lastPage = () => goToPage( length! )
-
   const nextLine = () => {
     if ( rawLine < lines!.length - 1 ) focusLine( rawLine + 1 )
     else nextPage()
@@ -224,8 +219,6 @@ const SourceView = ( { sources }: SourceViewProps ) => {
     aboveLine,
     previousPage,
     nextPage,
-    firstPage,
-    lastPage,
     openLine: onLineEnter,
   }
 

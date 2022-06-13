@@ -1,13 +1,15 @@
 import { createUseStyles } from 'react-jss'
 
+import theme from '../helpers/theme'
 import Content from './Content'
 import Logo from './Logo'
 
 const useStyles = createUseStyles( {
   nav: {
     width: '100%',
-    background: '#2d2026',
+    background: theme.NavBg,
     position: 'fixed',
+    top: 0,
     color: 'white',
   },
   flex: {

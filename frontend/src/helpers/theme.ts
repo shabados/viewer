@@ -22,6 +22,7 @@ const theme = {
   Gutter: '3rem',
   Gap: '0.5rem',
   BlankSpace: '0.2rem',
+  NavBg: 'rgb(15.99% 8.5% 11.42%)', // lch(10% 11 355)
   Blue: 'rgb(0% 48.81% 81.83%)', // lch(50% 66 265)
   BlueBrightMuted: 'rgb(58.43% 73.73% 96.07%)', // lch(75% 33 265)
 }

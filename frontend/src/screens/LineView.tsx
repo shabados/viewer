@@ -63,7 +63,6 @@ const useStyles = createUseStyles( {
     borderBottom: '2px solid rgba(0, 136, 191, 0.4)',
     '&:hover': {
       cursor: 'pointer',
-      outline: 'none',
       background: '#a2ced8',
       borderBottom: '2px solid rgba(0, 0, 0, 0.1)',
     },

@@ -31,8 +31,9 @@ h4 + p {
 }
 
 a {
-  text-decoration: none;
   color: inherit;
+  text-decoration: none;
+  outline: none;
 }
 
 code {

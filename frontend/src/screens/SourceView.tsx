@@ -49,7 +49,6 @@ const useStyles = createUseStyles( {
     marginLeft: `calc(${theme.BlankSpace} * 2)`,
     transition: theme.Normally,
     color: 'rgb(16.87% 14.48% 8.69%)',
-    outline: 'none',
     '&:hover': {
       color: theme.Blue,
     },

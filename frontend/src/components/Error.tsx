@@ -17,7 +17,6 @@ const useStyles = createUseStyles( {
   },
   errorDetails: {
     fontSize: '20px',
-    outline: 'none',
     cursor: 'pointer',
   },
 } )

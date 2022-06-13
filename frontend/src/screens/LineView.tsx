@@ -230,7 +230,7 @@ const LineView = ( { sources }: LineViewProps ) => {
                 </Link>
               </div>
 
-              <div className={classes.sourceLine}>
+              <div data-cy="source-line" className={classes.sourceLine}>
                 {gurmukhi
                   ? stripVishraams( gurmukhi )
                     .split( ' ' )

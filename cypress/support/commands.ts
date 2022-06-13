@@ -9,7 +9,7 @@ Cypress.Commands.add( 'matchValue', ( location, matchValue ) => {
 
 Cypress.Commands.add( 'goToNextLine', ( matchValue ) => {
   cy.get( '[data-cy=go-to-next-line-button]' ).click()
-  cy.matchValue( 'h1', matchValue )
+  cy.matchValue( '[data-cy=source-line]', matchValue )
 } )
 
 Cypress.Commands.add( 'goToSourceView', ( matchValue ) => {

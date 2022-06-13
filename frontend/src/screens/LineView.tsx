@@ -11,6 +11,7 @@ import Button from '../components/Button'
 import Content from '../components/Content'
 import Error from '../components/Error'
 import Loader from '../components/Loader'
+import Section from '../components/Section'
 import TranslationBlock from '../components/TranslationBlock'
 import theme from '../helpers/theme'
 import { PAGE_API } from '../lib/consts'
@@ -89,11 +90,6 @@ const useStyles = createUseStyles( {
   buttons: {
     display: 'flex',
     cursor: 'pointer',
-  },
-
-  content: {
-    paddingTop: `calc(${theme.Gutter} / 2)`,
-    paddingBottom: `calc(${theme.Gutter} / 2)`,
   },
 
 } )
@@ -268,14 +264,14 @@ const LineView = ( { sources }: LineViewProps ) => {
         </div>
 
         <Content>
-          <div className={classes.content}>
+          <Section>
             {translations
               ?.map( ( translation ) => (
                 <TranslationBlock key={translation.translationSourceId} {...translation} />
               ) )
               .filter( ( x ) => x )
               .reverse()}
-          </div>
+          </Section>
         </Content>
       </GlobalHotKeys>
     </div>

@@ -5,6 +5,7 @@ import Content from '../components/Content'
 import Error from '../components/Error'
 import Layout from '../components/Layout'
 import Loader from '../components/Loader'
+import Section from '../components/Section'
 import theme from '../helpers/theme'
 import { Positions } from '../lib/utils'
 import { Source } from '../types/api'
@@ -49,21 +50,23 @@ const Home = ( { err, sources, positions }: HomeProps ) => {
   return (
     <Layout>
       <Content>
-        <div className={classes.sources}>
-          {err && <Error err={err} />}
+        <Section>
+          <div className={classes.sources}>
+            {err && <Error err={err} />}
 
-          {!( sources || err ) && <Loader />}
+            {!( sources || err ) && <Loader />}
 
-          {sources?.map( ( { nameGurmukhi, id } ) => (
-            <Link
-              key={id}
-              className={classes.source}
-              to={`/sources/${id}/page/${getPosition( id, positions ).page}/line/${getPosition( id, positions ).line}`}
-            >
-              {nameGurmukhi}
-            </Link>
-          ) )}
-        </div>
+            {sources?.map( ( { nameGurmukhi, id } ) => (
+              <Link
+                key={id}
+                className={classes.source}
+                to={`/sources/${id}/page/${getPosition( id, positions ).page}/line/${getPosition( id, positions ).line}`}
+              >
+                {nameGurmukhi}
+              </Link>
+            ) )}
+          </div>
+        </Section>
       </Content>
     </Layout>
   )

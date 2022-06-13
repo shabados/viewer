@@ -12,8 +12,9 @@ import { useDebounce } from 'use-debounce'
 import Button from '../components/Button'
 import Content from '../components/Content'
 import Error from '../components/Error'
+import Layout from '../components/Layout'
 import Loader from '../components/Loader'
-import Nav from '../components/Nav'
+import Section from '../components/Section'
 import theme from '../helpers/theme'
 import { PAGE_API } from '../lib/consts'
 import { savePosition } from '../lib/utils'
@@ -22,15 +23,12 @@ import { SourcePageResponse, SourcesResponse } from '../types/api'
 const useStyles = createUseStyles( {
   sourceView: {
     height: `calc(100vh - ${theme.Gutter})`,
-    marginTop: theme.Gutter,
     display: 'flex',
     flexDirection: 'column',
   },
 
   sourceContent: {
     flexGrow: 1,
-    paddingTop: `calc(${theme.Gutter} / 2)`,
-    paddingBottom: `calc(${theme.Gutter} / 2)`,
     overflow: 'scroll',
     overscrollBehavior: 'contain',
   },
@@ -236,28 +234,29 @@ const SourceView = ( { sources }: SourceViewProps ) => {
   const classes = useStyles()
 
   return (
-    <>
-      <Nav />
+    <Layout>
       <div className={classes.sourceView}>
         <div className={classes.sourceContent}>
           <Content>
-            {err && <Error err={err} />}
-            {!( lines || err ) && <Loader />}
+            <Section>
+              {err && <Error err={err} />}
+              {!( lines || err ) && <Loader />}
 
-            <GlobalHotKeys keyMap={KEY_MAP} handlers={handlers} allowChanges>
-              {lines?.map( ( { id, gurmukhi }, index: number ) => (
-                <Link key={id} to={`/sources/${source}/page/${page}/line/${index}/view`}>
-                  <span
-                    ref={( ref ) => { lineRefs.current[ index ] = ref! }}
-                    className={`cy-line ${classes.line} ${rawLine === index ? classes.focused : ''}`}
-                    tabIndex={0}
-                    role="button"
-                  >
-                    {gurmukhi}
-                  </span>
-                </Link>
-              ) )}
-            </GlobalHotKeys>
+              <GlobalHotKeys keyMap={KEY_MAP} handlers={handlers} allowChanges>
+                {lines?.map( ( { id, gurmukhi }, index: number ) => (
+                  <Link key={id} to={`/sources/${source}/page/${page}/line/${index}/view`}>
+                    <span
+                      ref={( ref ) => { lineRefs.current[ index ] = ref! }}
+                      className={`cy-line ${classes.line} ${rawLine === index ? classes.focused : ''}`}
+                      tabIndex={0}
+                      role="button"
+                    >
+                      {gurmukhi}
+                    </span>
+                  </Link>
+                ) )}
+              </GlobalHotKeys>
+            </Section>
           </Content>
         </div>
         {length! > 1 && (
@@ -290,7 +289,7 @@ const SourceView = ( { sources }: SourceViewProps ) => {
         )}
       </div>
 
-    </>
+    </Layout>
   )
 }
 

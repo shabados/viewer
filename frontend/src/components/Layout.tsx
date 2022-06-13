@@ -10,8 +10,7 @@ type LayoutProps = {
 
 const useStyles = createUseStyles( {
   layout: {
-    paddingTop: `calc(${theme.Gutter} * 2)`,
-    paddingBottom: theme.Gutter,
+    marginTop: theme.Gutter,
   },
 } )
 

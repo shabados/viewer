@@ -7,6 +7,7 @@ import LineRedirect from './components/LineRedirect'
 import { SOURCES_API, TRANSLATION_SOURCES_API } from './lib/consts'
 import { TranslationSourcesContext } from './lib/contexts'
 import { getPositions } from './lib/utils'
+import NotFound from './screens/404'
 import About from './screens/About'
 import Home from './screens/Home'
 import LineView from './screens/LineView'
@@ -38,6 +39,8 @@ const App = () => {
       <div className="app">
         <Router>
           <Routes>
+            <Route path="*" element={<NotFound />} />
+
             <Route path="/" element={<Home err={err} sources={sources} positions={positions} />} />
 
             <Route path="/about" element={<About />} />

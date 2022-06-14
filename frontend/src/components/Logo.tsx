@@ -10,7 +10,7 @@ const useStyles = createUseStyles( {
   },
   text: {
     marginLeft: theme.BlankSpace,
-    fontWeight: 100,
+    fontWeight: 300,
   },
 } )
 

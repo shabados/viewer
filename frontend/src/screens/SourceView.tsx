@@ -45,7 +45,6 @@ const useStyles = createUseStyles( {
   line: {
     marginLeft: `calc(${theme.BlankSpace} * 2)`,
     transition: theme.Normally,
-    color: 'rgb(16.87% 14.48% 8.69%)',
     '&:first-child': {
       marginLeft: 0,
     },
@@ -55,7 +54,7 @@ const useStyles = createUseStyles( {
   },
 
   focused: {
-    color: 'rgb(0% 52.14% 55.32%)',
+    color: theme.Teal,
   },
 
   controlsContent: {
@@ -63,6 +62,17 @@ const useStyles = createUseStyles( {
     justifyContent: 'space-between',
     alignItems: 'center',
     gap: '1rem',
+  },
+
+  '@media (prefers-color-scheme: dark)': {
+    line: {
+      '&:hover': {
+        color: theme.BlueDarkScheme,
+      },
+    },
+    focused: {
+      color: theme.TealDarkScheme,
+    },
   },
 } )
 

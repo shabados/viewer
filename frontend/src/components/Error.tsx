@@ -1,23 +1,34 @@
 import { AlertCircle } from 'lucide-react'
 import { createUseStyles } from 'react-jss'
 
+import theme from '../helpers/theme'
+
 const useStyles = createUseStyles( {
   error: {
     fontSize: '100px',
-    color: 'rgba(255, 0, 50, 0.8)',
+    color: theme.Red,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
   },
   errorText: {
     fontSize: '19px',
-    color: 'black',
+    color: theme.Fg,
     fontWeight: 'bold',
     textAlign: 'center',
   },
   errorDetails: {
     fontSize: '20px',
     cursor: 'pointer',
+  },
+
+  '@media (prefers-color-scheme: dark)': {
+    error: {
+      color: theme.RedDarkScheme,
+    },
+    errorText: {
+      color: theme.FgDarkScheme,
+    },
   },
 } )
 

@@ -6,7 +6,8 @@ body {
   box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
     Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-  background-color: #f0ede9;
+  background-color: rgb(94.2% 93.11% 90.97%);
+  color: rgb(8.33% 7.46% 5.52%);
 }
 
 h1 {
@@ -48,6 +49,9 @@ code {
 }
 
 @media (pointer: coarse) {
+  body {
+    font-size: 20px;
+  }
   *,
   *:hover,
   *:active,
@@ -58,5 +62,15 @@ code {
     -webkit-tap-highlight-color: transparent;
     -ms-touch-action: manipulation;
     touch-action: manipulation;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: rgb(20.2% 18.51% 19.08%);
+    color: rgb(79.55% 77.27% 77.12%);
+  }
+  ::selection {
+    background: rgba(255, 222, 139, 0.4);
   }
 }

@@ -18,6 +18,14 @@ const useStyles = createUseStyles( {
     background: 'rgba(0, 0, 0, 0.05)',
     marginLeft: theme.Gap,
   },
+  '@media (prefers-color-scheme: dark)': {
+    link: {
+      color: theme.BlueDarkScheme,
+    },
+    hotkey: {
+      background: 'rgba(255, 255, 255, 0.05)',
+    },
+  },
 } )
 
 const About = () => {

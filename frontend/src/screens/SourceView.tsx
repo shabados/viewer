@@ -31,7 +31,7 @@ const useStyles = createUseStyles( {
 
   sourceContent: {
     flexGrow: 1,
-    overflow: 'scroll',
+    overflow: 'auto',
     overscrollBehavior: 'contain',
   },
 

@@ -1,4 +1,5 @@
 import { createUseStyles } from 'react-jss'
+import { Link } from 'react-router-dom'
 
 import theme from '../helpers/theme'
 import Content from './Content'
@@ -8,9 +9,9 @@ const useStyles = createUseStyles( {
   nav: {
     width: '100%',
     background: theme.NavBg,
+    borderBottom: '1px solid rgba(0% 0% 0% / 5%)',
     position: 'fixed',
     top: 0,
-    color: 'white',
   },
   flex: {
     display: 'flex',
@@ -18,6 +19,22 @@ const useStyles = createUseStyles( {
     justifyContent: 'space-between',
     height: '3rem',
     fontSize: '0.8rem',
+  },
+  button: {
+    '&:hover': {
+      color: theme.Blue,
+    },
+  },
+  '@media (prefers-color-scheme: dark)': {
+    nav: {
+      background: theme.NavBgDarkScheme,
+      color: theme.FgDarkScheme,
+    },
+    button: {
+      '&:hover': {
+        color: theme.BlueDarkScheme,
+      },
+    },
   },
 } )
 

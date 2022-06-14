@@ -23,7 +23,6 @@ const useStyles = createUseStyles( {
   lineView: {
     height: '100%',
     minHeight: '100vh',
-    background: 'white',
   },
 
   header: {
@@ -97,6 +96,24 @@ const useStyles = createUseStyles( {
     sourceLine: {
       flexGrow: 1,
       order: 3,
+    },
+  },
+  '@media (prefers-color-scheme: dark)': {
+    header: {
+      background: theme.BgDarkScheme,
+    },
+    lineView: {
+      background: theme.ModalBgDarkScheme,
+    },
+    headerLink: {
+      '&:hover': {
+        color: theme.BlueDarkScheme,
+      },
+    },
+  },
+  '@media (prefers-color-scheme: light)': {
+    lineView: {
+      background: theme.ModalBg,
     },
   },
 

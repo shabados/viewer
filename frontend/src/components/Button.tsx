@@ -1,10 +1,12 @@
 import { ReactNode } from 'react'
 import { createUseStyles } from 'react-jss'
 
+import theme from '../helpers/theme'
+
 const useStyles = createUseStyles( {
   button: {
     textDecoration: 'none',
-    color: 'rgb(0% 49.83% 75.18%)', // lch(50% 66 255)
+    color: theme.Blue,
     boxSizing: 'border-box',
     minWidth: '3rem',
     minHeight: '3rem',
@@ -21,7 +23,7 @@ const useStyles = createUseStyles( {
     cursor: 'default',
     color: 'rgba(120, 120, 120, 0.4)',
     '&:hover': {
-      backgroundColor: 'rgba(120,120,120,0.05)',
+      backgroundColor: 'transparent',
     },
   },
   '@media (pointer: coarse)': {
@@ -31,6 +33,30 @@ const useStyles = createUseStyles( {
       },
       '&:active': {
         backgroundColor: 'rgba(255,255,255,0.4)',
+      },
+    },
+  },
+  '@media (prefers-color-scheme: dark)': {
+    button: {
+      color: theme.BlueDarkScheme,
+      '&:hover': {
+        backgroundColor: 'rgba(255, 255, 255, 0.05)',
+      },
+    },
+    disabled: {
+      color: 'rgba(120, 120, 120, 0.4)',
+      '&:hover': {
+        backgroundColor: 'transparent',
+      },
+    },
+  },
+  '@media (pointer: coarse) and (prefers-color-scheme: dark)': {
+    button: {
+      '&:hover': {
+        backgroundColor: 'transparent', // @bhajneet idk why it has to be repeated to work
+      },
+      '&:active': {
+        backgroundColor: 'rgba(255, 255, 255, 0.05)',
       },
     },
   },

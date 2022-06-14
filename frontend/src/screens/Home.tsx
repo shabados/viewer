@@ -21,11 +21,18 @@ const useStyles = createUseStyles( {
   source: {
     padding: `${theme.Gap} calc(2 * ${theme.Gap})`,
     borderRadius: theme.Gap,
-    backgroundColor: 'rgba(255, 255, 255, 0.4)',
-    border: '1px solid rgba(0, 0, 0, 0.1)',
+    backgroundColor: 'rgba(255, 255, 255, 0.5)',
     transition: theme.Normally,
     '&:hover': {
-      background: 'rgba( 255, 255, 255, 0.9 )',
+      background: 'rgba(255, 255, 255, 1)',
+    },
+  },
+  '@media (prefers-color-scheme: dark)': {
+    source: {
+      backgroundColor: 'rgba(255, 255, 255, 0.05)',
+      '&:hover': {
+        background: 'rgba(255, 255, 255, 0.1)',
+      },
     },
   },
 } )

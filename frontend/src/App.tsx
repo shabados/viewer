@@ -1,7 +1,7 @@
 import './App.css'
 
 import { useEffect, useState } from 'react'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom'
 
 import LineRedirect from './components/LineRedirect'
 import { SOURCES_API, TRANSLATION_SOURCES_API } from './lib/consts'
@@ -53,6 +53,16 @@ const App = () => {
             <Route
               path="/sources/:source/page/:page/line/:line"
               element={<SourceView sources={sources} />}
+            />
+
+            <Route
+              path="/sources/:source/page/:page"
+              element={<Navigate to="line/0" />}
+            />
+
+            <Route
+              path="/sources/:source"
+              element={<Navigate to="page/1/line/0" />}
             />
 
             <Route path="/line/:id" element={<LineRedirect />} />

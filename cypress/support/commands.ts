@@ -14,7 +14,7 @@ Cypress.Commands.add( 'goToNextLine', ( matchValue ) => {
 
 Cypress.Commands.add( 'goToSourceView', ( matchValue ) => {
   cy.get( '[data-cy=go-to-home-button]' ).click()
-  cy.matchValue( '.cy-line', matchValue )
+  cy.matchValue( '[data-cy=go-to-home-value]', matchValue )
 } )
 
 Cypress.Commands.add( 'goToLineViewer', ( matchValue ) => {

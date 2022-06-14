@@ -46,6 +46,9 @@ const useStyles = createUseStyles( {
     marginLeft: `calc(${theme.BlankSpace} * 2)`,
     transition: theme.Normally,
     color: 'rgb(16.87% 14.48% 8.69%)',
+    '&:first-child': {
+      marginLeft: 0,
+    },
     '&:hover': {
       color: theme.Blue,
     },
@@ -236,15 +239,14 @@ const SourceView = ( { sources }: SourceViewProps ) => {
 
               <GlobalHotKeys keyMap={KEY_MAP} handlers={handlers} allowChanges>
                 {lines?.map( ( { id, gurmukhi }, index: number ) => (
-                  <Link key={id} to={`/sources/${source}/page/${page}/line/${index}/view`}>
-                    <span
-                      ref={( ref ) => { lineRefs.current[ index ] = ref! }}
-                      className={`cy-line ${classes.line} ${rawLine === index ? classes.focused : ''}`}
-                      tabIndex={0}
-                      role="button"
-                    >
-                      <AsciiGurmukhi>{stripVishraams( gurmukhi )}</AsciiGurmukhi>
-                    </span>
+                  <Link
+                    key={id}
+                    to={`/sources/${source}/page/${page}/line/${index}/view`}
+                    ref={( ref ) => { lineRefs.current[ index ] = ref! }}
+                    className={`${classes.line} ${rawLine === index ? classes.focused : ''}`}
+                    data-cy="go-to-home-value"
+                  >
+                    <AsciiGurmukhi>{stripVishraams( gurmukhi )}</AsciiGurmukhi>
                   </Link>
                 ) )}
               </GlobalHotKeys>

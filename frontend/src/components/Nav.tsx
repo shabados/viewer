@@ -45,11 +45,11 @@ const Nav = () => {
     <div className={classes.nav}>
       <Content>
         <div className={classes.flex}>
-          <a href="/">
+          <Link to="/" className={classes.button}>
             <Logo />
-          </a>
+          </Link>
           <div>
-            <a href="/about" className="button">About</a>
+            <Link to="/about" className={classes.button}>About</Link>
           </div>
         </div>
       </Content>

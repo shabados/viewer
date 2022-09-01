@@ -72,7 +72,7 @@ export const getLineOnPage = async (
   .then( ( { id } ) => ( Lines
     .query()
     .where( 'id', id ) as unknown as LinesQueryBuilder )
-    .withTranslations( ( query ) => query.joinEager( 'translationSource' ) )
+    .withTranslations( ( query ) => query.withGraphJoined( 'translationSource' ) )
     .castTo<[( LinesResult & { translations: TranslationResult[] } )]>() )
   .then( async ( [ { translations, ...line } ] ) => ( {
     ...line,

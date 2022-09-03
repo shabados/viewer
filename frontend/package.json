@@ -2,17 +2,17 @@
   "name": "@shabados/viewer--frontend",
   "version": "0.1.0",
   "dependencies": {
-    "gurmukhi-utils": "^3.2.1",
+    "gurmukhi-utils": "^3.2.2",
     "lodash": "^4.17.21",
-    "lucide-react": "^0.61.0",
+    "lucide-react": "^0.88.0",
     "new-github-issue-url": "^1.0.0",
-    "react": "^18.1.0",
-    "react-dom": "^18.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-hotkeys": "^2.0.0",
-    "react-jss": "^10.9.0",
+    "react-jss": "^10.9.2",
     "react-router-dom": "^6.3.0",
     "swr": "^1.3.0",
-    "use-debounce": "^8.0.1"
+    "use-debounce": "^8.0.4"
   },
   "scripts": {
     "start": "vite --host --port 52525",
@@ -32,11 +32,11 @@
   },
   "homepage": "/",
   "devDependencies": {
-    "@types/lodash": "^4.14.182",
-    "@types/react": "^18.0.9",
-    "@types/react-dom": "^18.0.3",
-    "@vitejs/plugin-react": "^1.3.2",
-    "typescript": "^4.6.4",
-    "vite": "^2.9.8"
+    "@types/lodash": "^4.14.184",
+    "@types/react": "^18.0.18",
+    "@types/react-dom": "^18.0.6",
+    "@vitejs/plugin-react": "^2.0.1",
+    "typescript": "^4.8.2",
+    "vite": "^3.0.9"
   }
 }

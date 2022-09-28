@@ -24,6 +24,9 @@ const theme = {
   Gap: '0.5rem',
   BlankSpace: '0.2rem',
 
+  Separator: 'rgba(87.02% 86.48% 85.43% / 40%)', // lch(88% 1.5 85)
+  SeparatorDarkScheme: 'rgba(28.38% 27.48% 27.77% / 40%)', // lch(30% 1.125 355)
+
   NavBg: 'rgb(88.77% 85.81% 86.79%)', // lch(88% 3 355)
   NavBgDarkScheme: 'rgb(15.99% 8.5% 11.42%)', // lch(10% 11 355)
 

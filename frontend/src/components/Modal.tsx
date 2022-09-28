@@ -49,6 +49,9 @@ const useStyles = createUseStyles( {
     },
   },
   '@media (prefers-color-scheme: dark)': {
+    modalBackDrop: {
+      backgroundColor: `${theme.ModalBackdropDarkScheme}`,
+    },
     modal: {
       background: `${theme.ModalBgDarkScheme}`,
     },

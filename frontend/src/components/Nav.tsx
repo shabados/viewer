@@ -1,9 +1,13 @@
+import { useState } from 'react'
 import { createUseStyles } from 'react-jss'
 import { Link } from 'react-router-dom'
 
 import theme from '../helpers/theme'
+import About from '../screens/About'
+import Interface from '../screens/Interface'
 import Content from './Content'
 import Logo from './Logo'
+import Modal from './Modal'
 
 const useStyles = createUseStyles( {
   nav: {
@@ -21,8 +25,12 @@ const useStyles = createUseStyles( {
     fontSize: '0.8rem',
   },
   button: {
+    cursor: 'pointer',
     '&:hover': {
       color: theme.Blue,
+    },
+    '& + $button': {
+      marginLeft: '1.5rem',
     },
   },
   '@media (prefers-color-scheme: dark)': {
@@ -40,6 +48,8 @@ const useStyles = createUseStyles( {
 
 const Nav = () => {
   const classes = useStyles()
+  const [ visibleAbout, setVisibleAbout ] = useState( false )
+  const [ visibleInterface, setVisibleInterface ] = useState( false )
 
   return (
     <div className={classes.nav}>
@@ -49,10 +59,27 @@ const Nav = () => {
             <Logo />
           </Link>
           <div>
-            <Link to="/about" className={classes.button}>About</Link>
+            <span
+              className={classes.button}
+              onClick={() => setVisibleAbout( true )}
+            >
+              About
+            </span>
+            <span
+              className={classes.button}
+              onClick={() => setVisibleInterface( true )}
+            >
+              Interface
+            </span>
           </div>
         </div>
       </Content>
+      <Modal visible={visibleAbout} setVisible={setVisibleAbout}>
+        <About />
+      </Modal>
+      <Modal visible={visibleInterface} setVisible={setVisibleInterface}>
+        <Interface />
+      </Modal>
     </div>
   )
 }

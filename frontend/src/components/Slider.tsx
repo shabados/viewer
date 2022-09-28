@@ -63,7 +63,7 @@ const Slider = ( { min, max, step, units, value, setValue }: SliderProps ) => {
         max={max}
         step={step}
         defaultValue={value}
-        onChange={( e ) => setValue( parseFloat( e.target.value as string ) )}
+        onChange={( e ) => setValue( parseFloat( e.target.value as unknown as string ) )}
       />
     </>
   )

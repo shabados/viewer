@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 
 import theme from '../helpers/theme'
 import About from '../screens/About'
+import Collections from '../screens/Collections'
 import Interface from '../screens/Interface'
 import Content from './Content'
 import Logo from './Logo'
@@ -48,6 +49,7 @@ const useStyles = createUseStyles( {
 
 const Nav = () => {
   const classes = useStyles()
+  const [ visibleCollections, setVisibleCollections ] = useState( false )
   const [ visibleAbout, setVisibleAbout ] = useState( false )
   const [ visibleInterface, setVisibleInterface ] = useState( false )
 
@@ -59,6 +61,12 @@ const Nav = () => {
             <Logo />
           </Link>
           <div>
+            <span
+              className={classes.button}
+              onClick={() => setVisibleCollections( true )}
+            >
+              Collections
+            </span>
             <span
               className={classes.button}
               onClick={() => setVisibleAbout( true )}
@@ -74,6 +82,9 @@ const Nav = () => {
           </div>
         </div>
       </Content>
+      <Modal visible={visibleCollections} setVisible={setVisibleCollections}>
+        <Collections setVisible={setVisibleCollections} />
+      </Modal>
       <Modal visible={visibleAbout} setVisible={setVisibleAbout}>
         <About />
       </Modal>

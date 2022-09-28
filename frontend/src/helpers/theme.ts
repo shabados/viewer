@@ -33,11 +33,14 @@ const theme = {
   Bg: 'rgb(94.2% 93.11% 90.97%)', // lch(94% 3 85)
   BgDarkScheme: 'rgb(20.2% 18.51% 19.08%)', // lch(20% 2.25 355)
 
-  SelectionBg: '', //
+  SelectionBg: '',
   SelectionBgDarkScheme: 'rgba(255, 222, 139, 0.4)', // lch(90% 132 85)
 
-  ModalBg: 'rgb(100%, 100%, 100%)', // lch(100% 0 0)
+  ModalBg: 'rgb(100% 100% 100%)', // lch(100% 0 0)
   ModalBgDarkScheme: 'rgb(14.77% 14.77% 14.77%)', // lch(15% 0 0)
+
+  ModalBackdrop: 'rgba(100% 100% 100% / 40%)',
+  ModalBackdropDarkScheme: 'rgba(14.77% 14.77% 14.77% / 40%)',
 
   Blue: 'rgb(0% 48.81% 81.83%)', // lch(50% 66 265)
   BlueDarkScheme: 'rgb(43.72% 69.01% 100%)', // lch(70% 53 265)

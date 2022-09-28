@@ -35,7 +35,8 @@ const useStyles = createUseStyles( {
     float: 'right',
     top: 0,
     position: 'sticky',
-    padding: `${theme.Gap} ${theme.Gap} 0 0`,
+    lineHeight: 0,
+    padding: `calc(${theme.Gap} * 1.5)`,
     cursor: 'pointer',
     '&:hover': {
       color: `${theme.Blue}`,
@@ -59,6 +60,18 @@ const useStyles = createUseStyles( {
       '&:hover': {
         color: `${theme.BlueDarkScheme}`,
       },
+    },
+  },
+  '@media (pointer: coarse)': {
+    modal: {
+      width: '100%',
+      margin: [ 0, 'auto' ],
+      left: 0,
+      right: 0,
+      bottom: 0,
+      maxHeight: `calc(100% - ${theme.Gap})`,
+      borderRadius: [ theme.Gap, theme.Gap, 0, 0 ],
+      position: 'fixed',
     },
   },
 } )

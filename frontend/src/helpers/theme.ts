@@ -30,6 +30,9 @@ const theme = {
   Fg: 'rgb(8.33% 7.46% 5.52%)', // lch(6% 3 85)
   FgDarkScheme: 'rgb(79.55% 77.27% 77.12%)', // lch(80% 2.25 25)
 
+  FgMuted: 'rgb(57.57% 56.58% 54.63%)', // lch(60% 3 85)
+  FgMutedDarkScheme: 'rgb(38.49% 36.51% 36.38%)', // lch(40% 2.25 25)
+
   Bg: 'rgb(94.2% 93.11% 90.97%)', // lch(94% 3 85)
   BgDarkScheme: 'rgb(20.2% 18.51% 19.08%)', // lch(20% 2.25 355)
 

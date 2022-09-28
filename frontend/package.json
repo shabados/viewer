@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "dependencies": {
     "gurmukhi-utils": "^3.2.2",
+    "jotai": "^1.8.4",
     "lodash": "^4.17.21",
     "lucide-react": "^0.88.0",
     "new-github-issue-url": "^1.0.0",

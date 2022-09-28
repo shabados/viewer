@@ -6,10 +6,9 @@ import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-d
 import LineRedirect from './components/LineRedirect'
 import { SOURCES_API, TRANSLATION_SOURCES_API } from './lib/consts'
 import { TranslationSourcesContext } from './lib/contexts'
-import { getPositions } from './lib/utils'
+import { getLastOpened, getPosition } from './lib/utils'
 import NotFound from './screens/404'
 import About from './screens/About'
-import Home from './screens/Home'
 import LineView from './screens/LineView'
 import SourceView from './screens/SourceView'
 import { SourcesResponse, TranslationSourcesResponse } from './types/api'
@@ -18,7 +17,7 @@ import withContexts from './with-contexts'
 const App = () => {
   const [ sources, setSources ] = useState<SourcesResponse>( [] )
   const [ translationSources, setTranslationSources ] = useState<TranslationSourcesResponse>( [] )
-  const [ err, setErr ] = useState<Error>()
+  const [ , setErr ] = useState<Error>()
 
   useEffect( () => {
     const API_DATA = [
@@ -32,7 +31,10 @@ const App = () => {
       .catch( setErr ) )
   }, [] )
 
-  const positions = getPositions()
+  const gapTime = Date.now() - getLastOpened()
+  // const tooLong = 1.21 * ( 10 ** 9 )
+  const tooLong = 20000
+  const position = ( gapTime < ( tooLong ) ) ? getPosition() : '/sources/1/page/1/line/0'
 
   return withContexts(
     <TranslationSourcesContext.Provider value={translationSources}>
@@ -41,7 +43,7 @@ const App = () => {
           <Routes>
             <Route path="*" element={<NotFound />} />
 
-            <Route path="/" element={<Home err={err} sources={sources} positions={positions} />} />
+            <Route path="/" element={<Navigate to={position} />} />
 
             <Route path="/about" element={<About />} />
 

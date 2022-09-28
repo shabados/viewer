@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 
 import { stripVishraams } from 'gurmukhi-utils'
+import { useAtomValue } from 'jotai'
 import { mapValues } from 'lodash'
 import { SkipBack, SkipForward } from 'lucide-react'
 import { useEffect, useRef } from 'react'
@@ -21,6 +22,7 @@ import theme from '../helpers/theme'
 import { PAGE_API } from '../lib/consts'
 import { savePosition } from '../lib/utils'
 import { SourcePageResponse, SourcesResponse } from '../types/api'
+import { zoom } from './Interface'
 
 const useStyles = createUseStyles( {
   sourceView: {
@@ -238,6 +240,8 @@ const SourceView = ( { sources }: SourceViewProps ) => {
 
   const classes = useStyles()
 
+  const zoomValue = useAtomValue( zoom )
+
   return (
     <Layout>
       <div className={classes.sourceView}>
@@ -254,6 +258,7 @@ const SourceView = ( { sources }: SourceViewProps ) => {
                     to={`/sources/${source}/page/${page}/line/${index}/view`}
                     ref={( ref ) => { lineRefs.current[ index ] = ref! }}
                     className={`${classes.line} ${rawLine === index ? classes.focused : ''}`}
+                    style={{ fontSize: `${zoomValue}rem` }}
                     data-cy="go-to-home-value"
                   >
                     <AsciiGurmukhi>{stripVishraams( gurmukhi )}</AsciiGurmukhi>

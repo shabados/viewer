@@ -34,16 +34,11 @@ Database was \`${gurmukhi}\` on ${new Date().toISOString()}. See line in [Shabad
 
 export const getDictionaryLink = ( word: string ) => `http://www.srigranth.org/servlet/gurbani.dictionary?Param=${word}`
 
-export type Positions = {
-  [source: string]: {
-    page: number,
-    line: string,
-  },
+export const getPosition = () => localStorage.getItem( 'position' ) ?? '/sources/1/page/1/line/0'
+
+export const getLastOpened = () => localStorage.getItem( 'lastOpened' ) ?? Date.now()
+
+export const savePosition = ( source: number, page: number, line: number ) => {
+  localStorage.setItem( 'position', `/sources/${source}/page/${page}/line/${line}` )
+  localStorage.setItem( 'lastOpened', Date.now() )
 }
-
-export const getPositions = () => ( JSON.parse( localStorage.getItem( 'positions' ) ?? 'null' ) ?? {} ) as Positions
-
-export const savePosition = ( source: number, page: number, line: number ) => localStorage.setItem(
-  'positions',
-  JSON.stringify( { ...getPositions(), [ source ]: { page, line } } ),
-)

@@ -1,7 +1,5 @@
-import { ChevronRight } from 'lucide-react'
 import { ReactNode } from 'react'
 import { createUseStyles } from 'react-jss'
-import { Link } from 'react-router-dom'
 
 import theme from '../helpers/theme'
 
@@ -21,10 +19,9 @@ const useStyles = createUseStyles( {
     '& + $row': {
       borderTop: [ '1px', 'solid', theme.Separator ],
     },
-    '& > div': {
+    '& > *': {
       display: 'flex',
       alignItems: 'center',
-
     },
   },
   disabled: {
@@ -48,23 +45,21 @@ const useStyles = createUseStyles( {
 } )
 
 type RowProps = {
-  to?: string,
-  children: ReactNode,
-  onClick?: React.MouseEventHandler<HTMLAnchorElement>,
   disabled?: boolean,
+  onClick?: React.MouseEventHandler<HTMLAnchorElement>,
+  children: ReactNode,
 }
 
-const Row = ( { to, disabled, onClick, children }: RowProps ) => {
+const Row = ( { disabled, onClick, children }: RowProps ) => {
   const classes = useStyles()
   return (
-    <Link
-      to={( to && !disabled ) ? to : '#'}
+    <a
+      href="#"
       className={`${classes.row} ${disabled ? classes.disabled : ''}`}
       onClick={( onClick && !disabled ) ? onClick : ( () => null )}
     >
-      <div>{children}</div>
-      {to && <div><ChevronRight /></div>}
-    </Link>
+      {children}
+    </a>
   )
 }
 

@@ -1,4 +1,6 @@
+import { ChevronRight } from 'lucide-react'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import AsciiGurmukhi from '../components/AsciiGurmukhi'
 import Content from '../components/Content'
@@ -23,6 +25,13 @@ const Collections = ( { setVisibleCollections }: CollectionsProps ) => {
 
   const orderId = { 1: 0, 2: 1, 11: 3, 3: 4, 4: 5, 7: 6, 6: 7, 5: 8, 8: 9, 9: 10, 10: 11 }
 
+  const navigate = useNavigate()
+
+  const handleOnClick = ( link: string ) => {
+    navigate( link )
+    setVisibleCollections( false )
+  }
+
   return (
     <Content>
       <Section>
@@ -33,10 +42,10 @@ const Collections = ( { setVisibleCollections }: CollectionsProps ) => {
           .map( ( { id, nameGurmukhi } ) => (
             <Row
               key={id}
-              to={`/sources/${id}/page/1/line/1`}
-              onClick={() => setVisibleCollections( false )}
+              onClick={() => handleOnClick( `/sources/${id}/page/1/line/0` )}
             >
               <AsciiGurmukhi>{nameGurmukhi}</AsciiGurmukhi>
+              <ChevronRight />
             </Row>
           ) )}
       </Section>

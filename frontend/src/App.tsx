@@ -8,7 +8,6 @@ import { SOURCES_API, TRANSLATION_SOURCES_API } from './lib/consts'
 import { TranslationSourcesContext } from './lib/contexts'
 import { getLastOpened, getPosition } from './lib/utils'
 import NotFound from './screens/404'
-import About from './screens/About'
 import LineView from './screens/LineView'
 import SourceView from './screens/SourceView'
 import { SourcesResponse, TranslationSourcesResponse } from './types/api'
@@ -44,8 +43,6 @@ const App = () => {
             <Route path="*" element={<NotFound />} />
 
             <Route path="/" element={<Navigate to={position} />} />
-
-            <Route path="/about" element={<About />} />
 
             <Route
               path="/sources/:source/page/:page/line/:line/view"

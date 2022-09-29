@@ -83,7 +83,7 @@ const Nav = () => {
         </div>
       </Content>
       <Modal visible={visibleCollections} setVisible={setVisibleCollections}>
-        <Collections setVisible={setVisibleCollections} />
+        <Collections setVisibleCollections={setVisibleCollections} />
       </Modal>
       <Modal visible={visibleAbout} setVisible={setVisibleAbout}>
         <About />

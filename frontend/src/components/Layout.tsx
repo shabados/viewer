@@ -10,7 +10,7 @@ type LayoutProps = {
 
 const useStyles = createUseStyles( {
   layout: {
-    marginTop: theme.Gutter,
+    paddingTop: theme.Gutter,
   },
 } )
 
@@ -19,10 +19,10 @@ const Layout = ( { children }: LayoutProps ) => {
 
   return (
     <>
-      <Nav />
       <div className={classes.layout}>
         {children}
       </div>
+      <Nav />
     </>
   )
 }

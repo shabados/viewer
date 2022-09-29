@@ -25,27 +25,23 @@ import { SourcePageResponse, SourcesResponse } from '../types/api'
 import { zoom } from './Interface'
 
 const useStyles = createUseStyles( {
-  sourceView: {
-    height: `calc(100vh - ${theme.Gutter})`,
-    display: 'flex',
-    flexDirection: 'column',
-  },
-
   sourceContent: {
-    flexGrow: 1,
-    overflow: 'auto',
-    overscrollBehavior: 'contain',
+    // placeholder so it can be used in nested sourceControls definition
   },
-
   sourceControls: {
-    flexGrow: 0,
+    position: 'fixed',
+    bottom: 0,
+    zIndex: 0,
     borderTop: '1px solid rgba(0,0,0,0.1)',
-    background: 'rgba(0, 0, 0, 0.05)',
+    background: '#E3E0DC',
     width: '100%',
+    '& + $sourceContent': {
+      paddingBottom: `calc(${theme.Gutter})`,
+    },
   },
 
   line: {
-    marginLeft: `calc(${theme.BlankSpace} * 2)`,
+    marginLeft: '0.2em',
     transition: theme.Normally,
     '&:first-child': {
       marginLeft: 0,
@@ -74,6 +70,15 @@ const useStyles = createUseStyles( {
     },
     focused: {
       color: theme.TealDarkScheme,
+    },
+  },
+
+  '@media (pointer: coarse)': {
+    sourceControls: {
+      paddingBottom: `calc(${theme.Gutter} / 2)`,
+      '& + $sourceContent': {
+        paddingBottom: `calc(${theme.Gutter} * 1.5)`,
+      },
     },
   },
 } )
@@ -244,31 +249,7 @@ const SourceView = ( { sources }: SourceViewProps ) => {
 
   return (
     <Layout>
-      <div className={classes.sourceView}>
-        <div className={classes.sourceContent}>
-          <Content>
-            <Section>
-              {err && <Error err={err} />}
-              {!( lines || err ) && <Loader />}
-
-              <GlobalHotKeys keyMap={KEY_MAP} handlers={handlers} allowChanges>
-                {lines?.map( ( { id, gurmukhi }, index: number ) => (
-                  <Link
-                    key={id}
-                    to={`/sources/${source}/page/${page}/line/${index}/view`}
-                    ref={( ref ) => { lineRefs.current[ index ] = ref! }}
-                    className={`${classes.line} ${rawLine === index ? classes.focused : ''}`}
-                    style={{ fontSize: `${zoomValue}rem` }}
-                    data-cy="go-to-home-value"
-                  >
-                    <AsciiGurmukhi>{stripVishraams( gurmukhi )}</AsciiGurmukhi>
-                  </Link>
-                ) )}
-              </GlobalHotKeys>
-            </Section>
-          </Content>
-        </div>
-        {length! > 1 && (
+      {length! > 1 && (
         <div className={classes.sourceControls}>
           <Content>
             <div className={classes.controlsContent}>
@@ -295,9 +276,30 @@ const SourceView = ( { sources }: SourceViewProps ) => {
             </div>
           </Content>
         </div>
-        )}
-      </div>
+      )}
+      <div className={classes.sourceContent}>
+        <Content>
+          <Section>
+            {err && <Error err={err} />}
+            {!( lines || err ) && <Loader />}
 
+            <GlobalHotKeys keyMap={KEY_MAP} handlers={handlers} allowChanges>
+              {lines?.map( ( { id, gurmukhi }, index: number ) => (
+                <Link
+                  key={id}
+                  to={`/sources/${source}/page/${page}/line/${index}/view`}
+                  ref={( ref ) => { lineRefs.current[ index ] = ref! }}
+                  className={`${classes.line} ${rawLine === index ? classes.focused : ''}`}
+                  style={{ fontSize: `${zoomValue}rem` }}
+                  data-cy="go-to-home-value"
+                >
+                  <AsciiGurmukhi>{stripVishraams( gurmukhi )}</AsciiGurmukhi>
+                </Link>
+              ) )}
+            </GlobalHotKeys>
+          </Section>
+        </Content>
+      </div>
     </Layout>
   )
 }

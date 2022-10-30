@@ -1,4 +1,152 @@
-# Unreleased (2021-11-07)
+# Unreleased (2022-10-30)
+
+
+
+# [1.6.0](https://github.com/ShabadOS/viewer/compare/v1.6.0-next.26...v1.6.0) (2022-10-30)
+
+
+
+# [1.6.0-next.26](https://github.com/ShabadOS/viewer/compare/v1.6.0-next.25...v1.6.0-next.26) (2022-10-30)
+
+
+
+# [1.6.0-next.25](https://github.com/ShabadOS/viewer/compare/v1.6.0-next.24...v1.6.0-next.25) (2022-09-29)
+
+
+### Bug Fixes
+
+* position bottom bar for mobile usage ([c64c362](https://github.com/ShabadOS/viewer/commit/c64c3622ff4664705620c9817b19db6b5f7bc632)), closes [#397](https://github.com/ShabadOS/viewer/issues/397)
+
+
+
+# [1.6.0-next.24](https://github.com/ShabadOS/viewer/compare/v1.6.0-next.23...v1.6.0-next.24) (2022-09-29)
+
+
+### Features
+
+* add full screen toggle to interface controls ([#404](https://github.com/ShabadOS/viewer/issues/404)) ([e1f0c30](https://github.com/ShabadOS/viewer/commit/e1f0c30063dc32ca3aa84174f39ed3e720583c7f))
+
+
+
+# [1.6.0-next.23](https://github.com/ShabadOS/viewer/compare/v1.6.0-next.22...v1.6.0-next.23) (2022-09-28)
+
+
+### Features
+
+* refactor home page into a modal on the navbar ([#403](https://github.com/ShabadOS/viewer/issues/403)) ([071e099](https://github.com/ShabadOS/viewer/commit/071e099de1c5830a7985fdf3e4f9f757f1e942b4))
+
+
+
+# [1.6.0-next.22](https://github.com/ShabadOS/viewer/compare/v1.6.0-next.21...v1.6.0-next.22) (2022-09-28)
+
+
+### Features
+
+* add zoom slider to interface controls ([#402](https://github.com/ShabadOS/viewer/issues/402)) ([d6a664a](https://github.com/ShabadOS/viewer/commit/d6a664ae8cae93b408e3970f982b3026f08f002e))
+
+
+
+# [1.6.0-next.21](https://github.com/ShabadOS/viewer/compare/v1.6.0-next.20...v1.6.0-next.21) (2022-09-03)
+
+
+
+# [1.6.0-next.20](https://github.com/ShabadOS/viewer/compare/v1.6.0-next.19...v1.6.0-next.20) (2022-06-15)
+
+
+
+# [1.6.0-next.19](https://github.com/ShabadOS/viewer/compare/v1.6.0-next.18...v1.6.0-next.19) (2022-06-14)
+
+
+### Features
+
+* support dark theme preference ([#396](https://github.com/ShabadOS/viewer/issues/396)) ([86e4203](https://github.com/ShabadOS/viewer/commit/86e42039a9d1d54a676abccb6a7bae4ec6d71097)), closes [#296](https://github.com/ShabadOS/viewer/issues/296)
+
+
+
+# [1.6.0-next.18](https://github.com/ShabadOS/viewer/compare/v1.6.0-next.17...v1.6.0-next.18) (2022-06-14)
+
+
+### Features
+
+* add routes for partial matches and no matches ([#395](https://github.com/ShabadOS/viewer/issues/395)) ([967f73c](https://github.com/ShabadOS/viewer/commit/967f73c7bf3dff0eaed88dcd1f3ac3f84e299680)), closes [#295](https://github.com/ShabadOS/viewer/issues/295) [#174](https://github.com/ShabadOS/viewer/issues/174)
+
+
+
+# [1.6.0-next.17](https://github.com/ShabadOS/viewer/compare/v1.6.0-next.16...v1.6.0-next.17) (2022-06-14)
+
+
+### Bug Fixes
+
+* remove initial space on lines in source view ([#394](https://github.com/ShabadOS/viewer/issues/394)) ([9bd7828](https://github.com/ShabadOS/viewer/commit/9bd7828d1a0b92b0266f6f35f816d111f13af52a)), closes [#389](https://github.com/ShabadOS/viewer/issues/389)
+
+
+
+# [1.6.0-next.16](https://github.com/ShabadOS/viewer/compare/v1.6.0-next.15...v1.6.0-next.16) (2022-06-14)
+
+
+### Bug Fixes
+
+* show scrollbars as needed ([#393](https://github.com/ShabadOS/viewer/issues/393)) ([f2fd758](https://github.com/ShabadOS/viewer/commit/f2fd758644a5111cf4cfb2a0d8131e9723f7610d))
+
+
+
+# [1.6.0-next.15](https://github.com/ShabadOS/viewer/compare/v1.6.0-next.14...v1.6.0-next.15) (2022-06-13)
+
+
+### Features
+
+* harmonize user interface ([#387](https://github.com/ShabadOS/viewer/issues/387)) ([7b79b61](https://github.com/ShabadOS/viewer/commit/7b79b61d2df7ce9f7d85dbc82afa5441c171cd31))
+
+
+
+# [1.6.0-next.14](https://github.com/ShabadOS/viewer/compare/v1.6.0-next.13...v1.6.0-next.14) (2022-06-13)
+
+
+### Features
+
+* switch to css-in-js ([#386](https://github.com/ShabadOS/viewer/issues/386)) ([3dcddf8](https://github.com/ShabadOS/viewer/commit/3dcddf809fdd0dc6bc4875e975954a6b794e0029))
+
+
+
+# [1.6.0-next.13](https://github.com/ShabadOS/viewer/compare/v1.6.0-next.9...v1.6.0-next.13) (2022-06-12)
+
+
+### Features
+
+* replace fontawesome with lucide ([#385](https://github.com/ShabadOS/viewer/issues/385)) ([3007229](https://github.com/ShabadOS/viewer/commit/30072297cd102b125e7c288b0e4775d33dbf5458))
+
+
+
+# [1.6.0-next.9](https://github.com/ShabadOS/viewer/compare/v1.6.0-next.8...v1.6.0-next.9) (2022-06-11)
+
+
+
+# [1.6.0-next.4](https://github.com/ShabadOS/viewer/compare/v1.6.0-next.3...v1.6.0-next.4) (2022-06-11)
+
+
+### Bug Fixes
+
+* clean up font related stylings ([dbb8057](https://github.com/ShabadOS/viewer/commit/dbb80578f304427cd6fefef86768a585217bcd7e))
+* clean up pwa set up ([3c398fd](https://github.com/ShabadOS/viewer/commit/3c398fd55b421326cd82cd7cb66a0c46db398fc1))
+* remove unused file ([2295832](https://github.com/ShabadOS/viewer/commit/22958326110424aa6fdc4a808a2dc99f7d61bdad))
+* unify font weight of gurbani ([9193238](https://github.com/ShabadOS/viewer/commit/919323816b3d26ea6cd73e4ac4b372ff74dbc8f5))
+
+
+### Features
+
+* add about page ([4535c3c](https://github.com/ShabadOS/viewer/commit/4535c3c6479fabb867c0195ad4440323817b6414))
+* add basic page building components ([9259374](https://github.com/ShabadOS/viewer/commit/9259374d367a40abe352f804f635277f40e84b22))
+* add pulumi kubernetes deployment ([dea252c](https://github.com/ShabadOS/viewer/commit/dea252c3528e43d035524a027f5203345739378a))
+* update home page ([b5042eb](https://github.com/ShabadOS/viewer/commit/b5042ebd0f616bfa44db3d6694eb405d70f53768))
+* use same unicode font as mobile repo ([a73f423](https://github.com/ShabadOS/viewer/commit/a73f423cce857ca7c7b02f46af880a96c3d832f8))
+
+
+
+# [1.6.0-next.3](https://github.com/ShabadOS/viewer/compare/v1.6.0-next.2...v1.6.0-next.3) (2022-05-01)
+
+
+
+## [1.5.3-next.0](https://github.com/ShabadOS/viewer/compare/v1.5.2...v1.5.3-next.0) (2021-11-07)
 
 
 

@@ -9,7 +9,7 @@ import {
   TranslationSources,
   TranslationSourcesResult,
 } from '@shabados/database'
-import { move, readJSON, remove } from 'fs-extra'
+import { copy, readJSON, remove } from 'fs-extra'
 import importFresh from 'import-fresh'
 import { extract, manifest } from 'pacote'
 
@@ -171,7 +171,7 @@ export const updateDatabase = async () => {
   // Disconnect the Shabad OS database connection
   await knex.destroy()
   // Move across the updated npm database module
-  await move( UPDATE_TMP_FOLDER, 'node_modules/@shabados/database', { overwrite: true } )
+  await copy( UPDATE_TMP_FOLDER, 'node_modules/@shabados/database', { overwrite: true } )
   // Reimport the database
   //! Relies on knex being reinitialised globally
   importFresh( '@shabados/database' )

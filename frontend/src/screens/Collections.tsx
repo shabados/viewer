@@ -44,7 +44,7 @@ const Collections = ( { setVisibleCollections }: CollectionsProps ) => {
               key={id}
               onClick={() => handleOnClick( `/sources/${id}/page/1/line/0` )}
             >
-              <AsciiGurmukhi>{nameGurmukhi}</AsciiGurmukhi>
+              <AsciiGurmukhi text={nameGurmukhi} />
               <ChevronRight />
             </Row>
           ) )}

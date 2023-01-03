@@ -260,7 +260,7 @@ const LineView = ( { sources }: LineViewProps ) => {
                           target="_blank"
                           rel="noreferrer"
                         >
-                          <AsciiGurmukhi>{word}</AsciiGurmukhi>
+                          <AsciiGurmukhi text={word} />
                         </a>
                         <span className={`${classes.headerDivSpan} ${classes.headerSpan}`}>{toSyllabicSymbols( word )}</span>
                       </div>

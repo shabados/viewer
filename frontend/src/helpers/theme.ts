@@ -24,6 +24,9 @@ const theme = {
   Gap: '0.5rem',
   BlankSpace: '0.2rem',
 
+  Shader: 'rgba(0% 0% 0% / 8%)',
+  Highlighter: 'rgba(100% 100% 100% / 8%)',
+
   Separator: 'rgba(87.02% 86.48% 85.43% / 40%)', // lch(88% 1.5 85)
   SeparatorDarkScheme: 'rgba(28.38% 27.48% 27.77% / 40%)', // lch(30% 1.125 355)
 
@@ -59,6 +62,14 @@ const theme = {
 
   Red: 'rgb(83.05% 24% 29.82%)', // lch(50% 66 25)
   RedDarkScheme: 'rgb(100% 52.49% 52.68%)', // lch(70% 53 25)
+
+  HeavyVishraam: 'rgb(55.17% 30% 13.76%)', // lch(40% 44 55)
+  MediumVishraam: 'rgb(9.32% 42.55% 19.52%)', // lch(40% 44 145)
+  LightVishraam: 'rgb(53% 27.31% 53.51%)', // lch(40% 44 295)
+
+  HeavyVishraamDarkScheme: 'rgb(68.3% 53.37% 44.51%)', // lch(40% 44 55)
+  MediumVishraamDarkScheme: 'rgb(45.94% 60.18% 47.63%)', // lch(40% 44 145)
+  LightVishraamDarkScheme: 'rgb(57.97% 54.89% 70.53%)', // lch(40% 44 295)
 }
 
 export default theme

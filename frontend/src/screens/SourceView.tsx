@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 
-import { stripVishraams } from 'gurmukhi-utils'
+import { toUnicode } from 'gurmukhi-utils'
 import { useAtomValue } from 'jotai'
 import { mapValues } from 'lodash'
 import { SkipBack, SkipForward } from 'lucide-react'
@@ -11,7 +11,7 @@ import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import useSWR from 'swr'
 import { useDebounce } from 'use-debounce'
 
-import AsciiGurmukhi from '../components/AsciiGurmukhi'
+import AsciiGurmukhi, { Form } from '../components/AsciiGurmukhi'
 import Button from '../components/Button'
 import Content from '../components/Content'
 import Error from '../components/Error'
@@ -33,7 +33,7 @@ const useStyles = createUseStyles( {
     bottom: 0,
     zIndex: 0,
     borderTop: '1px solid rgba(0,0,0,0.1)',
-    background: '#E3E0DC',
+    background: theme.Shader,
     width: '100%',
     '& + $sourceContent': {
       paddingBottom: `calc(${theme.Gutter})`,
@@ -41,18 +41,27 @@ const useStyles = createUseStyles( {
   },
 
   line: {
-    marginLeft: '0.2em',
+    padding: [ theme.Gap, theme.BlankSpace ],
+    borderRadius: theme.Gap,
+    outline: [ '2px', 'solid', 'transparent' ],
     transition: theme.Normally,
     '&:first-child': {
       marginLeft: 0,
     },
     '&:hover': {
-      color: theme.Blue,
+      backgroundColor: theme.Shader,
+    },
+  },
+
+  active: {
+    color: theme.Blue,
+    '& > span > span': {
+      filter: 'brightness(1.25) saturate(1.25)',
     },
   },
 
   focused: {
-    color: theme.Teal,
+    outlineColor: theme.Blue,
   },
 
   controlsContent: {
@@ -65,11 +74,20 @@ const useStyles = createUseStyles( {
   '@media (prefers-color-scheme: dark)': {
     line: {
       '&:hover': {
-        color: theme.BlueDarkScheme,
+        backgroundColor: theme.Highlighter,
+      },
+    },
+    active: {
+      color: theme.BlueDarkScheme,
+      '& > span > span': {
+        filter: 'brightness(1.25) saturate(1.5)',
       },
     },
     focused: {
-      color: theme.TealDarkScheme,
+      outlineColor: theme.BlueDarkScheme,
+    },
+    sourceControls: {
+      background: theme.Highlighter,
     },
   },
 
@@ -86,12 +104,12 @@ const useStyles = createUseStyles( {
 type SourceViewParams = 'page' | 'source' | 'line'
 
 const KEY_MAP = {
-  previousLine: [ 'shift+tab', 'left' ],
-  nextLine: [ 'tab', 'right' ],
+  activatePreviousLine: [ 'left' ],
+  activateNextLine: [ 'right' ],
+  focusPreviousLine: [ 'shift+tab' ],
+  focusNextLine: [ 'tab' ],
   firstLine: [ 'home' ],
   lastLine: [ 'end' ],
-  // belowLine: [ 'down' ],
-  // aboveLine: [ 'up' ],
   openLine: [ 'enter' ],
   previousPage: [ 'shift+left', 'pageup' ],
   nextPage: [ 'shift+right', 'pagedown' ],
@@ -152,9 +170,14 @@ const SourceView = ( { sources }: SourceViewProps ) => {
 
   const { length, pageNameGurmukhi } = sources.find( ( { id } ) => id === source ) ?? {}
 
-  const focusLine = ( line: number ) => {
+  const activateLine = ( line: number ) => {
     navigate( `/sources/${source}/page/${page}/line/${line}`, { replace: true } )
 
+    lineRefs.current[ line ].scrollIntoView( { block: 'center' } )
+  }
+
+  const focusLine = ( line: number ) => {
+    lineRefs.current[ line ].focus()
     lineRefs.current[ line ].scrollIntoView( { block: 'center' } )
   }
 
@@ -170,12 +193,22 @@ const SourceView = ( { sources }: SourceViewProps ) => {
     if ( rawPage > 1 ) goToPage( rawPage - 1 )
   }
 
-  const nextLine = () => {
+  const activateNextLine = () => {
+    if ( rawLine < lines!.length - 1 ) activateLine( rawLine + 1 )
+    else nextPage()
+  }
+
+  const activatePreviousLine = () => {
+    if ( rawLine > 0 ) activateLine( rawLine - 1 )
+    else previousPage()
+  }
+
+  const focusNextLine = () => {
     if ( rawLine < lines!.length - 1 ) focusLine( rawLine + 1 )
     else nextPage()
   }
 
-  const previousLine = () => {
+  const focusPreviousLine = () => {
     if ( rawLine > 0 ) focusLine( rawLine - 1 )
     else previousPage()
   }
@@ -185,59 +218,13 @@ const SourceView = ( { sources }: SourceViewProps ) => {
 
   const onLineEnter = () => navigate( `${location.pathname}/view` )
 
-  const belowLine = () => {
-    const lineRef = lineRefs.current[ rawLine ]
-    const { offsetTop, offsetLeft } = lineRef
-    const { scrollY } = window
-
-    // Scroll element into view
-    lineRef.scrollIntoView( { block: 'center' } )
-
-    // Calculate element's relative y position to viewport
-    const styles = getComputedStyle( lineRef )
-    const [ lineHeight ] = styles.lineHeight.split( 'px' )
-    const relativeY = offsetTop - scrollY
-
-    // Get below the line element and index
-    const element = document.elementFromPoint( offsetLeft + 4, +lineHeight + relativeY )
-
-    const [ index ] = Object
-      .entries( lineRefs.current )
-      .find( ( [ , line ] ) => line === element )
-    || [ line ]
-
-    focusLine( +index )
-  }
-
-  const aboveLine = () => {
-    const lineRef = lineRefs.current[ line ]
-    const { offsetTop, offsetLeft } = lineRef
-    const { scrollY } = window
-
-    // Scroll element into view
-    lineRef.scrollIntoView( { block: 'center' } )
-
-    // Calculate element's relative y position to viewport
-    const relativeY = offsetTop - scrollY
-
-    // Get above the line element and index
-    const element = document.elementFromPoint( offsetLeft + 4, relativeY - 4 )
-
-    const [ index ] = Object
-      .entries( lineRefs.current )
-      .find( ( [ , line ] ) => line === element )
-    ?? [ line ]
-
-    focusLine( +index )
-  }
-
   const handlers = {
-    previousLine,
-    nextLine,
+    activatePreviousLine,
+    activateNextLine,
+    focusPreviousLine,
+    focusNextLine,
     firstLine,
     lastLine,
-    belowLine,
-    aboveLine,
     previousPage,
     nextPage,
     openLine: onLineEnter,
@@ -259,14 +246,14 @@ const SourceView = ( { sources }: SourceViewProps ) => {
                 </Button>
               </Link>
 
-              <AsciiGurmukhi>
-                {pageNameGurmukhi ? `${pageNameGurmukhi} ` : ''}
-                {rawPage}
+              <span>
+                {pageNameGurmukhi ? <AsciiGurmukhi text={`${pageNameGurmukhi} `} /> : ''}
+                <AsciiGurmukhi text={rawPage.toString()} />
                 {' '}
                 /
                 {' '}
-                {length}
-              </AsciiGurmukhi>
+                <AsciiGurmukhi text={length.toString()} />
+              </span>
 
               <Link to={page < length! ? `/sources/${source}/page/${page + 1}/line/0` : ''}>
                 <Button disabled={page >= length!}>
@@ -289,11 +276,11 @@ const SourceView = ( { sources }: SourceViewProps ) => {
                   key={id}
                   to={`/sources/${source}/page/${page}/line/${index}/view`}
                   ref={( ref ) => { lineRefs.current[ index ] = ref! }}
-                  className={`${classes.line} ${rawLine === index ? classes.focused : ''}`}
+                  className={`${classes.line} ${rawLine === index ? classes.active : ''}`}
                   style={{ fontSize: `${zoomValue}rem` }}
                   data-cy="go-to-home-value"
                 >
-                  <AsciiGurmukhi>{stripVishraams( gurmukhi )}</AsciiGurmukhi>
+                  <AsciiGurmukhi form={Form.syntactical} text={gurmukhi} />
                 </Link>
               ) )}
             </GlobalHotKeys>

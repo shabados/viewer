@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 
-import { toUnicode } from 'gurmukhi-utils'
 import { useAtomValue } from 'jotai'
 import { mapValues } from 'lodash'
 import { SkipBack, SkipForward } from 'lucide-react'

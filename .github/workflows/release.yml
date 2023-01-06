@@ -79,6 +79,7 @@ jobs:
           name: viewer-${{ matrix.context }}
           path: /tmp/viewer-${{ matrix.context }}.tar
 
+  # To be re-evaluated - integration branch seems overkill
   integrate:
     runs-on: ubuntu-20.04
     needs: build
@@ -88,35 +89,16 @@ jobs:
           user: Shabad OS Bot
           email: team@shabados.com
 
-      - name: Download workspace
-        uses: actions/download-artifact@v2
-        with:
-          name: release-workspace
-          path: ${{ github.workspace }}
+      # - name: Download workspace
+      #   uses: actions/download-artifact@v2
+      #   with:
+      #     name: release-workspace
+      #     path: ${{ github.workspace }}
 
-      - uses: shabados/actions/integrate-commits@release/v2
-        if: inputs.prerelease != true
-        with:
-          github_token: ${{ secrets.GH_BOT_TOKEN }}
-
-  publish-github:
-    runs-on: ubuntu-20.04
-    needs: [prepare, integrate]
-    steps:
-      - uses: shabados/actions/setup-git-identity@release/v2
-        with:
-          user: Shabad OS Bot
-          email: team@shabados.com
-
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-          token: ${{ secrets.GH_BOT_TOKEN }}
-
-      - uses: shabados/actions/publish-github@release/v2
-        with:
-          github_token: ${{ secrets.GH_BOT_TOKEN }}
-          release_version: ${{ needs.prepare.outputs.release-version }}
+      # - uses: shabados/actions/integrate-commits@release/v2
+      #   if: inputs.prerelease != true
+      #   with:
+      #     github_token: ${{ secrets.GH_BOT_TOKEN }}
 
   publish:
     runs-on: ubuntu-20.04
@@ -186,3 +168,42 @@ jobs:
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
           FRONTEND_IMAGE: ghcr.io/shabados/viewer-frontend:v${{ needs.prepare.outputs.release-version }}
           BACKEND_IMAGE: ghcr.io/shabados/viewer-backend:v${{ needs.prepare.outputs.release-version }}
+
+  publish-github:
+    runs-on: ubuntu-20.04
+    needs: [prepare, deploy]
+    steps:
+      - uses: shabados/actions/setup-git-identity@release/v2
+        with:
+          user: Shabad OS Bot
+          email: team@shabados.com
+
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GH_BOT_TOKEN }}
+
+      - uses: shabados/actions/publish-github@release/v2
+        if: inputs.prerelease != true
+        with:
+          github_token: ${{ secrets.GH_BOT_TOKEN }}
+          release_version: ${{ needs.prepare.outputs.release-version }}
+
+  push-changes:
+    runs-on: ubuntu-20.04
+    needs: [prepare, deploy]
+    steps:
+      - uses: shabados/actions/setup-git-identity@release/v2
+        with:
+          user: Shabad OS Bot
+          email: team@shabados.com
+
+      - name: Download workspace
+        uses: actions/download-artifact@v2
+        with:
+          name: release-workspace
+          path: ${{ github.workspace }}
+
+      - name: Push changes
+        if: inputs.prerelease != true
+        run: git push origin main --follow-tags

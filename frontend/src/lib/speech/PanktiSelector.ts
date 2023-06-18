@@ -22,7 +22,7 @@ export class PanktiSelector {
 
   private transcriber: Transcriber | undefined
 
-  private isRunning: boolean
+  private isRunning = false
 
   private GetPositionFromTranscriptionResult: ResultCallback = ( newText: string ): void => {
     let needle = this.prevTranscription + newText
@@ -46,10 +46,6 @@ export class PanktiSelector {
   }
 
   constructor() {
-    this.isRunning = false
-    // }
-
-    // CreateTranscriber(): void {
     const transcriberName = PanktiSelector.getCookie( PanktiSelector.transcriberNameCookieKey )
 
     console.log( 'transcriberName:', transcriberName )
@@ -80,19 +76,10 @@ export class PanktiSelector {
       return
     }
 
-    // if ( !lines ) {
-    //   console.log( 'not setting lines cuz lines are', lines )
-    //   return
-    // }
-
     let newCombinedLines = ''
     const newLinePositions: number[] = []
 
-    // console.log( 'all lines:', lines )
-
     lines.forEach( ( line ) => {
-      // console.log( 'current line:', line )
-      // console.log( 'current transcriber:', this.transcriber )
       newCombinedLines += `${this.transcriber.TransformInput( line )} `
       newLinePositions.push( newCombinedLines.length )
     } )
@@ -108,8 +95,6 @@ export class PanktiSelector {
   ToggleRunningState(): void {
     if ( !( this.transcriber ) ) {
       console.log( 'looks like Transcriber is not yet set.' )
-      // console.log( 'looks like first time setup: only initializing and not starting' )
-      // this.CreateTranscriber()
       return
     }
 
@@ -207,12 +192,3 @@ export class PanktiSelector {
     document.cookie = `${name}=${value};${expires};path=/`
   }
 }
-
-/*
-function setCookie( name, value, days ) {
-  const expirationDate = new Date()
-  expirationDate.setTime( expirationDate.getTime() + days * 24 * 60 * 60 * 1000 )
-  const expires = `expires=${expirationDate.toUTCString()}`
-  document.cookie = `${name}=${value};${expires};path=/`
-}
-*/

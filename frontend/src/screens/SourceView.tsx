@@ -160,7 +160,7 @@ const SourceView = ( { sources }: SourceViewProps ) => {
 
     return () => {
       document.removeEventListener( 'keydown', blockKeys )
-      // panktiSelectorRef.current = null
+      panktiSelectorRef.current = null
     }
   }, [] )
 

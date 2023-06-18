@@ -2,7 +2,7 @@ import { MicrosoftCognitiveServicesSpeechTranscriber } from './MicrosoftCognitiv
 import { ResultCallback, Transcriber } from './Transcriber'
 import { WebSpeechApiTranscriber } from './WebSpeechApiTranscriber'
 
-export type PositionCallback = ( result: number ) => void
+export type PositionCallback = ( page: number, line: number ) => void
 
 export class PanktiSelector {
   private static readonly transcriberNameCookieKey = 'TRANSCRIBER_NAME'
@@ -14,6 +14,7 @@ export class PanktiSelector {
 
   private combinedLines = ''
   private linePositions: number[] = []
+  private currentPage = 0
 
   private prevTranscription = ''
 
@@ -38,7 +39,7 @@ export class PanktiSelector {
 
     for ( let i = 0; i < this.linePositions.length; i += 1 ) {
       if ( this.linePositions[ i ] >= endPos ) {
-        this.lineCallback( i )
+        this.lineCallback( this.currentPage, i )
         break
       }
     }
@@ -73,7 +74,7 @@ export class PanktiSelector {
     this.lineCallback = callback
   }
 
-  SetLines( lines: string[] ): void {
+  SetLines( page: number, lines: string[] ): void {
     if ( !( this.transcriber ) ) {
       console.log( 'not setting lines as transcriber is', this.transcriber )
       return
@@ -98,6 +99,7 @@ export class PanktiSelector {
 
     this.combinedLines = newCombinedLines
     this.linePositions = newLinePositions
+    this.currentPage = page
 
     console.log( 'combinedLines:', this.combinedLines )
     console.log( 'linePositions:', this.linePositions )

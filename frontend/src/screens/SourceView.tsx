@@ -179,6 +179,12 @@ const SourceView = ( { sources }: SourceViewProps ) => {
 
   const { length, pageNameGurmukhi } = sources.find( ( { id } ) => id === source ) ?? {}
 
+  const activatePageLine: PositionCallback = ( page: number, line: number ) => {
+    navigate( `/sources/${source}/page/${page}/line/${line}`, { replace: true } )
+
+    lineRefs.current[ line ].scrollIntoView( { block: 'center' } )
+  }
+
   const activateLine: PositionCallback = ( line: number ) => {
     navigate( `/sources/${source}/page/${page}/line/${line}`, { replace: true } )
 
@@ -232,7 +238,7 @@ const SourceView = ( { sources }: SourceViewProps ) => {
   }
 
   const cookiePrompt = () => {
-    const promptResponse = prompt( 'Enter Comma seperated key value to set as cookie:' )
+    const promptResponse = prompt( 'Enter Comma seperated key value to set as cookie:', 'TRANSCRIBER_NAME,WebSpeechApi' )
     if ( promptResponse && promptResponse.includes( ',' ) ) {
       const arr = promptResponse.split( ',' )
       PanktiSelector.setCookie( arr[ 0 ], arr[ 1 ] )
@@ -246,9 +252,9 @@ const SourceView = ( { sources }: SourceViewProps ) => {
 
     console.log( 'original lines object:', lines )
 
-    panktiSelectorRef.current?.SetCallback( activateLine )
-    panktiSelectorRef.current?.SetLines( lines.map( ( line ) => line.gurmukhi ) )
-  }, [ panktiSelectorRef.current, lines ] )
+    panktiSelectorRef.current?.SetCallback( activatePageLine )
+    panktiSelectorRef.current?.SetLines( page, lines.map( ( line ) => line.gurmukhi ) )
+  }, [ panktiSelectorRef.current, lines, page ] )
 
   const handlers = {
     activatePreviousLine,

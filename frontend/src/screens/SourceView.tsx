@@ -3,7 +3,7 @@
 import { useAtomValue } from 'jotai'
 import { mapValues } from 'lodash'
 import { SkipBack, SkipForward } from 'lucide-react'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { GlobalHotKeys } from 'react-hotkeys'
 import { createUseStyles } from 'react-jss'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
@@ -19,6 +19,7 @@ import Loader from '../components/Loader'
 import Section from '../components/Section'
 import theme from '../helpers/theme'
 import { PAGE_API } from '../lib/consts'
+import { PanktiSelector, PositionCallback } from '../lib/speech/PanktiSelector'
 import { savePosition } from '../lib/utils'
 import { SourcePageResponse, SourcesResponse } from '../types/api'
 import { zoom } from './Interface'
@@ -112,6 +113,8 @@ const KEY_MAP = {
   openLine: [ 'enter' ],
   previousPage: [ 'shift+left', 'pageup' ],
   nextPage: [ 'shift+right', 'pagedown' ],
+  togglePanktiSelector: [ 'space' ],
+  cookiePrompt: [ 'shift+space' ],
 }
 
 const BLOCKED_KEYS = [ 'Tab', 'PageUp', 'PageDown' ]
@@ -140,6 +143,8 @@ const SourceView = ( { sources }: SourceViewProps ) => {
     error: err,
   } = useSWR<SourcePageResponse, Error>( `${PAGE_API}/${source}/page/${rawPage}` )
 
+  const panktiSelectorRef = useRef<PanktiSelector | null>( null )
+
   const loading = !lines
 
   useEffect( () => {
@@ -151,7 +156,12 @@ const SourceView = ( { sources }: SourceViewProps ) => {
   useEffect( () => {
     document.addEventListener( 'keydown', blockKeys )
 
-    return () => document.removeEventListener( 'keydown', blockKeys )
+    panktiSelectorRef.current = new PanktiSelector()
+
+    return () => {
+      document.removeEventListener( 'keydown', blockKeys )
+      // panktiSelectorRef.current = null
+    }
   }, [] )
 
   useEffect( () => {
@@ -169,7 +179,7 @@ const SourceView = ( { sources }: SourceViewProps ) => {
 
   const { length, pageNameGurmukhi } = sources.find( ( { id } ) => id === source ) ?? {}
 
-  const activateLine = ( line: number ) => {
+  const activateLine: PositionCallback = ( line: number ) => {
     navigate( `/sources/${source}/page/${page}/line/${line}`, { replace: true } )
 
     lineRefs.current[ line ].scrollIntoView( { block: 'center' } )
@@ -217,6 +227,29 @@ const SourceView = ( { sources }: SourceViewProps ) => {
 
   const onLineEnter = () => navigate( `${location.pathname}/view` )
 
+  const togglePanktiSelector = () => {
+    panktiSelectorRef.current?.ToggleRunningState()
+  }
+
+  const cookiePrompt = () => {
+    const promptResponse = prompt( 'Enter Comma seperated key value to set as cookie:' )
+    if ( promptResponse && promptResponse.includes( ',' ) ) {
+      const arr = promptResponse.split( ',' )
+      PanktiSelector.setCookie( arr[ 0 ], arr[ 1 ] )
+    } else {
+      console.log( 'Invalid prompt value:', promptResponse )
+    }
+  }
+
+  useEffect( () => {
+    if ( !lines ) return
+
+    console.log( 'original lines object:', lines )
+
+    panktiSelectorRef.current?.SetCallback( activateLine )
+    panktiSelectorRef.current?.SetLines( lines.map( ( line ) => line.gurmukhi ) )
+  }, [ panktiSelectorRef.current, lines ] )
+
   const handlers = {
     activatePreviousLine,
     activateNextLine,
@@ -226,6 +259,8 @@ const SourceView = ( { sources }: SourceViewProps ) => {
     lastLine,
     previousPage,
     nextPage,
+    togglePanktiSelector,
+    cookiePrompt,
     openLine: onLineEnter,
   }
 

@@ -1,7 +1,5 @@
-// import { EventEmitter } from 'events'
 import { AudioConfig, ResultReason, SpeechConfig, SpeechRecognizer } from 'microsoft-cognitiveservices-speech-sdk'
 
-import { MSFT_AUTH_API } from '../consts'
 import { ResultCallback, Transcriber } from './Transcriber'
 
 // This calls the Cognitive Services API, and will need a user to generate their own
@@ -14,21 +12,8 @@ export class MicrosoftCognitiveServicesSpeechTranscriber extends Transcriber {
   constructor( callback: ResultCallback, speechKey: string, speechRegion: string ) {
     super( callback )
 
-    fetch( `${MSFT_AUTH_API}/${speechKey}/${speechRegion}` )
-      .then( ( response ) => response.json() ).then( ( data ) => {
-        this.InitRecognizer( data.token, speechRegion, callback )
-      } )
-
-    // axios.get( `${MSFT_AUTH_API}/${speechKey}/${speechRegion}` )
-    //   .then( ( response ) => {
-    //     this.InitRecognizer( response.data.token, speechRegion, callback )
-    //   } )
-    //   .catch( ( err ) => console.error( 'Failed to retrieve auth token for MSFT speech to text', err ) )
-  }
-
-  InitRecognizer( token: string, speechRegion: string, callback: ResultCallback ): void {
-    const speechConfig = SpeechConfig.fromAuthorizationToken(
-      token,
+    const speechConfig = SpeechConfig.fromSubscription(
+      speechKey,
       speechRegion
     )
     speechConfig.speechRecognitionLanguage = 'hi-IN'

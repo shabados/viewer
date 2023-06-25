@@ -2,7 +2,7 @@
 
 import { useAtomValue } from 'jotai'
 import { mapValues } from 'lodash'
-import { SkipBack, SkipForward } from 'lucide-react'
+import { Mic, MicOff, SkipBack, SkipForward } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { GlobalHotKeys } from 'react-hotkeys'
 import { createUseStyles } from 'react-jss'
@@ -147,6 +147,8 @@ const SourceView = ( { sources }: SourceViewProps ) => {
 
   const loading = !lines
 
+  const [ panktiSelectorRunningState, setPanktiSelectorRunningState ] = useState<boolean>( false )
+
   useEffect( () => {
     if ( !loading ) return
 
@@ -156,7 +158,7 @@ const SourceView = ( { sources }: SourceViewProps ) => {
   useEffect( () => {
     document.addEventListener( 'keydown', blockKeys )
 
-    panktiSelectorRef.current = new PanktiSelector()
+    panktiSelectorRef.current = new PanktiSelector( setPanktiSelectorRunningState )
 
     return () => {
       document.removeEventListener( 'keydown', blockKeys )
@@ -293,6 +295,14 @@ const SourceView = ( { sources }: SourceViewProps ) => {
                 /
                 {' '}
                 <AsciiGurmukhi text={length.toString()} />
+              </span>
+
+              <span onClick={togglePanktiSelector}>
+                {panktiSelectorRef.current ? (
+                  <Button>
+                    {panktiSelectorRunningState ? <Mic /> : <MicOff />}
+                  </Button>
+                ) : null}
               </span>
 
               <Link to={page < length! ? `/sources/${source}/page/${page + 1}/line/0` : ''}>

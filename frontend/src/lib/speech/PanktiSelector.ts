@@ -1,5 +1,5 @@
 import { MicrosoftCognitiveServicesSpeechTranscriber } from './MicrosoftCognitiveServicesSpeechTranscriber'
-import { ResultCallback, Transcriber } from './Transcriber'
+import { RecordingStateChangeCallback, ResultCallback, Transcriber } from './Transcriber'
 import { WebSpeechApiTranscriber } from './WebSpeechApiTranscriber'
 
 export type PositionCallback = ( page: number, line: number ) => void
@@ -25,7 +25,7 @@ export class PanktiSelector {
   private isRunning = false
 
   private GetPositionFromTranscriptionResult: ResultCallback = ( newText: string ): void => {
-    let needle = this.prevTranscription + newText
+    let needle = this.prevTranscription + this.transcriber.TransformOutput( newText )
     needle = needle.length <= PanktiSelector.LOOKBACK_LENGTH
       ? needle
       : needle.substring( needle.length - PanktiSelector.LOOKBACK_LENGTH )
@@ -45,18 +45,29 @@ export class PanktiSelector {
     }
   }
 
-  constructor() {
+  constructor( setPanktiSelectorRunningState ) {
     const transcriberName = PanktiSelector.getCookie( PanktiSelector.transcriberNameCookieKey )
-
     console.log( 'transcriberName:', transcriberName )
+
+    const recordingCallback: RecordingStateChangeCallback = ( newVal: boolean ): void => {
+      this.isRunning = newVal
+      console.log( 'Setting state of running to ', newVal )
+
+      setPanktiSelectorRunningState( newVal )
+    }
 
     switch ( transcriberName ) {
       case 'WebSpeechApi':
-        this.transcriber = new WebSpeechApiTranscriber( this.GetPositionFromTranscriptionResult )
+      case null:
+        this.transcriber = new WebSpeechApiTranscriber(
+          this.GetPositionFromTranscriptionResult,
+          recordingCallback
+        )
         break
       case 'MSFT':
         this.transcriber = new MicrosoftCognitiveServicesSpeechTranscriber(
           this.GetPositionFromTranscriptionResult,
+          recordingCallback,
           PanktiSelector.getCookie( PanktiSelector.msftApiKeyCookieKey ),
           PanktiSelector.getCookie( PanktiSelector.msftApiregionCookieKey )
         )
@@ -98,14 +109,12 @@ export class PanktiSelector {
       return
     }
 
-    this.isRunning = !( this.isRunning )
-
-    console.log( 'Setting state of running to ', this.isRunning )
+    console.log( 'Previous state of running was ', this.isRunning )
 
     if ( this.isRunning ) {
-      this.transcriber.StartRecording()
-    } else {
       this.transcriber.StopRecording()
+    } else {
+      this.transcriber.StartRecording()
     }
   }
 
@@ -174,7 +183,7 @@ export class PanktiSelector {
     return [ prev, prevBacktrace ]
   }
 
-  private static getCookie( name: string ): string {
+  private static getCookie( name: string ): string | null {
     const cookies = document.cookie.split( '; ' )
     for ( let i = 0; i < cookies.length; i++ ) {
       const [ cookieName, cookieValue ] = cookies[ i ].split( '=' )
@@ -182,7 +191,7 @@ export class PanktiSelector {
         return cookieValue
       }
     }
-    return ''
+    return null
   }
 
   public static setCookie( name: string, value: string, days = 1 ): void {

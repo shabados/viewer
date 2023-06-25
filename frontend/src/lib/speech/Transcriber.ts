@@ -1,12 +1,18 @@
 import { stripEndings, stripVishraams, toHindi, toUnicode } from 'gurmukhi-utils'
 
 export type ResultCallback = ( result: string ) => void
+export type RecordingStateChangeCallback = ( newState: boolean ) => void
 
 export abstract class Transcriber {
   protected m_callback: ResultCallback
+  protected m_recordingStateChangeCallback: RecordingStateChangeCallback
 
-  constructor( callback: ResultCallback ) {
+  constructor(
+    callback: ResultCallback,
+    recordingStateChangeCallback: RecordingStateChangeCallback
+  ) {
     this.m_callback = callback
+    this.m_recordingStateChangeCallback = recordingStateChangeCallback
   }
 
   abstract StartRecording() : void

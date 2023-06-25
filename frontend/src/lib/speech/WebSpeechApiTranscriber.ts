@@ -1,4 +1,4 @@
-import { ResultCallback, Transcriber } from './Transcriber'
+import { RecordingStateChangeCallback, ResultCallback, Transcriber } from './Transcriber'
 
 // This uses the inbuilt browswer's WebSpeechApi, and hence could use a different service
 // under the hood depending on the browswer. Hence some perform better than others.
@@ -12,8 +12,8 @@ import { ResultCallback, Transcriber } from './Transcriber'
 export class WebSpeechApiTranscriber extends Transcriber {
   private recognition
 
-  constructor( callback: ResultCallback ) {
-    super( callback )
+  constructor( callback: ResultCallback, recordingCallback: RecordingStateChangeCallback ) {
+    super( callback, recordingCallback )
 
     const recognitionClass = window.SpeechRecognition || window.webkitSpeechRecognition
     this.recognition = new recognitionClass()
@@ -21,19 +21,19 @@ export class WebSpeechApiTranscriber extends Transcriber {
     this.recognition.interimResults = true
     this.recognition.lang = 'hi-IN'
 
-    this.recognition.onstart = function () {
-      console.log( 'starting recording' )
+    this.recognition.onstart = () => {
+      this.m_recordingStateChangeCallback( true )
     }
 
-    this.recognition.onerror = function ( event ) {
-      console.log( 'onerror in recording: ', event )
+    this.recognition.onerror = ( event ) => {
+      console.log( 'onerror in recording (WebSpeechApi): ', event )
     }
 
-    this.recognition.onend = function () {
-      console.log( 'ending recording' )
+    this.recognition.onend = () => {
+      this.m_recordingStateChangeCallback( false )
     }
 
-    this.recognition.onresult = function ( event ) {
+    this.recognition.onresult = ( event ) => {
       let interim_transcript = ''
       for ( let i = event.resultIndex; i < event.results.length; ++i ) {
         interim_transcript += event.results[ i ][ 0 ].transcript

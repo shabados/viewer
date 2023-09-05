@@ -19,6 +19,8 @@ export class PanktiSelector {
 
   private prevTranscription = ''
 
+  private usePunjabi: boolean
+
   private lineCallback: PositionCallback
 
   private transcriber: Transcriber | undefined
@@ -26,7 +28,7 @@ export class PanktiSelector {
   private isRunning = false
 
   private GetPositionFromTranscriptionResult: ResultCallback = ( newText: string ): void => {
-    let needle = this.prevTranscription + this.transcriber.TransformOutput( newText )
+    let needle = ( this.usePunjabi ? '' : this.prevTranscription ) + this.transcriber.TransformOutput( newText )
     needle = needle.length <= PanktiSelector.LOOKBACK_LENGTH
       ? needle
       : needle.substring( needle.length - PanktiSelector.LOOKBACK_LENGTH )
@@ -49,7 +51,7 @@ export class PanktiSelector {
   constructor( setPanktiSelectorRunningState ) {
     const transcriberName = PanktiSelector.getCookie( PanktiSelector.transcriberNameCookieKey )
 
-    const usePunjabi = PanktiSelector.getCookie( PanktiSelector.transcriberLang ) === 'pa'
+    this.usePunjabi = PanktiSelector.getCookie( PanktiSelector.transcriberLang ) === 'pa'
 
     console.log( 'transcriberName:', transcriberName )
 
@@ -66,7 +68,7 @@ export class PanktiSelector {
         this.transcriber = new WebSpeechApiTranscriber(
           this.GetPositionFromTranscriptionResult,
           recordingCallback,
-          usePunjabi
+          this.usePunjabi
         )
         break
       case 'MSFT':

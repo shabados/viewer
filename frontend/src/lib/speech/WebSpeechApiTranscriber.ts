@@ -25,6 +25,12 @@ export class WebSpeechApiTranscriber extends Transcriber {
 
     this.usePunjabi = usePunjabi
 
+    if ( usePunjabi ) {
+      console.log( 'WebSpeechApiTranscriber: Using Punjabi language' )
+    } else {
+      console.log( 'WebSpeechApiTranscriber: Using Hindi language' )
+    }
+
     const recognitionClass = window.SpeechRecognition || window.webkitSpeechRecognition
     this.recognition = new recognitionClass()
     this.recognition.continuous = true

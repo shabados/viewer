@@ -1,3 +1,5 @@
+import { stripEndings, stripVishraams, toUnicode } from 'gurmukhi-utils'
+
 import { RecordingStateChangeCallback, ResultCallback, Transcriber } from './Transcriber'
 
 // This uses the inbuilt browswer's WebSpeechApi, and hence could use a different service
@@ -12,14 +14,22 @@ import { RecordingStateChangeCallback, ResultCallback, Transcriber } from './Tra
 export class WebSpeechApiTranscriber extends Transcriber {
   private recognition
 
-  constructor( callback: ResultCallback, recordingCallback: RecordingStateChangeCallback ) {
+  private usePunjabi
+
+  constructor(
+    callback: ResultCallback,
+    recordingCallback: RecordingStateChangeCallback,
+    usePunjabi: boolean
+  ) {
     super( callback, recordingCallback )
+
+    this.usePunjabi = usePunjabi
 
     const recognitionClass = window.SpeechRecognition || window.webkitSpeechRecognition
     this.recognition = new recognitionClass()
     this.recognition.continuous = true
     this.recognition.interimResults = true
-    this.recognition.lang = 'hi-IN'
+    this.recognition.lang = usePunjabi ? 'pa-Guru-IN' : 'hi-IN'
 
     this.recognition.onstart = () => {
       this.m_recordingStateChangeCallback( true )
@@ -40,6 +50,13 @@ export class WebSpeechApiTranscriber extends Transcriber {
       }
       callback( interim_transcript )
     }
+  }
+
+  TransformInput( input: string ): string {
+    if ( this.usePunjabi ) {
+      return stripEndings( stripVishraams( toUnicode( input ) ) )
+    }
+    return super.TransformInput( input )
   }
 
   StartRecording(): void {

@@ -6,6 +6,7 @@ export type PositionCallback = ( page: number, line: number ) => void
 
 export class PanktiSelector {
   private static readonly transcriberNameCookieKey = 'TRANSCRIBER_NAME'
+  private static readonly transcriberLang = 'TRANSCRIBER_LANG'
   private static readonly msftApiKeyCookieKey = 'SPEECH_KEY'
   private static readonly msftApiregionCookieKey = 'SPEECH_REGION'
   private static readonly openaiApiSecretCookieKey = 'OPENAI_SECRET'
@@ -47,6 +48,9 @@ export class PanktiSelector {
 
   constructor( setPanktiSelectorRunningState ) {
     const transcriberName = PanktiSelector.getCookie( PanktiSelector.transcriberNameCookieKey )
+
+    const usePunjabi = PanktiSelector.getCookie( PanktiSelector.transcriberLang ) === 'pa'
+
     console.log( 'transcriberName:', transcriberName )
 
     const recordingCallback: RecordingStateChangeCallback = ( newVal: boolean ): void => {
@@ -61,7 +65,8 @@ export class PanktiSelector {
       case null:
         this.transcriber = new WebSpeechApiTranscriber(
           this.GetPositionFromTranscriptionResult,
-          recordingCallback
+          recordingCallback,
+          usePunjabi
         )
         break
       case 'MSFT':

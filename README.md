@@ -1,4 +1,12 @@
-# Viewer
+# Notice
+
+This repo is being archived in favor of the new repo github.com/shabados/web
+
+The proofreading functionality of viewer should be done through the new web app. New docs and articles are also available from the above link.
+
+Below is the original readme with the title struck through.
+
+~~# Viewer~~
 
 A web app for the [Shabad OS Database](https://github.com/shabados/database)
 
